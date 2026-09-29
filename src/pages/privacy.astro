@@ -4,10 +4,12 @@
  * (ideally a lawyer familiar with RA 10173 / NPC rules) before running ads.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { BRAND_NAME, FB_PAGE_URL, PAYMENT_METHODS } from '../config/site';
+import { BRAND_NAME, MESSENGER_BASE, PAYMENT_METHODS } from '../config/site';
 
 const updated = 'September 29, 2026'; // TODO: update when the policy changes
 const payments = PAYMENT_METHODS.join(' / ');
+// Contact goes through Messenger (not a link to the Facebook page) so the page name isn't shown on the site.
+const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
 ---
 
 <BaseLayout title={`Privacy Policy — ${BRAND_NAME}`} description={`How ${BRAND_NAME} collects and uses your information. Paano namin ginagamit ang impormasyon mo.`}>
@@ -66,7 +68,7 @@ const payments = PAYMENT_METHODS.join(' / ');
         </p>
 
         <h3>Contact us</h3>
-        <p>Message us through our <a href={FB_PAGE_URL} rel="noopener">Facebook page</a> for any privacy question or request.</p>
+        <p>Message us on <a href={contactUrl} rel="noopener">Messenger</a> for any privacy question or request.</p>
       </section>
 
       <section id="filipino" aria-labelledby="fil-h">
@@ -115,7 +117,7 @@ const payments = PAYMENT_METHODS.join(' / ');
         </p>
 
         <h3>Makipag-ugnayan</h3>
-        <p>I-message kami sa aming <a href={FB_PAGE_URL} rel="noopener">Facebook page</a> para sa anumang tanong o request tungkol sa privacy.</p>
+        <p>I-message kami sa <a href={contactUrl} rel="noopener">Messenger</a> para sa anumang tanong o request tungkol sa privacy.</p>
       </section>
     </div>
   </article>

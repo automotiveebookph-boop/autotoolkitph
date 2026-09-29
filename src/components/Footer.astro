@@ -1,5 +1,5 @@
 ---
-import { BRAND_NAME, FB_PAGE_URL, LOGOS, TAGLINE } from '../config/site';
+import { BRAND_NAME, LOGOS, TAGLINE } from '../config/site';
 import { fill, getActiveProducts } from '../lib/products';
 
 interface Props {
@@ -43,7 +43,6 @@ const year = new Date().getFullYear();
           <h2 class="col-title">Info</h2>
           <ul role="list">
             <li><a href="/privacy">Privacy policy</a></li>
-            <li><a href={FB_PAGE_URL} rel="noopener">Facebook page</a></li>
           </ul>
         </div>
       </nav>

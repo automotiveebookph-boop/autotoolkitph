@@ -35,7 +35,6 @@ export const GUARANTEE_TEXT = '7-day money-back guarantee';
 /** Show products with status "coming-soon" on the homepage as non-clickable cards. */
 export const SHOW_COMING_SOON: boolean = false;
 
-export const FB_PAGE_URL = `https://www.facebook.com/${FB_PAGE_NAME}`;
 export const MESSENGER_BASE = `https://m.me/${FB_PAGE_NAME}`;
 
 export const LOGOS = {

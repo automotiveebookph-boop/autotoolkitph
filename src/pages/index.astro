@@ -5,7 +5,6 @@ import FAQAccordion from '../components/FAQAccordion.astro';
 import {
   BRAND_NAME,
   DELIVERY_HOURS,
-  FB_PAGE_URL,
   GUARANTEE_TEXT,
   LOGOS,
   PAYMENT_METHODS,
@@ -48,7 +47,7 @@ const jsonLd = {
   url: siteUrl,
   logo: new URL(LOGOS.mark.src, Astro.site).href,
   description: TAGLINE,
-  sameAs: [FB_PAGE_URL],
+  // No sameAs link to the Facebook page: the brand is kept separate from the page name.
 };
 
 const why = [
