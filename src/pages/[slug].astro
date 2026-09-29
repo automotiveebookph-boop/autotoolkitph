@@ -1,0 +1,294 @@
+---
+/**
+ * Product page — generated for every product with status "active".
+ * Everything here comes from the product's YAML file. No product-specific markup.
+ */
+import { getImage } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTAButton from '../components/CTAButton.astro';
+import StickyCTA from '../components/StickyCTA.astro';
+import ProductMockup from '../components/ProductMockup.astro';
+import ModuleList from '../components/ModuleList.astro';
+import PreviewGallery from '../components/PreviewGallery.astro';
+import PriceBlock from '../components/PriceBlock.astro';
+import HowToOrder from '../components/HowToOrder.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import { BRAND_NAME, GUARANTEE_TEXT, OG_DEFAULT, PAYMENT_METHODS } from '../config/site';
+import { fill, formatPrice, getActiveProducts, getProductImage, type Product } from '../lib/products';
+
+export async function getStaticPaths() {
+  const products = await getActiveProducts();
+  return products.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+
+interface Props {
+  product: Product;
+}
+const { product: p } = Astro.props;
+const t = (s: string) => fill(s, p);
+
+// OG image: product's own (src/assets/products/<slug>/<seo.ogImage>) or the brand default.
+const ogSrc = getProductImage(p.slug, p.seo.ogImage);
+const ogImage = ogSrc ? (await getImage({ src: ogSrc, width: 1200, height: 630, format: 'jpg', fit: 'cover' })).src : OG_DEFAULT;
+
+const pageUrl = new URL(`/${p.slug}`, Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.name,
+  description: p.seo.description,
+  image: new URL(ogImage, Astro.site).href,
+  brand: { '@type': 'Brand', name: BRAND_NAME },
+  category: p.category,
+  url: pageUrl,
+  offers: {
+    '@type': 'Offer',
+    price: p.price.toFixed(2),
+    priceCurrency: 'PHP',
+    availability: 'https://schema.org/InStock',
+    url: pageUrl,
+  },
+};
+const payLine = [...PAYMENT_METHODS, GUARANTEE_TEXT.replace(/ guarantee$/i, '')].join(' · ');
+---
+
+<BaseLayout
+  title={p.seo.title}
+  description={p.seo.description}
+  ogImage={ogImage}
+  ogType="product"
+  jsonLd={jsonLd}
+  headerCta={{ href: '#pricing', label: `Order — ${formatPrice(p.price)}` }}
+  disclaimer={t(p.disclaimer)}
+  hasSticky
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">{p.eyebrow}</p>
+        <h1>{t(p.h1)}</h1>
+        <p class="lead">{t(p.subhead)}</p>
+        <div class="hero-cta" data-sticky-trigger>
+          <CTAButton product={p} location="hero" />
+          <p class="pay-line">{payLine}</p>
+        </div>
+      </div>
+      <div class="hero-art">
+        <ProductMockup name={p.name} mockupLine={p.mockupLine} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section section--white" aria-labelledby="problem-h">
+    <div class="container container-narrow stack">
+      <h2 id="problem-h">{t(p.problem.heading)}</h2>
+      <p class="lead">{t(p.problem.body)}</p>
+      <ul class="problem-list" role="list">
+        {p.problem.bullets.map((b) => <li>{t(b)}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Modules -->
+  <section class="section section--dark on-dark" aria-labelledby="modules-h">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Ano ang laman</p>
+        <h2 id="modules-h">{t(p.modulesHeading)}</h2>
+      </div>
+      <ModuleList modules={p.modules} />
+    </div>
+  </section>
+
+  <!-- Previews -->
+  {
+    p.previews.length > 0 && (
+      <section class="section" aria-labelledby="previews-h">
+        <div class="container">
+          <div class="section-head">
+            <h2 id="previews-h">{t(p.previewsHeading)}</h2>
+          </div>
+          <PreviewGallery slug={p.slug} previews={p.previews} />
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Audience -->
+  <section class="section section--white" aria-labelledby="audience-h">
+    <div class="container container-narrow">
+      <div class="section-head">
+        <h2 id="audience-h">{t(p.audienceHeading)}</h2>
+      </div>
+      <ul class="checklist audience">
+        {p.audience.map((a) => <li>{t(a)}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Creator note -->
+  <section class="section section--alt" aria-labelledby="creator-h">
+    <div class="container container-narrow">
+      <div class="creator card">
+        <h2 id="creator-h">{t(p.creatorNoteHeading)}</h2>
+        {p.creatorNote.map((para) => <p>{t(para)}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section pricing" aria-labelledby="pricing-h" data-sticky-hide>
+    <div class="container">
+      <div class="section-head center">
+        <h2 id="pricing-h">Kunin ang {p.shortName}</h2>
+      </div>
+      <PriceBlock product={p} />
+    </div>
+  </section>
+
+  <!-- How to order -->
+  <section class="section section--white" aria-labelledby="order-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="order-h">Paano mag-order</h2>
+        <p class="muted">Walang checkout. Sa Messenger lang, may totoong kausap.</p>
+      </div>
+      <HowToOrder steps={p.howToOrder.map(t)} />
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-h">
+    <div class="container container-narrow">
+      <div class="section-head">
+        <h2 id="faq-h">Mga madalas itanong</h2>
+      </div>
+      <FAQAccordion faqs={p.faqs.map((f) => ({ q: t(f.q), a: t(f.a) }))} />
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section section--dark on-dark final" aria-labelledby="final-h" data-sticky-hide>
+    <div class="container container-narrow center stack">
+      <h2 id="final-h">{t(p.finalCta.heading)}</h2>
+      {p.finalCta.body && <p class="lead">{t(p.finalCta.body)}</p>}
+      <div>
+        <CTAButton product={p} location="final" variant="bright" />
+      </div>
+      <p class="muted">{payLine}</p>
+    </div>
+  </section>
+
+  <StickyCTA slot="after-footer" product={p} />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-6) var(--section-y);
+    background:
+      radial-gradient(60rem 30rem at 110% -10%, rgb(141 198 63 / 0.16), transparent 60%),
+      var(--color-bg);
+  }
+  .hero-grid {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+  .hero-copy > * + * {
+    margin-top: var(--space-4);
+  }
+  .hero-copy h1 {
+    margin-top: var(--space-2);
+  }
+  .hero-cta {
+    margin-top: var(--space-5) !important;
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+  }
+  .pay-line {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .hero-art {
+    padding-inline: var(--space-5);
+  }
+  @media (max-width: 29.99rem) {
+    .hero-cta {
+      justify-items: stretch;
+      text-align: center;
+    }
+  }
+  @media (min-width: 56rem) {
+    .hero {
+      padding-top: var(--space-8);
+    }
+    .hero-grid {
+      grid-template-columns: 1.25fr 1fr;
+    }
+  }
+
+  .problem-list {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-5) !important;
+  }
+  .problem-list li {
+    position: relative;
+    padding: var(--space-4) var(--space-4) var(--space-4) 3.25rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-weight: 600;
+  }
+  .problem-list li::before {
+    content: '!';
+    position: absolute;
+    left: var(--space-4);
+    top: var(--space-4);
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--color-dark);
+    color: var(--color-accent-bright);
+    font-weight: 800;
+    font-size: 0.875rem;
+  }
+
+  .audience {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+  }
+
+  .creator {
+    padding: var(--space-6) var(--space-5);
+    border-left: 5px solid var(--color-accent);
+  }
+  .creator > * + * {
+    margin-top: var(--space-4);
+  }
+  .creator p {
+    color: var(--color-text-muted);
+  }
+  .creator p:first-of-type {
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: var(--fs-lg);
+  }
+
+  .pricing {
+    background: linear-gradient(180deg, var(--color-bg), var(--color-surface-alt));
+  }
+  .center {
+    text-align: center;
+    margin-inline: auto;
+  }
+  .final h2 {
+    font-size: var(--fs-2xl);
+  }
+</style>

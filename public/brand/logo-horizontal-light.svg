@@ -1,0 +1,5 @@
+<!-- PLACEHOLDER — replace with your real horizontal logo for light backgrounds (5:1 ratio works best, e.g. 200x40). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40">
+  <g transform="scale(0.625)"><rect width="64" height="64" rx="14" fill="#1B1D1F"/><path d="M17 33.5l9.5 9L47 22" fill="none" stroke="#8DC63F" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="48" y="27.5" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="800" fill="#1B1D1F" letter-spacing="-0.4">AutoToolKit<tspan fill="#487219">PH</tspan></text>
+</svg>

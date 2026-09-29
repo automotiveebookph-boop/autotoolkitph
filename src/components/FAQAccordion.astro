@@ -1,0 +1,61 @@
+---
+interface Props {
+  faqs: { q: string; a: string }[];
+}
+const { faqs } = Astro.props;
+---
+
+<div class="faq">
+  {
+    faqs.map((f) => (
+      <details>
+        <summary>
+          <span>{f.q}</span>
+          <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+            <path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </summary>
+        <p>{f.a}</p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    display: grid;
+    gap: var(--space-3);
+  }
+  details {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 56px;
+    padding: var(--space-3) var(--space-5);
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+    border-radius: var(--radius);
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary svg {
+    flex-shrink: 0;
+    color: var(--color-accent);
+    transition: transform 0.2s ease;
+  }
+  details[open] summary svg {
+    transform: rotate(180deg);
+  }
+  details p {
+    padding: 0 var(--space-5) var(--space-5);
+    color: var(--color-text-muted);
+  }
+</style>

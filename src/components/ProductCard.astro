@@ -1,0 +1,144 @@
+---
+import ProductMockup from './ProductMockup.astro';
+import { fill, formatPrice, type Product } from '../lib/products';
+
+interface Props {
+  product: Product;
+  headingLevel?: 'h3' | 'h4';
+}
+const { product: p, headingLevel = 'h3' } = Astro.props;
+const soon = p.status === 'coming-soon';
+const Heading = headingLevel;
+---
+
+<article class:list={['pcard', { 'pcard--soon': soon }]}>
+  <div class="art">
+    <ProductMockup name={p.name} mockupLine={p.mockupLine} size="sm" />
+    {soon && <span class="badge">Coming soon</span>}
+  </div>
+  <div class="body">
+    <p class="cat">{p.category}</p>
+    <Heading class="title">
+      {soon ? p.name : <a href={`/${p.slug}`} class="stretched">{p.name}</a>}
+    </Heading>
+    <p class="blurb">{fill(p.cardBlurb ?? p.subhead, p)}</p>
+    {
+      !soon && (
+        <div class="foot">
+          <p class="price">
+            <span class="now">{formatPrice(p.price)}</span>
+            {p.regularPrice && (
+              <s class="was">
+                <span class="visually-hidden">dati ay </span>
+                {formatPrice(p.regularPrice)}
+              </s>
+            )}
+          </p>
+          <span class="more" aria-hidden="true">
+            Tingnan ang kit →
+          </span>
+        </div>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .pcard {
+    position: relative;
+    display: grid;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .pcard:not(.pcard--soon):hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+  .pcard:has(.stretched:focus-visible) {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+  .art {
+    position: relative;
+    padding: var(--space-6) var(--space-5) var(--space-5);
+    background: var(--color-surface-alt);
+  }
+  .badge {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    padding: var(--space-1) var(--space-3);
+    border-radius: 999px;
+    background: var(--color-dark);
+    color: var(--color-accent-bright);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+  .pcard--soon .art :global(.mockup) {
+    opacity: 0.55;
+    filter: grayscale(0.6);
+  }
+  .body {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-5);
+  }
+  .cat {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .title {
+    font-size: var(--fs-xl);
+    font-weight: 800;
+  }
+  .stretched {
+    color: inherit;
+    text-decoration: none;
+  }
+  .stretched:focus-visible {
+    outline: none;
+  }
+  .stretched::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .blurb {
+    color: var(--color-text-muted);
+  }
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+  }
+  .price {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-family: var(--font-h);
+  }
+  .now {
+    font-size: 1.625rem;
+    font-weight: 800;
+  }
+  .was {
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+  .more {
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+</style>

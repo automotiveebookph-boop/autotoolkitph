@@ -1,0 +1,294 @@
+---
+/**
+ * Swipeable preview strip (CSS scroll-snap) + accessible lightbox (<dialog>).
+ * Images come from src/assets/products/<slug>/<file>. Missing files render a
+ * styled, non-interactive placeholder so the page still looks finished.
+ */
+import { Image, getImage } from 'astro:assets';
+import { getProductImage, type Product } from '../lib/products';
+
+interface Props {
+  slug: string;
+  previews: Product['previews'];
+}
+const { slug, previews } = Astro.props;
+
+const items = await Promise.all(
+  previews.map(async (p) => {
+    const src = getProductImage(slug, p.image);
+    const full = src ? await getImage({ src, width: Math.min(src.width, 1400), format: 'webp' }) : undefined;
+    return { ...p, src, full };
+  }),
+);
+const hasImages = items.some((i) => i.src);
+---
+
+<div class="gallery" role="region" aria-label="Preview pages" tabindex="0">
+  <ul class="track" role="list">
+    {
+      items.map((item, i) => (
+        <li class="slide">
+          <figure>
+            {item.src && item.full ? (
+              <button
+                type="button"
+                class="thumb"
+                data-lightbox-index={i}
+                data-full={item.full.src}
+                data-alt={item.label}
+                aria-label={`View larger: ${item.label}`}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.label}
+                  width={320}
+                  widths={[320, 640]}
+                  sizes="(min-width: 48rem) 240px, 70vw"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            ) : (
+              <div class="placeholder" role="img" aria-label={`${item.label} (preview coming soon)`}>
+                <span class="ph-bar ph-bar--title" />
+                <span class="ph-row" />
+                <span class="ph-row" />
+                <span class="ph-row ph-row--short" />
+                <span class="ph-row" />
+                <span class="ph-row ph-row--short" />
+                <span class="ph-note">Preview</span>
+              </div>
+            )}
+            <figcaption>{item.label}</figcaption>
+          </figure>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+{items.length > 1 && <p class="hint" aria-hidden="true">← I-swipe para makita ang iba →</p>}
+
+{
+  hasImages && (
+    <dialog class="lightbox" data-lightbox aria-label="Preview">
+      <form method="dialog" class="lb-close-form">
+        <button class="lb-btn lb-close" aria-label="Close preview">
+          ✕
+        </button>
+      </form>
+      <figure>
+        <img data-lightbox-img alt="" />
+        <figcaption data-lightbox-caption />
+      </figure>
+      <div class="lb-nav">
+        <button type="button" class="lb-btn" data-lightbox-prev aria-label="Previous page">
+          ‹
+        </button>
+        <button type="button" class="lb-btn" data-lightbox-next aria-label="Next page">
+          ›
+        </button>
+      </div>
+    </dialog>
+  )
+}
+
+<script is:inline>
+  (function () {
+    var dlg = document.querySelector('[data-lightbox]');
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var thumbs = Array.prototype.slice.call(document.querySelectorAll('[data-lightbox-index]'));
+    var img = dlg.querySelector('[data-lightbox-img]');
+    var cap = dlg.querySelector('[data-lightbox-caption]');
+    var current = 0;
+    var opener = null;
+
+    function show(i) {
+      current = (i + thumbs.length) % thumbs.length;
+      var t = thumbs[current];
+      img.src = t.dataset.full;
+      img.alt = t.dataset.alt;
+      cap.textContent = t.dataset.alt + ' (' + (current + 1) + '/' + thumbs.length + ')';
+    }
+    thumbs.forEach(function (t, i) {
+      t.addEventListener('click', function () {
+        opener = t;
+        show(i);
+        dlg.showModal();
+      });
+    });
+    dlg.querySelector('[data-lightbox-prev]').addEventListener('click', function () { show(current - 1); });
+    dlg.querySelector('[data-lightbox-next]').addEventListener('click', function () { show(current + 1); });
+    dlg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') show(current + 1);
+    });
+    // Click on the backdrop closes
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg) dlg.close();
+    });
+    dlg.addEventListener('close', function () {
+      if (opener) opener.focus();
+    });
+    if (thumbs.length < 2) dlg.querySelector('.lb-nav').hidden = true;
+  })();
+</script>
+
+<style>
+  .gallery {
+    margin-inline: calc(var(--gutter) * -1);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: thin;
+    border-radius: 4px;
+  }
+  .track {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--gutter) var(--space-4);
+    width: max-content;
+  }
+  .slide {
+    scroll-snap-align: start;
+    width: min(70vw, 15rem);
+    flex-shrink: 0;
+  }
+  figure {
+    display: grid;
+    gap: var(--space-2);
+  }
+  figcaption {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .thumb {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--color-surface);
+    cursor: zoom-in;
+    box-shadow: var(--shadow);
+  }
+  .thumb :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+  .placeholder {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    aspect-ratio: 3 / 4;
+    padding: 1.25rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .ph-bar--title {
+    height: 0.9rem;
+    width: 65%;
+    border-radius: 99px;
+    background: var(--color-dark);
+    margin-bottom: 0.4rem;
+  }
+  .ph-row {
+    height: 0.55rem;
+    border-radius: 99px;
+    background: var(--color-surface-alt);
+    position: relative;
+    margin-left: 1.4rem;
+  }
+  .ph-row::before {
+    content: '';
+    position: absolute;
+    left: -1.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 3px;
+    border: 2px solid var(--color-accent);
+  }
+  .ph-row--short {
+    width: 60%;
+  }
+  .ph-note {
+    margin-top: auto;
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+  }
+  .hint {
+    margin-top: var(--space-2);
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+  @media (min-width: 64rem) {
+    .hint {
+      display: none;
+    }
+  }
+
+  /* Lightbox */
+  .lightbox {
+    margin: auto; /* restore native dialog centering (global reset sets margin: 0) */
+    width: min(94vw, 44rem);
+    max-height: 94vh;
+    padding: var(--space-4);
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  .lightbox::backdrop {
+    background: rgb(15 16 17 / 0.82);
+  }
+  .lightbox figure {
+    gap: var(--space-3);
+  }
+  .lightbox img {
+    width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-alt);
+  }
+  .lb-close-form {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--space-2);
+  }
+  .lb-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-3);
+  }
+  .lb-btn {
+    width: var(--tap);
+    height: var(--tap);
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lb-close {
+    font-size: 1.125rem;
+  }
+  .lb-btn:hover {
+    background: var(--color-surface-alt);
+  }
+</style>

@@ -1,0 +1,124 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PRODUCT TEMPLATE — copy this file to add a new product.
+#
+#   1. Copy to src/content/products/<your-slug>.yaml   (no leading underscore!)
+#   2. Fill in every field below. Fields marked (optional) can be deleted.
+#   3. Put images in src/assets/products/<your-slug>/
+#   4. Set status, then run `npm run build` — it fails with a clear message
+#      if a required field is missing or malformed.
+#
+# This file is ignored by the build because its name starts with "_".
+#
+# Text tokens you can use in creatorNote, howToOrder, faqs, disclaimer and
+# most other text fields (replaced at build time from src/config/site.ts):
+#   {BRAND_NAME}  {YEARS_EXPERIENCE}  {DELIVERY_HOURS}  {PRICE}  (e.g. ₱199)
+#
+# YAML tips: wrap text in single quotes if it contains a colon (:), starts with
+# a quote, or starts with a special character. Numbers like 01 need quotes: '01'.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# URL of the product page: https://yoursite.com/<slug>
+# Lowercase letters, numbers, dashes. Keep it short — it appears in ads.
+slug: your-product-slug
+
+# active       → page is built, shown on homepage, in sitemap
+# coming-soon  → no page; shown on homepage as a "Coming soon" card ONLY if
+#                SHOW_COMING_SOON = true in src/config/site.ts
+# hidden       → never rendered anywhere
+status: hidden
+
+# Lower number = shown first on the homepage.
+sortOrder: 10
+
+# Homepage groups products by category once there is more than one category.
+# Suggested: Car buyers, Car owners, Talyer owners
+category: Car owners
+
+# ── Names & hero ────────────────────────────────────────────────────────────
+name: Full Product Name PH            # Used in cards, pricing, JSON-LD, mockup
+shortName: Short Name                 # Used in tight spaces (footer links)
+eyebrow: PARA SA ...                  # Small caps line above the H1
+h1: Main headline ng product page.
+subhead: One or two sentences explaining what it is.
+mockupLine: Part A · Part B · Part C  # Shown on the CSS product mockup card
+cardBlurb: One sentence for the homepage card.   # (optional) defaults to subhead
+
+# ── Price ───────────────────────────────────────────────────────────────────
+price: 199              # Number only, no ₱ sign
+regularPrice: 249       # (optional) shown struck through; must be higher than price
+priceLabel: Launch price
+valueLine: Why the price is a no-brainer, in one sentence.
+
+# ── Problem section ─────────────────────────────────────────────────────────
+problem:
+  heading: The problem, as a question or statement.
+  body: One short paragraph.
+  bullets:
+    - Hidden problem one
+    - Hidden problem two
+
+# ── Modules / what's inside ─────────────────────────────────────────────────
+modulesHeading: 5 parts. Isang kumpletong gabay.
+modules:
+  - number: '01'        # '01', '02', ... or BONUS
+    title: Module title
+    description: What it covers
+  - number: BONUS
+    title: Bonus title
+    description: What it covers
+
+# ── Preview images (up to 6) ────────────────────────────────────────────────
+# Files go in src/assets/products/<slug>/. WebP, PNG or JPG; portrait pages
+# (about 3:4) look best. Astro converts and resizes them automatically.
+# If a file doesn't exist yet, a styled placeholder is shown instead.
+previewsHeading: Silipin ang loob      # (optional)
+previews:
+  - image: preview-1.webp
+    label: What this page shows        # Also used as the image alt text
+
+# ── Audience ────────────────────────────────────────────────────────────────
+audienceHeading: Para kanino ito?       # (optional)
+audience:
+  - Who this is for
+
+# ── Creator note (paragraphs, no names or photos) ──────────────────────────
+creatorNoteHeading: Sino ang gumawa nito?   # (optional)
+creatorNote:
+  - Ginawa ng automotive technician at shop operator na may {YEARS_EXPERIENCE} taon na karanasan.
+
+# ── Guarantee box (heading comes from GUARANTEE_TEXT in site.ts) ───────────
+guarantee:
+  body: Kung hindi mo nakitang useful, i-message lang kami at ibabalik namin ang bayad.
+
+# ── How to order (numbered steps) ──────────────────────────────────────────
+howToOrder:
+  - I-tap ang Order via Messenger
+  - Magbayad via GCash o Maya gamit ang details na ise-send namin
+  - I-send ang screenshot ng payment at ang email mo
+  - Matanggap ang download link sa Messenger at email — {DELIVERY_HOURS} araw-araw
+
+# ── FAQ ─────────────────────────────────────────────────────────────────────
+faqs:
+  - q: Question?
+    a: Answer.
+
+# ── Final CTA ───────────────────────────────────────────────────────────────
+finalCta:
+  heading: '{PRICE} lang para sa ...'
+  body: Optional supporting line.       # (optional)
+
+# ── Legal ───────────────────────────────────────────────────────────────────
+disclaimer: This guide is for general educational purposes... {BRAND_NAME} is not affiliated with ...
+
+# ── SEO & sharing ───────────────────────────────────────────────────────────
+seo:
+  title: Page title for Google and link previews (about 60 characters)
+  description: One or two sentences for Google (about 150 characters).
+  ogImage: og.jpg       # (optional) 1200×630 file in src/assets/products/<slug>/
+                        # Falls back to /public/brand/og-default.jpg
+
+# ── Add-ons (optional; supported by the schema but NOT shown on the site yet)
+addOns: []
+#  - name: Add-on name
+#    price: 99
+#    description: What it is

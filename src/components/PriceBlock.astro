@@ -1,0 +1,100 @@
+---
+/**
+ * Pricing card. Carries data-track-view-content so MetaPixel fires ViewContent
+ * once when it enters the viewport.
+ */
+import CTAButton from './CTAButton.astro';
+import GuaranteeBox from './GuaranteeBox.astro';
+import { PAYMENT_METHODS } from '../config/site';
+import { fill, formatPrice, type Product } from '../lib/products';
+
+interface Props {
+  product: Product;
+}
+const { product } = Astro.props;
+const saved = product.regularPrice ? product.regularPrice - product.price : 0;
+---
+
+<div class="price-card" data-track-view-content data-slug={product.slug} data-name={product.name} data-price={product.price}>
+  <p class="product-name">{product.name}</p>
+  <p class="label">{product.priceLabel}</p>
+  <p class="price">
+    <span class="visually-hidden">Presyo: </span>
+    <span class="now">{formatPrice(product.price)}</span>
+    {
+      product.regularPrice && (
+        <>
+          <span class="visually-hidden">, dati ay </span>
+          <s class="was">{formatPrice(product.regularPrice)}</s>
+        </>
+      )
+    }
+  </p>
+  {saved > 0 && <p class="save">Makatipid ng {formatPrice(saved)}</p>}
+  <p class="value">{fill(product.valueLine, product)}</p>
+  <CTAButton product={product} location="pricing" block />
+  <p class="pay">Bayad via {PAYMENT_METHODS.join(' o ')} · Download link sa Messenger at email</p>
+  <GuaranteeBox body={fill(product.guarantee.body, product)} />
+</div>
+
+<style>
+  .price-card {
+    max-width: 30rem;
+    margin-inline: auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6) var(--space-5);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .product-name {
+    font-family: var(--font-h);
+    font-weight: 800;
+    font-size: var(--fs-xl);
+    line-height: 1.2;
+  }
+  .label {
+    justify-self: center;
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-dark);
+    color: var(--color-accent-bright);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .price {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: var(--space-3);
+    font-family: var(--font-h);
+    line-height: 1;
+  }
+  .now {
+    font-size: clamp(3rem, 2.5rem + 3vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .was {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .save {
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .value {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+  }
+  .pay {
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+  }
+</style>

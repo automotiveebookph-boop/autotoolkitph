@@ -1,0 +1,95 @@
+---
+/**
+ * Mobile sticky buy bar.
+ * - Appears after the hero CTA ([data-sticky-trigger]) has scrolled above the viewport.
+ * - Hides while any [data-sticky-hide] section (pricing, final CTA) is on screen.
+ * - Not shown at all on screens ≥ 768px, or without JavaScript.
+ * BaseLayout's `hasSticky` reserves bottom padding so it never covers the footer.
+ */
+import CTAButton from './CTAButton.astro';
+import type { Product } from '../lib/products';
+
+interface Props {
+  product: Pick<Product, 'slug' | 'name' | 'price'>;
+}
+const { product } = Astro.props;
+---
+
+<div class="sticky-cta" data-sticky-cta inert aria-hidden="true">
+  <CTAButton product={product} location="sticky" block />
+</div>
+
+<script is:inline>
+  (function () {
+    var bar = document.querySelector('[data-sticky-cta]');
+    var trigger = document.querySelector('[data-sticky-trigger]');
+    var hiders = document.querySelectorAll('[data-sticky-hide]');
+    if (!bar || !trigger || !('IntersectionObserver' in window)) return;
+
+    var pastHero = false;
+    var hiderVisible = new Set();
+
+    function update() {
+      var show = pastHero && hiderVisible.size === 0;
+      bar.classList.toggle('is-visible', show);
+      if (show) {
+        bar.removeAttribute('inert');
+        bar.removeAttribute('aria-hidden');
+      } else {
+        bar.setAttribute('inert', '');
+        bar.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        // Past the hero only when the CTA has left through the TOP of the viewport.
+        pastHero = !e.isIntersecting && e.boundingClientRect.top < 0;
+      });
+      update();
+    }).observe(trigger);
+
+    var hideObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) hiderVisible.add(e.target);
+        else hiderVisible.delete(e.target);
+      });
+      update();
+    });
+    hiders.forEach(function (el) {
+      hideObserver.observe(el);
+    });
+  })();
+</script>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 50;
+    padding: var(--space-2) var(--gutter) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+    background: rgb(255 255 255 / 0.97);
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 -6px 20px rgb(27 29 31 / 0.1);
+    transform: translateY(110%);
+    visibility: hidden;
+    transition:
+      transform 0.25s ease,
+      visibility 0s linear 0.25s;
+  }
+  .sticky-cta.is-visible {
+    transform: translateY(0);
+    visibility: visible;
+    transition:
+      transform 0.25s ease,
+      visibility 0s;
+  }
+  .sticky-cta :global(.cta) {
+    min-height: 52px;
+  }
+  @media (min-width: 48rem) {
+    .sticky-cta {
+      display: none;
+    }
+  }
+</style>

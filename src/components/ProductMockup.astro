@@ -1,0 +1,149 @@
+---
+/** CSS-built "cover" of the product — no image download needed. */
+import { BRAND_NAME } from '../config/site';
+
+interface Props {
+  name: string;
+  mockupLine: string;
+  size?: 'lg' | 'sm';
+}
+const { name, mockupLine, size = 'lg' } = Astro.props;
+---
+
+<div class:list={['mockup', `mockup--${size}`]} aria-hidden="true">
+  <div class="sheet sheet--back"></div>
+  <div class="sheet sheet--mid"></div>
+  <div class="cover">
+    <div class="top">
+      <span class="brand">{BRAND_NAME}</span>
+      <span class="pdf">PDF</span>
+    </div>
+    <p class="name">{name}</p>
+    <div class="rule"></div>
+    <p class="line">{mockupLine}</p>
+    <div class="checks">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mockup {
+    position: relative;
+    width: min(100%, 20rem);
+    aspect-ratio: 3 / 3.7;
+    margin-inline: auto;
+  }
+  .mockup--sm {
+    width: min(100%, 13rem);
+  }
+  .sheet,
+  .cover {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+  }
+  .sheet--back {
+    background: #d4d6cf;
+    transform: rotate(6deg) translate(6%, 1%);
+  }
+  .sheet--mid {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    transform: rotate(3deg) translate(3%, 0.5%);
+  }
+  .cover {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9em;
+    padding: 1.4em 1.3em;
+    background: linear-gradient(160deg, #22262a 0%, var(--color-dark) 60%);
+    color: var(--color-on-dark);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    font-size: 1rem;
+  }
+  .mockup--sm .cover {
+    font-size: 0.72rem;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    right: -30%;
+    bottom: -25%;
+    width: 80%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1.6em solid rgb(141 198 63 / 0.14);
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .brand {
+    font-family: var(--font-h);
+    font-weight: 800;
+    font-size: 0.85em;
+    color: var(--color-accent-bright);
+    letter-spacing: 0.01em;
+  }
+  .pdf {
+    font-size: 0.65em;
+    font-weight: 700;
+    padding: 0.2em 0.6em;
+    border: 1px solid var(--color-accent-bright);
+    color: var(--color-accent-bright);
+    border-radius: 999px;
+  }
+  .name {
+    margin-top: auto;
+    font-family: var(--font-h);
+    font-weight: 800;
+    font-size: 1.65em;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .rule {
+    width: 3em;
+    height: 0.3em;
+    border-radius: 99px;
+    background: var(--color-accent-bright);
+  }
+  .line {
+    font-size: 0.8em;
+    color: var(--color-on-dark-muted);
+    line-height: 1.4;
+  }
+  .checks {
+    display: grid;
+    gap: 0.45em;
+    margin-top: 0.4em;
+  }
+  .checks span {
+    height: 0.45em;
+    border-radius: 99px;
+    background: #3a3f44;
+    position: relative;
+    margin-left: 1.3em;
+  }
+  .checks span::before {
+    content: '';
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    width: 0.85em;
+    height: 0.85em;
+    transform: translateY(-50%);
+    border-radius: 3px;
+    background: var(--color-accent-bright);
+  }
+  .checks span:nth-child(2) {
+    width: 80%;
+  }
+  .checks span:nth-child(3) {
+    width: 60%;
+  }
+</style>

@@ -1,0 +1,74 @@
+# DUMMY PRODUCT — exists only to prove the multi-product setup works.
+# Keep status: hidden. It is never rendered, linked, or listed in the sitemap.
+# Safe to delete once you add your real second product.
+
+slug: maintenance-log
+status: hidden
+sortOrder: 2
+category: Car owners
+
+name: Car Maintenance Log PH (Sample)
+shortName: Maintenance Log
+eyebrow: PARA SA CAR OWNERS
+h1: Alam mo ba kung kailan ang next PMS mo?
+subhead: Sample product lang ito para ma-test ang multi-product setup.
+mockupLine: PMS tracker · Fluids · Gulong · Gastos
+cardBlurb: Sample product lang ito para ma-test ang multi-product setup.
+
+price: 149
+priceLabel: Sample price
+valueLine: Sample value line.
+
+problem:
+  heading: Sample problem heading
+  body: Sample problem body.
+  bullets:
+    - Sample bullet one
+    - Sample bullet two
+
+modulesHeading: 3 parts. Sample heading.
+modules:
+  - number: '01'
+    title: PMS Schedule Tracker
+    description: Sample description
+  - number: '02'
+    title: Fluids & Filters Log
+    description: Sample description
+  - number: BONUS
+    title: Phone Version
+    description: Sample description
+
+previews:
+  - image: preview-1.webp
+    label: Sample tracker page
+
+audience:
+  - Sample audience
+
+creatorNote:
+  - Sample creator note, {YEARS_EXPERIENCE} taon.
+
+guarantee:
+  body: Sample guarantee body.
+
+howToOrder:
+  - I-tap ang Order via Messenger
+  - Matanggap ang download link — {DELIVERY_HOURS} araw-araw
+
+faqs:
+  - q: Sample question?
+    a: Sample answer.
+
+finalCta:
+  heading: Sample final CTA heading.
+
+disclaimer: Sample disclaimer for {BRAND_NAME}.
+
+seo:
+  title: Car Maintenance Log PH (Sample)
+  description: Sample SEO description.
+
+addOns:
+  - name: Sample add-on
+    price: 49
+    description: Not rendered anywhere yet.

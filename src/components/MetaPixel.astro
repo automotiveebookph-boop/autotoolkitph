@@ -1,0 +1,80 @@
+---
+/**
+ * Meta Pixel — the ONE place all ad tracking lives.
+ *
+ * BaseLayout only renders this component when META_PIXEL_ID (src/config/site.ts) is set.
+ * With an empty ID, no Pixel code or network request exists on the page at all.
+ *
+ * Events:
+ *   1. PageView     — every page, on load.
+ *   2. ViewContent  — once per page, when the pricing block ([data-track-view-content])
+ *                     scrolls into view. Params: content_ids [slug], content_name,
+ *                     content_type, value (price), currency PHP.
+ *   3. Contact      — every click on a Messenger CTA (a[data-cta]). Same product params
+ *                     plus `ref` (e.g. "inspection-kit_hero") so you can see which button.
+ *
+ * Product data is read from data-* attributes rendered by CTAButton / PriceBlock,
+ * so this file never needs to change when products are added.
+ */
+import { META_PIXEL_ID } from '../config/site';
+
+interface Props {
+  pixelId?: string;
+}
+const { pixelId = META_PIXEL_ID } = Astro.props;
+const id = JSON.stringify(pixelId);
+---
+
+<script is:inline set:html={`
+/* 1. Standard Meta Pixel loader + PageView */
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', ${id});
+fbq('track', 'PageView');
+`} />
+
+<script is:inline>
+  (function () {
+    function productParams(el) {
+      var d = el.dataset;
+      return {
+        content_ids: [d.slug],
+        content_name: d.name,
+        content_type: 'product',
+        value: Number(d.price),
+        currency: 'PHP',
+      };
+    }
+
+    /* 2. ViewContent — once per page, when the pricing block enters the viewport */
+    var pricing = document.querySelector('[data-track-view-content]');
+    if (pricing && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          if (entries.some(function (e) { return e.isIntersecting; })) {
+            io.disconnect();
+            window.fbq('track', 'ViewContent', productParams(pricing));
+          }
+        },
+        { threshold: 0.3 },
+      );
+      io.observe(pricing);
+    }
+
+    /* 3. Contact — every Messenger CTA click (event delegation covers all buttons) */
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('a[data-cta]');
+      if (!a) return;
+      var params = productParams(a);
+      params.ref = a.dataset.ref;
+      window.fbq('track', 'Contact', params);
+    });
+  })();
+</script>
+
+<noscript>
+  <img height="1" width="1" style="display:none" alt="" src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`} />
+</noscript>

@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import {
+  BRAND_NAME,
+  DELIVERY_HOURS,
+  FB_PAGE_URL,
+  GUARANTEE_TEXT,
+  LOGOS,
+  PAYMENT_METHODS,
+  TAGLINE,
+} from '../config/site';
+import { fill, getListedProducts, type Product } from '../lib/products';
+
+const products = await getListedProducts();
+
+// Group by category (in order of first appearance) — only shown as groups when there's more than one.
+const groups = new Map<string, Product[]>();
+for (const p of products) groups.set(p.category, [...(groups.get(p.category) ?? []), p]);
+const grouped = groups.size > 1;
+
+const payments = PAYMENT_METHODS.join(' o ');
+const faqs = [
+  {
+    q: 'Paano mag-order?',
+    a: 'Pumili ng kit, tapos i-tap ang "Order via Messenger" sa page nito. Doon tayo mag-uusap — walang checkout o account na kailangan.',
+  },
+  {
+    q: 'Paano magbayad?',
+    a: `Via ${payments}. Ise-send namin ang payment details sa Messenger. I-send lang ang screenshot ng bayad at ang email mo.`,
+  },
+  {
+    q: 'Kailan ko matatanggap?',
+    a: `Pagka-verify ng bayad, ise-send namin ang download link sa Messenger at email — ${DELIVERY_HOURS} araw-araw.`,
+  },
+  {
+    q: 'May guarantee ba?',
+    a: `Oo — ${GUARANTEE_TEXT}. Kung hindi mo nakitang useful, i-message lang kami at ibabalik namin ang bayad.`,
+  },
+];
+
+const siteUrl = new URL('/', Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: BRAND_NAME,
+  url: siteUrl,
+  logo: new URL(LOGOS.mark.src, Astro.site).href,
+  description: TAGLINE,
+  sameAs: [FB_PAGE_URL],
+};
+
+const why = [
+  {
+    title: 'Original content',
+    body: 'Hindi copy-paste. Galing sa aktwal na karanasan sa talyer at sa mga sasakyang ipinapa-check sa amin.',
+  },
+  {
+    title: 'Pang-Pilipinas',
+    body: 'LTO at papeles, tag-ulan at baha, at ang totoong realidad ng mga talyer dito sa atin.',
+  },
+  {
+    title: 'Practical at printable',
+    body: 'A4 printable at phone-friendly. Gamitin on the spot, step by step, kahit hindi ka mekaniko.',
+  },
+];
+---
+
+<BaseLayout title={`${BRAND_NAME} — ${TAGLINE}`} description={`${TAGLINE}. Printable, Taglish na guides at checklists para sa car buyers, car owners, at talyer owners.`} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="hero on-dark">
+    <div class="container hero-inner">
+      <p class="eyebrow">{BRAND_NAME}</p>
+      <h1>{TAGLINE}</h1>
+      <p class="lead">
+        Gumagawa kami ng printable, Taglish na guides at checklists para sa car buyers, car owners, at talyer owners.
+      </p>
+      <a href="#products" class="hero-btn">Tingnan ang mga kit</a>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="section" aria-labelledby="products-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="products-h">Mga kit</h2>
+        <p class="muted">Digital PDF · Order via Messenger · Bayad via {payments}</p>
+      </div>
+      {
+        products.length === 0 && <p class="muted">Paparating na ang aming unang kit.</p>
+      }
+      {
+        grouped ? (
+          [...groups].map(([category, items]) => (
+            <div class="group">
+              <h3 class="group-title">{category}</h3>
+              <div class="grid">
+                {items.map((p) => (
+                  <ProductCard product={p} headingLevel="h4" />
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div class="grid">
+            {products.map((p) => (
+              <ProductCard product={p} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section class="section section--white" aria-labelledby="why-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="why-h">Bakit {BRAND_NAME}</h2>
+      </div>
+      <ul class="why" role="list">
+        {
+          why.map((w, i) => (
+            <li class="card">
+              <span class="why-n" aria-hidden="true">
+                0{i + 1}
+              </span>
+              <h3>{w.title}</h3>
+              <p class="muted">{w.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Creator note -->
+  <section class="section section--dark on-dark" aria-labelledby="creator-h">
+    <div class="container container-narrow creator">
+      <h2 id="creator-h" class="eyebrow">Sino kami</h2>
+      <p class="creator-text">
+        {fill('Ginawa ng automotive technician at shop operator na may {YEARS_EXPERIENCE} taon na karanasan sa Philippine automotive industry.')}
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-h">
+    <div class="container container-narrow">
+      <div class="section-head">
+        <h2 id="faq-h">Mga madalas itanong</h2>
+      </div>
+      <FAQAccordion faqs={faqs} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(50rem 26rem at 100% 0%, rgb(141 198 63 / 0.18), transparent 60%),
+      var(--color-dark);
+    color: var(--color-on-dark);
+    padding-block: var(--space-8);
+  }
+  .hero-inner {
+    max-width: 50rem;
+  }
+  .hero-inner > * + * {
+    margin-top: var(--space-4);
+  }
+  .hero .lead {
+    max-width: 36rem;
+  }
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    margin-top: var(--space-5) !important;
+    padding: var(--space-3) var(--space-6);
+    border-radius: 999px;
+    background: var(--color-accent-bright);
+    color: var(--color-dark);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    text-decoration: none;
+  }
+  .hero-btn:hover {
+    background: #a0d65a;
+    color: var(--color-dark);
+  }
+
+  .grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  }
+  .group + .group {
+    margin-top: var(--space-7);
+  }
+  .group-title {
+    margin-bottom: var(--space-4);
+    font-size: var(--fs-xl);
+  }
+
+  .why {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .why li > * + * {
+    margin-top: var(--space-2);
+  }
+  .why-n {
+    display: inline-block;
+    font-family: var(--font-h);
+    font-weight: 800;
+    color: var(--color-accent);
+  }
+  @media (min-width: 48rem) {
+    .why {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .creator > * + * {
+    margin-top: var(--space-4);
+  }
+  .creator-text {
+    font-family: var(--font-h);
+    font-weight: 600;
+    font-size: var(--fs-xl);
+    line-height: 1.35;
+  }
+</style>

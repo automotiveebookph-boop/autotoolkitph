@@ -1,0 +1,80 @@
+---
+import type { Product } from '../lib/products';
+
+interface Props {
+  modules: Product['modules'];
+}
+const { modules } = Astro.props;
+---
+
+<ol class="modules" role="list">
+  {
+    modules.map((m) => {
+      const bonus = m.number.toUpperCase() === 'BONUS';
+      return (
+        <li class:list={['module', { 'module--bonus': bonus }]}>
+          <span class="num" aria-hidden="true">{m.number}</span>
+          <div>
+            <h3>
+              {bonus && <span class="visually-hidden">Bonus: </span>}
+              {m.title}
+            </h3>
+            <p>{m.description}</p>
+          </div>
+        </li>
+      );
+    })
+  }
+</ol>
+
+<style>
+  .modules {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .module {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    padding: var(--space-4) var(--space-5) var(--space-4) var(--space-4);
+    background: var(--color-dark-2);
+    border: 1px solid #34383c;
+    border-radius: var(--radius);
+  }
+  .num {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    min-width: 3.25rem;
+    height: 2.5rem;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-sm);
+    background: var(--color-dark);
+    border: 1px solid #3f4448;
+    color: var(--color-accent-bright);
+    font-family: var(--font-h);
+    font-weight: 800;
+    font-size: 1.0625rem;
+  }
+  .module--bonus .num {
+    background: var(--color-accent-bright);
+    border-color: var(--color-accent-bright);
+    color: var(--color-dark);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+  h3 {
+    color: var(--color-on-dark);
+    font-size: 1.125rem;
+  }
+  p {
+    margin-top: var(--space-1);
+    color: var(--color-on-dark-muted);
+    font-size: var(--fs-sm);
+  }
+  @media (min-width: 48rem) {
+    .modules {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

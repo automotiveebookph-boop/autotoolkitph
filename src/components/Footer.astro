@@ -1,0 +1,120 @@
+---
+import { BRAND_NAME, FB_PAGE_URL, LOGOS, TAGLINE } from '../config/site';
+import { fill, getActiveProducts } from '../lib/products';
+
+interface Props {
+  /** Product-specific disclaimer; falls back to the general brand disclaimer. */
+  disclaimer?: string;
+}
+
+const products = await getActiveProducts();
+const disclaimer =
+  Astro.props.disclaimer ??
+  fill(
+    'Our guides are for general educational purposes and are not a substitute for professional vehicle inspection, repair, or legal advice. {BRAND_NAME} is not affiliated with any vehicle manufacturer or government agency.',
+  );
+const logo = LOGOS.stackedDark;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer on-dark">
+  <div class="container">
+    <div class="top">
+      <div class="brand">
+        <img src={logo.src} width={logo.width} height={logo.height} alt={BRAND_NAME} loading="lazy" />
+        <p class="tagline">{TAGLINE}</p>
+      </div>
+      <nav aria-label="Footer">
+        {
+          products.length > 0 && (
+            <div class="col">
+              <h2 class="col-title">Mga kit</h2>
+              <ul role="list">
+                {products.map((p) => (
+                  <li>
+                    <a href={`/${p.slug}`}>{p.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+        <div class="col">
+          <h2 class="col-title">Info</h2>
+          <ul role="list">
+            <li><a href="/privacy">Privacy policy</a></li>
+            <li><a href={FB_PAGE_URL} rel="noopener">Facebook page</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <p class="disclaimer">{disclaimer}</p>
+    <p class="copy">© {year} {BRAND_NAME}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-dark);
+    color: var(--color-on-dark-muted);
+    padding-block: var(--space-7) var(--space-6);
+    font-size: var(--fs-sm);
+  }
+  .top {
+    display: grid;
+    gap: var(--space-6);
+  }
+  .brand img {
+    width: 140px;
+    height: auto;
+  }
+  .tagline {
+    margin-top: var(--space-4);
+    max-width: 22rem;
+  }
+  nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--space-5);
+  }
+  .col-title {
+    font-family: var(--font-b);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-accent-bright);
+    margin-bottom: var(--space-2);
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--color-on-dark);
+    text-decoration: none;
+  }
+  li a:hover {
+    color: var(--color-accent-bright);
+    text-decoration: underline;
+  }
+  .disclaimer {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid #3a3e42;
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+  .copy {
+    margin-top: var(--space-4);
+    font-size: 0.875rem;
+  }
+  @media (min-width: 48rem) {
+    .top {
+      grid-template-columns: 1fr 1.4fr;
+    }
+  }
+</style>

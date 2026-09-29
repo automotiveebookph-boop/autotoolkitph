@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import SEOHead from '../components/SEOHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+import { META_PIXEL_ID } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'product';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** Header CTA — defaults to the homepage product list. */
+  headerCta?: { href: string; label: string };
+  /** Disclaimer shown in the footer (product pages). */
+  disclaimer?: string;
+  /** Adds bottom padding on mobile so the sticky CTA never covers the footer. */
+  hasSticky?: boolean;
+}
+
+const { headerCta, disclaimer, hasSticky = false, ...seo } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fil">
+  <head>
+    <SEOHead {...seo} />
+  </head>
+  <body class:list={{ 'has-sticky': hasSticky }}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header cta={headerCta} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer disclaimer={disclaimer} />
+    <slot name="after-footer" />
+    {META_PIXEL_ID && <MetaPixel />}
+  </body>
+</html>

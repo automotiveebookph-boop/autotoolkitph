@@ -1,0 +1,109 @@
+# 2nd Hand Car Inspection Kit PH
+# Field reference: see _TEMPLATE.yaml in this folder.
+# Images for this product go in: src/assets/products/inspection-kit/
+
+slug: inspection-kit
+status: active
+sortOrder: 1
+category: Car buyers
+
+name: 2nd Hand Car Inspection Kit PH
+shortName: Inspection Kit
+eyebrow: PARA SA 2ND HAND CAR BUYERS
+h1: Bago ka magbayad, i-check mo muna.
+subhead: 'Ang 2nd Hand Car Inspection Kit PH: printable at phone-friendly na gabay para ma-check ang kotse, papeles, at seller — kahit hindi ka mekaniko.'
+mockupLine: 60-point checklist · Flood guide · Papeles · Scripts
+cardBlurb: Printable at phone-friendly na gabay para ma-check ang kotse, papeles, at seller bago ka magbayad.
+
+price: 199
+regularPrice: 249
+priceLabel: Launch price
+valueLine: Mas mura kaysa isang tangke ng gas — para sa mas kampanteng desisyon sa kotseng daan-daang libo ang halaga.
+
+problem:
+  heading: Mukhang maayos sa picture. Pero ano ang hindi mo nakikita?
+  body: 'Maraming 2nd hand car ang may nakatagong problema: binaha, may loan pa sa bangko, hindi tugma ang papeles, o may sira na lalabas lang pagkalipas ng ilang linggo.'
+  bullets:
+    - Flood damage na natakpan ng detailing
+    - Seller na hindi registered owner
+    - 'May "Encumbered to" pa sa CR'
+    - Sira sa makina o transmission na hindi agad halata
+
+modulesHeading: 7 parts. Isang kumpletong gabay.
+modules:
+  - number: '01'
+    title: Papeles & Ownership Check
+    description: OR/CR, chassis at engine number, HPG clearance, deed of sale
+  - number: '02'
+    title: 60-Point Inspection Checklist
+    description: Exterior, interior, makina, ilalim, gulong at preno
+  - number: '03'
+    title: Flood Car Detection Guide
+    description: Mga lugar kung saan nag-iiwan ng bakas ang baha
+  - number: '04'
+    title: Test Drive Script
+    description: Ano ang pakikiramdaman at pakikinggan habang nagda-drive
+  - number: '05'
+    title: Red Flags & Decision Scorecard
+    description: Kailan bibili, makikipag-tawaran, o aalis na
+  - number: BONUS
+    title: Taglish Seller Questions & Negotiation Scripts
+    description: Copy-paste sa Messenger o gamitin nang harapan
+  - number: BONUS
+    title: Phone Version
+    description: Gamitin on the spot, kahit walang printer
+
+previewsHeading: Silipin ang loob
+previews:
+  - image: preview-1.webp
+    label: Module 2 checklist page
+  - image: preview-2.webp
+    label: Flood guide page
+  - image: preview-3.webp
+    label: Papeles checklist page
+  - image: preview-4.webp
+    label: Negotiation scripts page
+
+audienceHeading: Para kanino ito?
+audience:
+  - First-time 2nd hand o used car buyers
+  - Pamilyang bibili ng pangalawang sasakyan
+  - OFW na nagpapabili sa kamag-anak
+  - TNVS drivers na bibili ng unit na pang-hanapbuhay
+
+creatorNoteHeading: Sino ang gumawa nito?
+creatorNote:
+  - Ginawa ng automotive technician at shop operator na may {YEARS_EXPERIENCE} taon na karanasan sa Philippine automotive industry.
+  - Hindi ito copy-paste mula sa internet. Ito ang mismong mga tinitingnan namin kapag may sasakyang ipinapa-check.
+  - Hindi ito kapalit ng professional inspection. Tinutulungan ka nitong malaman kung ano ang titingnan, at kailan dapat magpatingin sa mekaniko.
+
+guarantee:
+  body: Kung hindi mo nakitang useful, i-message lang kami at ibabalik namin ang bayad.
+
+howToOrder:
+  - I-tap ang Order via Messenger
+  - Magbayad via GCash o Maya gamit ang details na ise-send namin
+  - I-send ang screenshot ng payment at ang email mo
+  - Matanggap ang download link sa Messenger at email — {DELIVERY_HOURS} araw-araw
+
+faqs:
+  - q: Pang-Pilipinas ba talaga ito?
+    a: Oo. May LTO, OR/CR, HPG clearance, flood checks para sa tag-ulan, at Taglish scripts.
+  - q: Kailangan ko bang marunong sa kotse?
+    a: Hindi. Isinulat ito para sa hindi mekaniko, step by step.
+  - q: Paano ko makukuha?
+    a: Pagka-verify ng bayad, ise-send namin ang download link sa Messenger at email.
+  - q: Pwede ko bang i-print?
+    a: Oo. May A4 printable version at phone version.
+
+finalCta:
+  heading: ₱199 lang para sa mas kampanteng desisyon.
+
+disclaimer: This guide is for general educational purposes and is not a substitute for a professional vehicle inspection or legal advice. Registration and transfer requirements may change; verify with the LTO and PNP-HPG. {BRAND_NAME} is not affiliated with any vehicle manufacturer or government agency.
+
+seo:
+  title: 2nd Hand Car Inspection Kit PH — Bago Ka Magbayad, I-check Mo Muna
+  description: 'Used car at 2nd hand car inspection checklist para sa Pilipinas: 60-point checklist, flood car detection, OR/CR at HPG papeles check, test drive script, at Taglish negotiation scripts. Printable PDF, ₱199.'
+  # ogImage: og.jpg   # optional — 1200×630 file in src/assets/products/inspection-kit/
+
+addOns: []
