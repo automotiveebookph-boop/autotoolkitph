@@ -1,8 +1,12 @@
 ---
 /**
  * Swipeable preview strip (CSS scroll-snap) + accessible lightbox (<dialog>).
- * Images come from src/assets/products/<slug>/<file>. Missing files render a
- * styled, non-interactive placeholder so the page still looks finished.
+ * Images come from src/assets/products/<slug>/<file>. getActiveProducts() fails the build
+ * if any are missing, so an active product never shows an empty box.
+ *
+ * Compression for mobile data: thumbnails are WebP at 320/640px wide (quality 70, the
+ * browser picks one via srcset) and lazy-loaded; the lightbox loads a single 1200px WebP
+ * (quality 75) only when opened.
  */
 import { Image, getImage } from 'astro:assets';
 import { getProductImage, type Product } from '../lib/products';
@@ -13,14 +17,16 @@ interface Props {
 }
 const { slug, previews } = Astro.props;
 
-const items = await Promise.all(
-  previews.map(async (p) => {
-    const src = getProductImage(slug, p.image);
-    const full = src ? await getImage({ src, width: Math.min(src.width, 1400), format: 'webp' }) : undefined;
-    return { ...p, src, full };
-  }),
-);
-const hasImages = items.some((i) => i.src);
+const items = (
+  await Promise.all(
+    previews.map(async (p) => {
+      const src = getProductImage(slug, p.image);
+      if (!src) return undefined;
+      const full = await getImage({ src, width: Math.min(src.width, 1200), format: 'webp', quality: 75 });
+      return { ...p, src, full };
+    }),
+  )
+).filter((i) => i !== undefined);
 ---
 
 <div class="gallery" role="region" aria-label="Preview pages" tabindex="0">
@@ -29,36 +35,26 @@ const hasImages = items.some((i) => i.src);
       items.map((item, i) => (
         <li class="slide">
           <figure>
-            {item.src && item.full ? (
-              <button
-                type="button"
-                class="thumb"
-                data-lightbox-index={i}
-                data-full={item.full.src}
-                data-alt={item.label}
-                aria-label={`View larger: ${item.label}`}
-              >
-                <Image
-                  src={item.src}
-                  alt={item.label}
-                  width={320}
-                  widths={[320, 640]}
-                  sizes="(min-width: 48rem) 240px, 70vw"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </button>
-            ) : (
-              <div class="placeholder" role="img" aria-label={`${item.label} (preview coming soon)`}>
-                <span class="ph-bar ph-bar--title" />
-                <span class="ph-row" />
-                <span class="ph-row" />
-                <span class="ph-row ph-row--short" />
-                <span class="ph-row" />
-                <span class="ph-row ph-row--short" />
-                <span class="ph-note">Preview</span>
-              </div>
-            )}
+            <button
+              type="button"
+              class="thumb"
+              data-lightbox-index={i}
+              data-full={item.full.src}
+              data-alt={item.label}
+              aria-label={`View larger: ${item.label}`}
+            >
+              <Image
+                src={item.src}
+                alt={item.label}
+                width={320}
+                widths={[320, 640]}
+                sizes="(min-width: 48rem) 240px, 70vw"
+                format="webp"
+                quality={70}
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
             <figcaption>{item.label}</figcaption>
           </figure>
         </li>
@@ -69,7 +65,7 @@ const hasImages = items.some((i) => i.src);
 {items.length > 1 && <p class="hint" aria-hidden="true">← I-swipe para makita ang iba →</p>}
 
 {
-  hasImages && (
+  items.length > 0 && (
     <dialog class="lightbox" data-lightbox aria-label="Preview">
       <form method="dialog" class="lb-close-form">
         <button class="lb-btn lb-close" aria-label="Close preview">
@@ -179,55 +175,7 @@ const hasImages = items.some((i) => i.src);
     height: auto;
     aspect-ratio: 3 / 4;
     object-fit: cover;
-  }
-  .placeholder {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    aspect-ratio: 3 / 4;
-    padding: 1.25rem 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-  .ph-bar--title {
-    height: 0.9rem;
-    width: 65%;
-    border-radius: 99px;
-    background: var(--color-dark);
-    margin-bottom: 0.4rem;
-  }
-  .ph-row {
-    height: 0.55rem;
-    border-radius: 99px;
-    background: var(--color-surface-alt);
-    position: relative;
-    margin-left: 1.4rem;
-  }
-  .ph-row::before {
-    content: '';
-    position: absolute;
-    left: -1.4rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0.9rem;
-    height: 0.9rem;
-    border-radius: 3px;
-    border: 2px solid var(--color-accent);
-  }
-  .ph-row--short {
-    width: 60%;
-  }
-  .ph-note {
-    margin-top: auto;
-    align-self: flex-start;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-text-muted);
+    object-position: top; /* show the top of each page (headings) when cropped to 3:4 */
   }
   .hint {
     margin-top: var(--space-2);

@@ -66,9 +66,10 @@ Text tokens that work inside product files: `{BRAND_NAME}`, `{YEARS_EXPERIENCE}`
 
 3. **Add the images.**
    Create `src/assets/products/<slug>/` and put the preview images there, with the same file names as the `previews:` list (for example `preview-1.webp`).
-   - Portrait pages around 3:4, roughly 1200–1600 px wide. WebP, PNG or JPG all work; Astro resizes and converts them.
+   - Accepted formats: `.webp`, `.png`, `.jpg`, `.jpeg`, `.avif`. The extension doesn't have to match the YAML: `preview-1.png` satisfies `preview-1.webp`. Phone screenshots are fine as-is. Astro converts everything to compressed WebP (320/640px thumbnails and a 1200px lightbox version).
+   - Portrait pages around 3:4 look best. Thumbnails are cropped to 3:4 from the top of the page.
    - Optional share image: a 1200×630 `og.jpg` in the same folder, then set `seo.ogImage: og.jpg`.
-   - A missing image shows a styled placeholder instead of breaking the page.
+   - **If a product is `active` and any listed image is missing, the build fails** with a message naming each missing file, and Vercel keeps the previous version live. A product can't go live with empty preview boxes.
 
 4. **Choose a status.**
    - `hidden`: builds nothing. Use this while drafting.

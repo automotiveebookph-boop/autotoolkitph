@@ -68,9 +68,12 @@ modules:
     description: What it covers
 
 # ── Preview images (up to 6) ────────────────────────────────────────────────
-# Files go in src/assets/products/<slug>/. WebP, PNG or JPG; portrait pages
-# (about 3:4) look best. Astro converts and resizes them automatically.
-# If a file doesn't exist yet, a styled placeholder is shown instead.
+# Files go in src/assets/products/<slug>/. Accepted: .webp .png .jpg .jpeg .avif
+# (the extension may differ from what's written here: preview-1.png satisfies
+# preview-1.webp). Portrait pages (about 3:4) look best. Astro converts them to
+# compressed WebP automatically.
+# If the product is ACTIVE and any listed file is missing, the build FAILS
+# with a message naming the missing files. Nothing goes live half-finished.
 previewsHeading: Silipin ang loob      # (optional)
 previews:
   - image: preview-1.webp
