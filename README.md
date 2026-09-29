@@ -38,7 +38,8 @@ npm run check      # TypeScript / Astro type check
 
 | What | Where |
 | --- | --- |
-| Brand name, tagline, FB page, Pixel ID, site URL, payment methods, guarantee, coming-soon flag | `src/config/site.ts` |
+| Brand name, tagline, FB page, site URL, payment methods, guarantee, coming-soon flag | `src/config/site.ts` |
+| Meta Pixel ID | Vercel environment variable `PUBLIC_META_PIXEL_ID` (see section 5) |
 | Colors, fonts, spacing | `src/styles/tokens.css` |
 | Font choices (families and weights) | `astro.config.ts` → `fonts` |
 | Product data (one file each) | `src/content/products/*.yaml` |
@@ -121,7 +122,18 @@ https://m.me/<FB_PAGE_NAME>?ref=<slug>_<location>
 
 `location` is one of `hero`, `pricing`, `final` or `sticky`, for example `?ref=inspection-kit_hero`. The ref shows up in your Messenger inbox, so you can tell which product and which button started each chat.
 
-**Meta Pixel** (only when `META_PIXEL_ID` is set; otherwise nothing loads):
+**Meta Pixel.** The ID is read from the environment variable `PUBLIC_META_PIXEL_ID` at build time, so you never edit code to set it. While it's empty, Meta's script is not loaded and nothing is sent.
+
+To set it in Vercel:
+1. Open the project in Vercel, then go to **Settings → Environment Variables**.
+2. Key: `PUBLIC_META_PIXEL_ID`. Value: your Pixel ID (digits only). Environment: tick **Production** (Preview too if you like).
+3. Click **Save**.
+4. Environment variables only apply to new builds, so go to **Deployments**, open the ⋯ menu on the latest Production deployment, and choose **Redeploy**. Alternatively, push any commit.
+5. Run `npm run launch-check -- --pixel <your-id>` to confirm it's live.
+
+For local testing, create a `.env` file containing `PUBLIC_META_PIXEL_ID=<id>`. It's gitignored.
+
+Events:
 
 | Event | When | Parameters |
 | --- | --- | --- |
@@ -129,7 +141,14 @@ https://m.me/<FB_PAGE_NAME>?ref=<slug>_<location>
 | `ViewContent` | Once per page, when the pricing block scrolls into view | `content_ids: [slug]`, `content_name`, `content_type`, `value`, `currency: PHP` |
 | `Contact` | Every Messenger button tap | the same, plus `ref` |
 
-Test it with the **Meta Pixel Helper** Chrome extension, or in Events Manager under **Test Events**.
+**Debug mode:** add `?pixel_debug=1` to any page URL, e.g. `/inspection-kit?pixel_debug=1`, then open the browser console (desktop Chrome: F12 → Console). Every event is logged as `[Meta Pixel] <event>` with its parameters, and says whether it was sent or `NOT SENT` (no ID). Scroll to the price to see ViewContent, and tap a button to see Contact. Messenger will open, so use Ctrl/Cmd+click to keep the page.
+
+**Meta Pixel Helper** (Chrome extension, from the Chrome Web Store):
+1. Install it and pin it to the toolbar.
+2. Open the product page. The icon shows a number badge, and clicking it should list your Pixel ID with **PageView** ✓.
+3. Scroll to the pricing section. **ViewContent** appears once, with `content_ids: ["inspection-kit"]`, `value: 199`, `currency: PHP`.
+4. Ctrl/Cmd+click an "Order via Messenger" button. **Contact** appears, with `ref` such as `inspection-kit_hero`.
+5. Also check **Events Manager → your Pixel → Test Events**: enter the site URL, and the same events appear there live.
 
 ---
 

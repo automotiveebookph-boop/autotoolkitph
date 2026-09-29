@@ -17,8 +17,13 @@ export const YEARS_EXPERIENCE: string = '10';
 // Used via the {DELIVERY_HOURS} token.
 export const DELIVERY_HOURS = '8AM–9PM';
 
-// TODO(pre-launch): your Meta Pixel ID. While empty, the Pixel script is NOT loaded at all.
-export const META_PIXEL_ID: string = '';
+/**
+ * Meta Pixel ID, read from the PUBLIC_META_PIXEL_ID environment variable at build time.
+ * Set it in Vercel → Project → Settings → Environment Variables (Production), then redeploy.
+ * For local testing, put PUBLIC_META_PIXEL_ID=... in a .env file (not committed).
+ * While empty, Meta's Pixel script is NOT loaded and no events are sent.
+ */
+export const META_PIXEL_ID: string = readEnv('PUBLIC_META_PIXEL_ID');
 
 /**
  * TODO(pre-launch): your production URL with no trailing slash, e.g. "https://autotoolkitph.com".
