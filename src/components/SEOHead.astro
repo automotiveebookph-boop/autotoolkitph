@@ -1,6 +1,6 @@
 ---
 import { Font } from 'astro:assets';
-import { BRAND_NAME, LOGOS, OG_DEFAULT } from '../config/site';
+import { BRAND_NAME, BUILD_COMMIT, BUILD_ENV, LOGOS, OG_DEFAULT } from '../config/site';
 
 interface Props {
   title: string;
@@ -32,6 +32,8 @@ const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta name="description" content={description} />
 {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
 <meta name="theme-color" content="#1B1D1F" />
+<!-- Which commit / Vercel environment built this page (read by scripts/launch-check.mjs) -->
+<meta name="x-build" content={`${BUILD_COMMIT} ${BUILD_ENV}`} />
 <link rel="icon" href={LOGOS.mark.src} type="image/svg+xml" />
 
 <Font cssVariable="--font-heading" preload={[{ weight: 800 }]} />

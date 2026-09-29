@@ -8,7 +8,7 @@ export const BRAND_NAME = 'AutoToolKitPH';
 
 export const TAGLINE = 'Practical automotive tools, guides & systems for Filipinos';
 
-// TODO(pre-launch): your Facebook Page username, as it appears in m.me/<name> links.
+// Facebook Page username. Every m.me link (buy buttons, privacy contact) is built from this.
 export const FB_PAGE_NAME: string = 'AutoToolKitPH';
 
 // Used via the {YEARS_EXPERIENCE} token.
@@ -49,11 +49,25 @@ export const LOGOS = {
 
 export const OG_DEFAULT = '/brand/og-default.jpg';
 
+/**
+ * Read a build-time environment variable. Works both inside Astro (import.meta.env, which
+ * includes .env files) and in astro.config.ts / plain Node (process.env, which is where
+ * Vercel puts dashboard variables).
+ */
+export function readEnv(name: string): string {
+  const fromVite = (import.meta as { env?: Record<string, string | undefined> }).env?.[name];
+  const fromNode = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env?.[name];
+  return (fromVite ?? fromNode ?? '').trim();
+}
+
+/** Git commit and Vercel environment of this build, stamped into every page as <meta name="x-build">. */
+export const BUILD_COMMIT = readEnv('VERCEL_GIT_COMMIT_SHA').slice(0, 7) || 'local';
+export const BUILD_ENV = readEnv('VERCEL_ENV') || 'local';
+
 export function resolveSiteUrl(): string {
   if (SITE_URL) return SITE_URL.replace(/\/+$/, '');
-  // Vercel sets this at build time; read via globalThis so the file needs no Node typings.
-  const env = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;
-  const vercel = env?.VERCEL_PROJECT_PRODUCTION_URL;
+  // Vercel sets this at build time.
+  const vercel = readEnv('VERCEL_PROJECT_PRODUCTION_URL');
   if (vercel) return `https://${vercel}`;
   return 'http://localhost:4321';
 }
