@@ -9,7 +9,7 @@ export const BRAND_NAME = 'AutoToolKitPH';
 export const TAGLINE = 'Practical automotive tools, guides & systems for Filipinos';
 
 // TODO(pre-launch): your Facebook Page username, as it appears in m.me/<name> links.
-export const FB_PAGE_NAME: string = 'YOURPAGENAME';
+export const FB_PAGE_NAME: string = 'TotoGaragehomeservice';
 
 // TODO(pre-launch): replace with a number, e.g. "15". Used via the {YEARS_EXPERIENCE} token.
 export const YEARS_EXPERIENCE: string = '[X]';
