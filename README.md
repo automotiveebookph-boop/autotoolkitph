@@ -95,6 +95,22 @@ Text tokens that work inside product files: `{BRAND_NAME}`, `{YEARS_EXPERIENCE}`
 
 ---
 
+### Product share image (og:image)
+The picture Facebook and Messenger show when a product link is shared. Generate it once per product; it uses the brand colors from `tokens.css`, the logo in `public/brand/logo-horizontal-light.svg`, and the product's `name` and `mockupLine`:
+
+```bash
+npm run make-og -- --slug inspection-kit --headline "Bago ka magbayad, i-check mo muna." --subline "2nd Hand Car Inspection Kit PH · ₱199" --tagline "Printable at Taglish · Para sa 2nd hand car buyers"
+```
+
+This writes `src/assets/products/<slug>/og.jpg` (1200×630). Set `seo.ogImage: og.jpg` in the product file, then commit and push. **Re-run it whenever the price, logo or copy changes.** Pages without their own image (homepage, privacy) use `public/brand/og-default.jpg`.
+
+**Test it with the Facebook Sharing Debugger:**
+1. Go to <https://developers.facebook.com/tools/debug/> (log in with your Facebook account).
+2. Paste the product URL, e.g. `https://autotoolkitph-cyai.vercel.app/inspection-kit`, and click **Debug**.
+3. Check the preview card at the bottom: the image, title and description should match the product.
+4. If it shows an old image, click **Scrape Again**. Facebook caches previews, so do this after every change to a share image or title. The image URL changes whenever the image changes, so one re-scrape is enough.
+5. Warnings about a missing `fb:app_id` are normal for a site like this and can be ignored.
+
 ## 5. Messenger links and tracking
 
 Every buy button links to:
