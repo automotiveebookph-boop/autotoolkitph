@@ -26,7 +26,9 @@ async function allProducts(): Promise<Product[]> {
 
 /** Products that get their own page and appear in the sitemap. */
 export async function getActiveProducts(): Promise<Product[]> {
-  return (await allProducts()).filter((p) => p.status === 'active').sort(bySortOrder);
+  const active = (await allProducts()).filter((p) => p.status === 'active').sort(bySortOrder);
+  assertImagesExist(active);
+  return active;
 }
 
 /** Products to show on the homepage: active first, then coming-soon (only if SHOW_COMING_SOON). */
@@ -56,13 +58,52 @@ export function messengerLink(slug: string, location: CtaLocation | string): str
 
 /* ── Product images: src/assets/products/<slug>/<file> ─────────────────────── */
 
+export const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg', 'avif'];
+
 const productImages = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/products/**/*.{webp,png,jpg,jpeg,avif}',
+  '/src/assets/products/**/*.{webp,png,jpg,jpeg,avif,WEBP,PNG,JPG,JPEG,AVIF}',
   { eager: true },
 );
 
-/** Returns the image if the file exists, otherwise undefined (caller renders a placeholder). */
+const stem = (name: string) => name.replace(/\.[^.]+$/, '').toLowerCase();
+
+/**
+ * Finds src/assets/products/<slug>/<file>. If the exact file isn't there, a file with the same
+ * base name and any accepted extension is used (so preview-1.png satisfies "preview-1.webp").
+ */
 export function getProductImage(slug: string, file: string | undefined): ImageMetadata | undefined {
   if (!file) return undefined;
-  return productImages[`/src/assets/products/${slug}/${file}`]?.default;
+  const dir = `/src/assets/products/${slug}/`;
+  const exact = productImages[dir + file];
+  if (exact) return exact.default;
+  const key = Object.keys(productImages).find((k) => k.startsWith(dir) && stem(k.slice(dir.length)) === stem(file));
+  return key ? productImages[key].default : undefined;
+}
+
+/**
+ * Active products must never show an empty preview box: stop the build, naming every missing
+ * file, if a listed preview image or seo.ogImage can't be found.
+ */
+function assertImagesExist(products: Product[]) {
+  const problems: string[] = [];
+  for (const p of products) {
+    const missing = p.previews
+      .filter((v) => !getProductImage(p.slug, v.image))
+      .map((v) => `${v.image}  (${v.label})`);
+    if (p.seo.ogImage && !getProductImage(p.slug, p.seo.ogImage)) missing.push(`${p.seo.ogImage}  (seo.ogImage share image)`);
+    if (missing.length) {
+      problems.push(
+        `Product "${p.slug}" is active but these images are missing from src/assets/products/${p.slug}/:\n` +
+          missing.map((m) => `    - ${m}`).join('\n'),
+      );
+    }
+  }
+  if (problems.length) {
+    throw new Error(
+      `[products] Missing product images. Build stopped so no empty preview boxes go live.\n\n` +
+        problems.join('\n\n') +
+        `\n\nAccepted formats: ${IMAGE_EXTENSIONS.map((e) => '.' + e).join(', ')} (the extension may differ from the YAML).` +
+        `\nFix: add the files, or set the product's status to "hidden" or "coming-soon" until they're ready.`,
+    );
+  }
 }
