@@ -9,3 +9,4 @@ dist/
 # Paid product files: never commit or deploy
 *.pdf
 product/
+*.zip
