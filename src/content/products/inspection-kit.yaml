@@ -55,13 +55,13 @@ modules:
 
 previewsHeading: Silipin ang loob
 previews:
-  - image: preview-1.webp
+  - image: preview-1.jpg
     label: Module 2 checklist page
-  - image: preview-2.webp
+  - image: preview-2.jpg
     label: Flood guide page
-  - image: preview-3.webp
+  - image: preview-3.jpg
     label: Papeles checklist page
-  - image: preview-4.webp
+  - image: preview-4.jpg
     label: Negotiation scripts page
 
 audienceHeading: Para kanino ito?

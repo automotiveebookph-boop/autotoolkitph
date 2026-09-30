@@ -48,7 +48,7 @@ const items = (
                 alt={item.label}
                 width={320}
                 widths={[320, 640]}
-                sizes="(min-width: 48rem) 240px, 70vw"
+                sizes="(min-width: 48rem) 320px, 82vw"
                 format="webp"
                 quality={70}
                 loading="lazy"
@@ -147,7 +147,7 @@ const items = (
   }
   .slide {
     scroll-snap-align: start;
-    width: min(70vw, 15rem);
+    width: min(82vw, 20rem);
     flex-shrink: 0;
   }
   figure {
@@ -170,12 +170,10 @@ const items = (
     cursor: zoom-in;
     box-shadow: var(--shadow);
   }
+  /* Thumbnails keep the image's own shape (previews are cropped page tops, so nothing is cut). */
   .thumb :global(img) {
     width: 100%;
     height: auto;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    object-position: top; /* show the top of each page (headings) when cropped to 3:4 */
   }
   .hint {
     margin-top: var(--space-2);
