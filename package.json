@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "astro": "^7.3.5",
+    "pdf-lib": "^1.17.1",
     "sharp": "^0.35.5"
   },
   "devDependencies": {
