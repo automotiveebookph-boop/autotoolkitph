@@ -6,7 +6,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BRAND_NAME, MESSENGER_BASE, PAYMENT_METHODS } from '../config/site';
 
-const updated = 'September 29, 2026'; // TODO: update when the policy changes
+const updated = 'October 2, 2026'; // TODO: update when the policy changes
 const payments = PAYMENT_METHODS.join(' / ');
 // Contact goes through Messenger (not a link to the Facebook page) so the page name isn't shown on the site.
 const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
@@ -36,8 +36,8 @@ const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
         <ul>
           <li>
             <strong>When you order:</strong> orders happen in Facebook Messenger, not on this website. We only collect what
-            we need to deliver your product: your <strong>email address</strong> and your <strong>payment screenshot</strong>
-            ({payments}).
+            we need to deliver your product: your <strong>name</strong> as shown in Messenger, your <strong>payment screenshot</strong>
+            ({payments}), and your <strong>email address</strong> only if you choose to give it.
           </li>
           <li>
             <strong>When you visit this website:</strong> we use the <strong>Meta Pixel</strong>, a tool from Meta
@@ -49,13 +49,14 @@ const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
 
         <h3>How we use it</h3>
         <ul>
-          <li>To verify your payment and send your download link by Messenger and email.</li>
+          <li>To verify your payment and send your download link by Messenger.</li>
+          <li>To print your name (and email, if given) and order number on your copy of the kit, for personal use.</li>
           <li>To answer your questions and handle refund requests.</li>
           <li>To measure and improve our ads.</li>
         </ul>
 
         <h3>What we don't do</h3>
-        <p>We do not sell, rent, or trade your personal data. We only share it with the services needed to run the business (Meta/Messenger, {payments}, and our email provider).</p>
+        <p>We do not sell, rent, or trade your personal data. We only share it with the services needed to run the business (Meta/Messenger and {payments}).</p>
 
         <h3>How long we keep it</h3>
         <p>We keep order records only as long as needed to deliver your product, handle refunds, and meet legal or tax requirements.</p>
@@ -85,8 +86,8 @@ const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
         <ul>
           <li>
             <strong>Kapag nag-order ka:</strong> sa Facebook Messenger nangyayari ang order, hindi sa website na ito. Ang
-            kinukuha lang namin ay ang kailangan para maipadala ang produkto: ang <strong>email address</strong> mo at ang
-            <strong>screenshot ng bayad</strong> ({payments}).
+            kinukuha lang namin ay ang kailangan para maipadala ang produkto: ang <strong>pangalan</strong> mo sa Messenger, ang
+            <strong>screenshot ng bayad</strong> ({payments}), at ang <strong>email address</strong> mo kung ibibigay mo ito.
           </li>
           <li>
             <strong>Kapag bumisita ka sa website:</strong> gumagamit kami ng <strong>Meta Pixel</strong> mula sa Meta
@@ -98,13 +99,14 @@ const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
 
         <h3>Paano namin ginagamit</h3>
         <ul>
-          <li>Para ma-verify ang bayad at maipadala ang download link sa Messenger at email.</li>
+          <li>Para ma-verify ang bayad at maipadala ang download link sa Messenger.</li>
+          <li>Para i-print ang pangalan mo (at email, kung ibinigay) at order number sa kopya mo ng kit, para sa personal na gamit.</li>
           <li>Para sagutin ang mga tanong mo at asikasuhin ang refund requests.</li>
           <li>Para masukat at mapaganda ang ads namin.</li>
         </ul>
 
         <h3>Hindi namin ginagawa</h3>
-        <p>Hindi namin ibinebenta, pinapaupahan, o ipinagpapalit ang personal data mo. Ibinabahagi lang namin ito sa mga serbisyong kailangan para patakbuhin ang negosyo (Meta/Messenger, {payments}, at email provider namin).</p>
+        <p>Hindi namin ibinebenta, pinapaupahan, o ipinagpapalit ang personal data mo. Ibinabahagi lang namin ito sa mga serbisyong kailangan para patakbuhin ang negosyo (Meta/Messenger at {payments}).</p>
 
         <h3>Gaano katagal namin itinatago</h3>
         <p>Itinatago lang namin ang order records hangga't kailangan para sa delivery, refunds, at legal o tax requirements.</p>

@@ -83,8 +83,8 @@ guarantee:
 howToOrder:
   - I-tap ang Order via Messenger
   - Magbayad via GCash o Maya gamit ang details na ise-send namin
-  - I-send ang screenshot ng payment at ang email mo
-  - Matanggap ang download link sa Messenger at email — {DELIVERY_HOURS} araw-araw
+  - I-send ang screenshot ng payment
+  - Matanggap ang download link sa Messenger — {DELIVERY_HOURS} araw-araw
 
 faqs:
   - q: Legit ba ito? Paano kung hindi ko nagustuhan?
@@ -94,7 +94,7 @@ faqs:
   - q: Kailangan ko bang marunong sa kotse?
     a: Hindi. Isinulat ito para sa hindi mekaniko, step by step.
   - q: Paano ko makukuha?
-    a: Pagka-verify ng bayad, ise-send namin ang download link sa Messenger at email.
+    a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger.
   - q: Pwede ko bang i-print?
     a: Oo. May printable version (Letter / short bond) at phone version.
 
