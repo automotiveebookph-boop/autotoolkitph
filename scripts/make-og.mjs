@@ -10,7 +10,8 @@
  * Writes src/assets/products/<slug>/og.jpg. Then set `seo.ogImage: og.jpg` in the product YAML.
  * Re-run it whenever the logo, price or copy changes (and commit the new og.jpg).
  *
- * - Colors are read from src/styles/tokens.css, the logo from public/brand/logo-horizontal-light.svg.
+ * - Colors are read from src/styles/tokens.css, the logos from public/brand/logo-horizontal-{light,dark}.svg
+ *   (run scripts/make-logos.mjs first if the logo changed).
  * - Text is converted to vector outlines with the site's own fonts (Bricolage Grotesque,
  *   Source Sans 3), so the result doesn't depend on fonts installed on this computer.
  * - The product mockup card on the right uses the product's `name` and `mockupLine` from its YAML.
@@ -19,8 +20,8 @@ import { readFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { createRequire } from 'node:module';
-import sharp from 'sharp';
 import * as fontkit from 'fontkit';
+import { svgToJpeg } from './lib/rasterize.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
@@ -168,7 +169,6 @@ const cardW = 330;
 const cardH = 446;
 const ct = fit(cardTitle, F.head, 38, cardW - 64, 4, 26);
 const cl = fit(cardLine, F.body6, 19, cardW - 64, 3, 14);
-const cardBrand = textPath('AutoToolKitPH', F.head, 20, cardX + 32, cardY + 52);
 let cy = cardY + cardH - 64 - (cl.lines.length - 1) * 25 - 34 - (ct.lines.length - 1) * ct.size * 1.08 - 18;
 const cardTitleD = ct.lines.map((l, i) => textPath(l, F.head, ct.size, cardX + 32, cy + i * ct.size * 1.08)).join('');
 cy += (ct.lines.length - 1) * ct.size * 1.08 + 22;
@@ -177,10 +177,20 @@ cy += 30 + 12;
 const cardLineD = cl.lines.map((l, i) => textPath(l, F.body6, 19, cardX + 32, cy + i * 25)).join('');
 const pillW = measure('PDF', F.body7, 15) + 24;
 
+/* ── Logos (the real SVG files, embedded) ─────────────────────────────────── */
+function logoImage(variant, x, y, h) {
+  const file = readFileSync(join(ROOT, `public/brand/logo-horizontal-${variant}.svg`), 'utf8');
+  const [, vw, vh] = file.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/).map(Number);
+  const w = ((h * vw) / vh).toFixed(1);
+  return `<image x="${x}" y="${y}" width="${w}" height="${h}" href="data:image/svg+xml;base64,${Buffer.from(file).toString('base64')}"/>`;
+}
+
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" fill="${C.bg}"/>
   <rect x="${W - 470}" y="0" width="470" height="${H}" fill="${C.dark}"/>
   <circle cx="${W + 20}" cy="${H + 40}" r="230" fill="none" stroke="${C.lime}" stroke-opacity="0.14" stroke-width="44"/>
+
+  ${logoImage('light', PAD, 60, 48)}
 
   <g fill="${C.text}">${headD}</g>
   <rect x="${PAD}" y="${barY}" width="84" height="8" rx="4" fill="${C.accent}"/>
@@ -188,16 +198,16 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <g fill="${C.muted}">${tagD}</g>
 
   <g transform="rotate(4 ${cardX + cardW / 2} ${cardY + cardH / 2})">
-    <rect x="${cardX + 14}" y="${cardY + 10}" width="${cardW}" height="${cardH}" rx="20" fill="#3a3e42"/>
+    <rect x="${cardX + 14}" y="${cardY + 10}" width="${cardW}" height="${cardH}" rx="20" fill="#2e3a46"/>
   </g>
-  <rect x="${cardX}" y="${cardY}" width="${cardW}" height="${cardH}" rx="20" fill="${C.dark2}" stroke="#3a3f44" stroke-width="2"/>
-  <g fill="${C.lime}">${cardBrand}</g>
+  <rect x="${cardX}" y="${cardY}" width="${cardW}" height="${cardH}" rx="20" fill="${C.dark2}" stroke="#34404c" stroke-width="2"/>
+  ${logoImage('dark', cardX + 32, cardY + 34, 24)}
   <rect x="${cardX + cardW - 32 - pillW}" y="${cardY + 32}" width="${pillW}" height="28" rx="14" fill="none" stroke="${C.lime}" stroke-width="1.5"/>
   <g fill="${C.lime}">${textPath('PDF', F.body7, 15, cardX + cardW - 32 - pillW + 12, cardY + 51)}</g>
   ${[0, 1, 2]
     .map(
       (i) => `<rect x="${cardX + 32}" y="${cardY + 96 + i * 30}" width="16" height="16" rx="4" fill="${C.lime}"/>
-  <rect x="${cardX + 58}" y="${cardY + 100 + i * 30}" width="${[200, 160, 120][i]}" height="8" rx="4" fill="#3a3f44"/>`,
+  <rect x="${cardX + 58}" y="${cardY + 100 + i * 30}" width="${[200, 160, 120][i]}" height="8" rx="4" fill="#34404c"/>`,
     )
     .join('\n  ')}
   <g fill="#ffffff">${cardTitleD}</g>
@@ -205,16 +215,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <g fill="${C.onDarkMuted}">${cardLineD}</g>
 </svg>`;
 
-/* ── Logo (rendered from the real SVG file, top-left) ────────────────────── */
-const logoSvg = readFileSync(join(ROOT, 'public/brand/logo-horizontal-light.svg'));
-const logo = await sharp(logoSvg, { density: 300 }).resize({ height: 48 }).png().toBuffer();
-
 mkdirSync(dirname(out), { recursive: true });
-const info = await sharp(Buffer.from(svg))
-  .composite([{ input: logo, left: PAD, top: 60 }])
-  .flatten({ background: C.bg })
-  .jpeg({ quality: 86, mozjpeg: true })
-  .toFile(out);
+const info = await svgToJpeg(svg, W, H, out);
 
-console.log(`Wrote ${out.replace(ROOT, '.').replace(/\\/g, '/')} — ${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB`);
+console.log(`Wrote ${out.replace(ROOT, '.').replace(/\\/g, '/')} — ${info.width}×${info.height}, ${Math.round(info.size / 1024)} KB (via ${info.via})`);
 console.log(`Headline ${head.size}px on ${head.lines.length} line(s): ${head.lines.map((l) => `"${l}"`).join(' / ')}`);

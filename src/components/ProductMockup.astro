@@ -1,6 +1,6 @@
 ---
 /** CSS-built "cover" of the product — no image download needed. */
-import { BRAND_NAME } from '../config/site';
+import { LOGOS } from '../config/site';
 
 interface Props {
   name: string;
@@ -15,7 +15,7 @@ const { name, mockupLine, size = 'lg' } = Astro.props;
   <div class="sheet sheet--mid"></div>
   <div class="cover">
     <div class="top">
-      <span class="brand">{BRAND_NAME}</span>
+      <img class="brand" src={LOGOS.horizontalDark.src} width={LOGOS.horizontalDark.width} height={LOGOS.horizontalDark.height} alt="" />
       <span class="pdf">PDF</span>
     </div>
     <p class="name">{name}</p>
@@ -57,7 +57,7 @@ const { name, mockupLine, size = 'lg' } = Astro.props;
     flex-direction: column;
     gap: 0.9em;
     padding: 1.4em 1.3em;
-    background: linear-gradient(160deg, #22262a 0%, var(--color-dark) 60%);
+    background: linear-gradient(160deg, #1d2833 0%, var(--color-dark) 60%);
     color: var(--color-on-dark);
     box-shadow: var(--shadow-lg);
     overflow: hidden;
@@ -83,11 +83,9 @@ const { name, mockupLine, size = 'lg' } = Astro.props;
     gap: 0.5em;
   }
   .brand {
-    font-family: var(--font-h);
-    font-weight: 800;
-    font-size: 0.85em;
-    color: var(--color-accent-bright);
-    letter-spacing: 0.01em;
+    height: 1.05em;
+    width: auto;
+    min-width: 0;
   }
   .pdf {
     font-size: 0.65em;
@@ -125,7 +123,7 @@ const { name, mockupLine, size = 'lg' } = Astro.props;
   .checks span {
     height: 0.45em;
     border-radius: 99px;
-    background: #3a3f44;
+    background: #34404c;
     position: relative;
     margin-left: 1.3em;
   }

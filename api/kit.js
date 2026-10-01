@@ -105,9 +105,9 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 const fmtDate = (unix) => new Date(unix * 1000).toLocaleDateString('en-PH', { timeZone: 'Asia/Manila', year: 'numeric', month: 'long', day: 'numeric' });
 const shell = (title, body) => `<!doctype html><html lang="fil"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${esc(title)}</title><link rel="icon" href="/brand/logo-mark.svg" type="image/svg+xml">
 <style>
-:root{--bg:#f5f5f2;--card:#fff;--ink:#1b1d1f;--muted:#4a4f55;--line:#dadad3;--accent:#487219;--accent-h:#3d6015;--dark:#1b1d1f;--lime:#8dc63f;--tint:#eef4e4}
+:root{--bg:#f5f5f2;--card:#fff;--ink:#151f28;--muted:#4a4f55;--line:#dadad3;--accent:#487219;--accent-h:#3d6015;--dark:#151f28;--lime:#b4d12b;--tint:#eef4e4}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
-.top{background:var(--dark);color:#fff;padding:16px 18px}.top b{font-weight:800}.top span{color:var(--lime)}
+.top{background:var(--dark);padding:14px 18px;line-height:0}.top img{height:26px;width:auto}
 main{max-width:30rem;margin:0 auto;padding:20px 16px 40px;display:grid;gap:16px}
 h1{font-size:1.6rem;line-height:1.15;margin:0}p{margin:0}.muted{color:var(--muted)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px}
@@ -116,7 +116,7 @@ a.btn small{font-weight:400;opacity:.9}a.btn:hover{background:var(--accent-h)}a.
 a.btn:focus-visible{outline:3px solid #1b6fd1;outline-offset:3px}
 ul{margin:0;padding-left:1.1rem;display:grid;gap:6px}.tint{background:var(--tint);border-color:#cfe0b8}
 a{color:var(--accent);font-weight:700}
-</style></head><body><div class="top"><b>AutoToolKit<span>PH</span></b></div><main>${body}</main></body></html>`;
+</style></head><body><div class="top"><img src="/brand/logo-horizontal-dark.svg" width="172" height="26" alt="AutoToolKitPH"></div><main>${body}</main></body></html>`;
 
 function downloadPage(t, p) {
   const first = p.n.split(' ')[0];
