@@ -154,6 +154,18 @@ export default async function handler(req, res) {
   const t = String(req.query.t || '');
   const f = req.query.f ? String(req.query.f).replace(/\.pdf$/, '') : '';
 
+  // /kit/check — setup diagnostic. Reports only whether each key is set and usable, never a value.
+  if (t === 'check') {
+    const probe = (name) => {
+      const v = process.env[name];
+      if (v === undefined) return 'missing';
+      if (/^\s|\s$|["']/.test(v)) return 'set, but has spaces or quotes around it';
+      return Buffer.from(v, 'base64').length === 32 ? 'ok' : 'set, but not a 32-byte key';
+    };
+    res.status(200).setHeader('Content-Type', 'application/json; charset=utf-8');
+    return res.send(JSON.stringify({ KIT_KEY: probe('KIT_KEY'), LINK_KEY: probe('LINK_KEY'), environment: process.env.VERCEL_ENV || 'unknown' }));
+  }
+
   let p;
   try {
     p = readToken(t);
