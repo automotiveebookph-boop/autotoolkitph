@@ -17,7 +17,7 @@ const BRAND = 'AutoToolKitPH';
 const MESSENGER = 'https://m.me/AutoToolKitPH'; // keep in sync with FB_PAGE_NAME in src/config/site.ts
 const FILES = {
   phone: { label: 'Phone Version', note: 'Para gamitin sa phone mismo, kahit walang printer', filename: '2nd Hand Car Inspection Kit PH - Phone Version' },
-  printable: { label: 'Printable A4', note: 'I-print at dalhin sa viewing', filename: '2nd Hand Car Inspection Kit PH - Printable (A4)' },
+  printable: { label: 'Printable (Letter / short bond)', note: 'I-print at dalhin sa viewing', filename: '2nd Hand Car Inspection Kit PH - Printable (Letter)' },
 };
 
 const key = (name) => {
@@ -85,7 +85,7 @@ async function stamp(name, p) {
     const { width } = page.getSize();
     if (name === 'printable') {
       const f = fit(font, head, tail, 300, 7.5, 6);
-      page.drawText(f.text, { x: 375 - font.widthOfTextAtSize(f.text, f.size) / 2, y: 19.2, size: f.size, font, color: grey });
+      page.drawText(f.text, { x: 386 - font.widthOfTextAtSize(f.text, f.size) / 2, y: 18.8, size: f.size, font, color: grey });
     } else if (i === 0) {
       const f = fit(font, head, tail, width - 36, 7, 5.5);
       page.drawText(f.text, { x: 18, y: 11, size: f.size, font, color: coverGrey });
@@ -189,7 +189,7 @@ export default async function handler(req, res) {
   }
   if (!FILES[f]) {
     res.status(404).setHeader('Content-Type', 'text/html; charset=utf-8');
-    return res.send(problemPage('Walang ganitong file', 'Bumalik sa download page at piliin ang Phone Version o Printable A4.'));
+    return res.send(problemPage('Walang ganitong file', 'Bumalik sa download page at piliin ang Phone Version o Printable.'));
   }
   try {
     const pdf = await stamp(f, p);
