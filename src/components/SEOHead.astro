@@ -36,8 +36,8 @@ const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta name="x-build" content={`${BUILD_COMMIT} ${BUILD_ENV}`} />
 <link rel="icon" href={LOGOS.mark.src} type="image/svg+xml" />
 
-<Font cssVariable="--font-heading" preload={[{ weight: 800 }]} />
-<Font cssVariable="--font-body" preload={[{ weight: 400 }]} />
+<Font cssVariable="--font-heading" preload={[{ weight: 800, subset: 'latin' }]} />
+<Font cssVariable="--font-body" preload={[{ weight: 400, subset: 'latin' }]} />
 
 <meta property="og:site_name" content={BRAND_NAME} />
 <meta property="og:locale" content="fil_PH" />

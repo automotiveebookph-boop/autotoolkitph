@@ -18,7 +18,7 @@ export default defineConfig({
       cssVariable: '--font-heading',
       weights: [600, 800],
       styles: ['normal'],
-      subsets: ['latin'],
+      subsets: ['latin', 'latin-ext'], // latin-ext carries ₱ (U+20B1); fetched only on pages that use it
       formats: ['woff2'],
       fallbacks: ['system-ui', 'sans-serif'],
     },
@@ -28,7 +28,7 @@ export default defineConfig({
       cssVariable: '--font-body',
       weights: [400, 600, 700],
       styles: ['normal'],
-      subsets: ['latin'],
+      subsets: ['latin', 'latin-ext'], // latin-ext carries ₱ (U+20B1); fetched only on pages that use it
       formats: ['woff2'],
       fallbacks: ['system-ui', 'sans-serif'],
     },
