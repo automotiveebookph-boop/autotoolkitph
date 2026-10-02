@@ -96,7 +96,7 @@ guarantee:
 # ── How to order (numbered steps) ──────────────────────────────────────────
 howToOrder:
   - I-tap ang Order via Messenger
-  - Magbayad via GCash o Maya gamit ang details na ise-send namin
+  - Magbayad via GCash gamit ang details na ise-send namin
   - I-send ang screenshot ng payment at ang email mo
   - Matanggap ang download link sa Messenger at email — {DELIVERY_HOURS} araw-araw
 

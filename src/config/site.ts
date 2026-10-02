@@ -33,7 +33,7 @@ export const META_PIXEL_ID: string = readEnv('PUBLIC_META_PIXEL_ID');
  */
 export const SITE_URL: string = '';
 
-export const PAYMENT_METHODS = ['GCash', 'Maya'];
+export const PAYMENT_METHODS = ['GCash'];
 
 export const GUARANTEE_TEXT = '7-day money-back guarantee';
 
