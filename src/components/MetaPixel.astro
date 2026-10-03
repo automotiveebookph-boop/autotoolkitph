@@ -71,13 +71,12 @@ const pixelId = META_PIXEL_ID;
 
     function productParams(el) {
       var d = el.dataset;
-      return {
-        content_ids: [d.slug],
-        content_name: d.name,
-        content_type: 'product',
-        value: Number(d.price),
-        currency: 'PHP',
-      };
+      var params = { content_ids: [d.slug], content_name: d.name, content_type: 'product' };
+      if (d.price) {
+        params.value = Number(d.price);
+        params.currency = 'PHP';
+      }
+      return params;
     }
 
     /* 1. PageView — every page */

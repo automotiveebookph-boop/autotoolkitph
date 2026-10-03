@@ -2,6 +2,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import {
   BRAND_NAME,
+  BUILD_ENV,
   DELIVERY_HOURS,
   MESSENGER_BASE,
   SHOW_COMING_SOON,
@@ -28,6 +29,7 @@ async function allProducts(): Promise<Product[]> {
 export async function getActiveProducts(): Promise<Product[]> {
   const active = (await allProducts()).filter((p) => p.status === 'active').sort(bySortOrder);
   assertImagesExist(active);
+  assertPricesSet(active);
   return active;
 }
 
@@ -39,7 +41,8 @@ export async function getListedProducts(): Promise<Product[]> {
   return [...active, ...soon];
 }
 
-export const formatPrice = (n: number) => `₱${n.toLocaleString('en-PH')}`;
+/** "₱199", or the placeholder "₱___" while a product's price isn't set yet. */
+export const formatPrice = (n: number | undefined) => (n === undefined ? '₱___' : `₱${n.toLocaleString('en-PH')}`);
 
 /** Replace {BRAND_NAME}, {YEARS_EXPERIENCE}, {DELIVERY_HOURS} and (with a product) {PRICE}. */
 export function fill(text: string, product?: Pick<Product, 'price'>): string {
@@ -78,6 +81,18 @@ export function getProductImage(slug: string, file: string | undefined): ImageMe
   if (exact) return exact.default;
   const key = Object.keys(productImages).find((k) => k.startsWith(dir) && stem(k.slice(dir.length)) === stem(file));
   return key ? productImages[key].default : undefined;
+}
+
+/** A "₱___" placeholder may show locally and on preview deploys, never on the live site. */
+function assertPricesSet(products: Product[]) {
+  const unpriced = products.filter((p) => p.price === undefined).map((p) => p.slug);
+  if (unpriced.length && BUILD_ENV === 'production') {
+    throw new Error(
+      `[products] Active product(s) without a price: ${unpriced.join(', ')}.
+` +
+        `Production build stopped so "₱___" never goes live. Set "price" in the YAML, or set status to "hidden".`,
+    );
+  }
 }
 
 /**

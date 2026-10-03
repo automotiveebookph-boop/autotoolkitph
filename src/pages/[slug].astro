@@ -41,15 +41,17 @@ const jsonLd = {
   brand: { '@type': 'Brand', name: BRAND_NAME },
   category: p.category,
   url: pageUrl,
-  offers: {
-    '@type': 'Offer',
-    price: p.price.toFixed(2),
-    priceCurrency: 'PHP',
-    availability: 'https://schema.org/InStock',
-    url: pageUrl,
-  },
+  ...(p.price !== undefined && {
+    offers: {
+      '@type': 'Offer',
+      price: p.price.toFixed(2),
+      priceCurrency: 'PHP',
+      availability: 'https://schema.org/InStock',
+      url: pageUrl,
+    },
+  }),
 };
-const payLine = [...PAYMENT_METHODS, GUARANTEE_TEXT.replace(/ guarantee$/i, '')].join(' · ');
+const payLine = [...PAYMENT_METHODS, ...(p.guarantee ? [GUARANTEE_TEXT.replace(/ guarantee$/i, '')] : [])].join(' · ');
 ---
 
 <BaseLayout
@@ -79,6 +81,20 @@ const payLine = [...PAYMENT_METHODS, GUARANTEE_TEXT.replace(/ guarantee$/i, '')]
       </div>
     </div>
   </section>
+
+  <!-- Trust strip -->
+  {
+    p.trust && (
+      <section class="trust section--dark on-dark" aria-labelledby="trust-h">
+        <div class="container trust-grid">
+          <p id="trust-h" class="trust-h">{t(p.trust.heading)}</p>
+          <ul class="trust-list" role="list">
+            {p.trust.items.map((item) => <li>{t(item)}</li>)}
+          </ul>
+        </div>
+      </section>
+    )
+  }
 
   <!-- Problem -->
   <section class="section section--white" aria-labelledby="problem-h">
@@ -228,6 +244,48 @@ const payLine = [...PAYMENT_METHODS, GUARANTEE_TEXT.replace(/ guarantee$/i, '')]
     }
     .hero-grid {
       grid-template-columns: 1.25fr 1fr;
+    }
+  }
+
+  .trust {
+    padding-block: var(--space-5);
+  }
+  .trust-grid {
+    display: grid;
+    gap: var(--space-3);
+    align-items: center;
+  }
+  .trust-h {
+    font-family: var(--font-h);
+    font-weight: 800;
+    font-size: var(--fs-lg);
+    color: var(--color-accent-bright);
+  }
+  .trust-list {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .trust-list li {
+    position: relative;
+    padding-left: 1.75rem;
+    font-weight: 600;
+  }
+  .trust-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-bright);
+    font-weight: 800;
+  }
+  @media (min-width: 56rem) {
+    .trust-grid {
+      grid-template-columns: auto 1fr;
+      gap: var(--space-6);
+    }
+    .trust-list {
+      grid-template-columns: repeat(3, auto);
+      justify-content: start;
+      gap: var(--space-6);
     }
   }
 

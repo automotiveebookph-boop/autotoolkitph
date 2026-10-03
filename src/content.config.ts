@@ -36,7 +36,8 @@ const products = defineCollection({
       /** One-line summary used on homepage cards. Falls back to subhead. */
       cardBlurb: z.string().trim().optional(),
 
-      price: z.number({ error: '"price" is required and must be a number (no ₱ sign)' }).positive(),
+      /** Leave out while the price isn't decided: pages show "₱___" and production builds refuse the product while it's active. */
+      price: z.number({ error: '"price" must be a number (no ₱ sign)' }).positive().optional(),
       regularPrice: z.number().positive().optional(),
       priceLabel: text('priceLabel'),
       valueLine: text('valueLine'),
@@ -76,9 +77,20 @@ const products = defineCollection({
       creatorNoteHeading: z.string().trim().default('Sino ang gumawa nito?'),
       creatorNote: z.array(text('creatorNote[]')).min(1, '"creatorNote" needs at least 1 paragraph'),
 
-      guarantee: z.object({
-        body: text('guarantee.body'),
-      }),
+      /** Optional. Without it the pricing card shows no guarantee box and the pay line drops the guarantee. */
+      guarantee: z
+        .object({
+          body: text('guarantee.body'),
+        })
+        .optional(),
+
+      /** Optional strip of short trust points shown under the hero, e.g. what is up to date. */
+      trust: z
+        .object({
+          heading: text('trust.heading'),
+          items: z.array(text('trust.items[]')).min(1, '"trust.items" needs at least 1 item'),
+        })
+        .optional(),
 
       howToOrder: z.array(text('howToOrder[]')).min(1, '"howToOrder" needs at least 1 step'),
 
@@ -111,7 +123,7 @@ const products = defineCollection({
         )
         .default([]),
     })
-    .refine((p) => p.regularPrice === undefined || p.regularPrice > p.price, {
+    .refine((p) => p.regularPrice === undefined || (p.price !== undefined && p.regularPrice > p.price), {
       message: '"regularPrice" must be higher than "price" (or remove it)',
       path: ['regularPrice'],
     }),

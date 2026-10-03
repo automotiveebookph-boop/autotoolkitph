@@ -12,7 +12,7 @@ interface Props {
   product: Product;
 }
 const { product } = Astro.props;
-const saved = product.regularPrice ? product.regularPrice - product.price : 0;
+const saved = product.regularPrice && product.price ? product.regularPrice - product.price : 0;
 ---
 
 <div class="price-card" data-track-view-content data-slug={product.slug} data-name={product.name} data-price={product.price}>
@@ -34,7 +34,7 @@ const saved = product.regularPrice ? product.regularPrice - product.price : 0;
   <p class="value">{fill(product.valueLine, product)}</p>
   <CTAButton product={product} location="pricing" block />
   <p class="pay">Bayad via {PAYMENT_METHODS.join(' o ')} · Download link sa Messenger</p>
-  <GuaranteeBox body={fill(product.guarantee.body, product)} />
+  {product.guarantee && <GuaranteeBox body={fill(product.guarantee.body, product)} />}
 </div>
 
 <style>
