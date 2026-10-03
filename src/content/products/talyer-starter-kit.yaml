@@ -1,0 +1,97 @@
+# Talyer Starter Kit PH 2026
+# Field reference: see _TEMPLATE.yaml in this folder.
+# Images for this product go in: src/assets/products/talyer-starter-kit/
+#   (preview-1..4.jpg come from product/talyer-kit/ebook/make-previews.py)
+#
+# NOT LIVE YET: no price is set, so the page shows "₱___". Before going live:
+#   1. set "price" below (and optionally regularPrice)
+#   2. set status: active
+# A production build refuses an active product with no price, so "₱___" can't go live by accident.
+
+slug: talyer-starter-kit
+status: hidden
+sortOrder: 2
+category: Talyer owners
+
+name: Talyer Starter Kit PH 2026
+shortName: Talyer Starter Kit
+eyebrow: PARA SA MAGTATAYO NG TALYER
+h1: Magtatayo ka ba ng talyer? Huwag manghula — gamitin ang 2026 roadmap.
+subhead: 'Paano magtayo ng talyer na kumikita, legal, at pinagkakatiwalaan: step-by-step na guide + Excel toolkit, updated for 2026.'
+mockupLine: Permits · Pricing · Payroll · Taxes · 90-day plan
+cardBlurb: Step-by-step na roadmap at Excel toolkit para magtayo ng talyer na kumikita, legal, at pinagkakatiwalaan.
+
+# price: not set yet → shows ₱___ (see the note at the top)
+priceLabel: 2026 Edition
+valueLine: Isang guide at isang Excel toolkit para sa buong setup — mula model at location hanggang permits, payroll, taxes at launch.
+
+trust:
+  heading: Updated for 2026
+  items:
+    - BIR ORUS at invoices
+    - DTI SRE accreditation
+    - 2026 SSS, PhilHealth at Pag-IBIG
+
+problem:
+  heading: Hindi mekaniko ang madalas na dahilan kung bakit nagsasara ang talyer.
+  body: 'Ayon sa karanasan sa shop, apat na bagay ang madalas magpabagsak sa bagong talyer. Ito ang inaayos ng kit na ito, una sa lahat:'
+  bullets:
+    - Masyadong mababa ang singil sa labor
+    - Halo ang pera ng shop at ng pamilya
+    - Kulang o maling permits
+    - Walang sistema para sa job orders
+
+modulesHeading: 2 files. Isang kumpletong roadmap.
+modules:
+  - number: '01'
+    title: Talyer Starter Kit PH 2026 (PDF guide)
+    description: 'The step-by-step roadmap: model, location, capital, permits, pricing, SOPs, payroll, taxes, marketing, launch'
+  - number: '02'
+    title: Talyer Business Toolkit 2026 (Excel)
+    description: '9 working tabs: startup cost, labor rate calculator, job order/estimate, daily sales log, payroll with 2026 contributions, parts inventory, monthly P&L, tax option comparison'
+
+previewsHeading: Silipin ang loob
+previews:
+  - image: preview-1.jpg
+    label: Part 4 legal registration roadmap
+  - image: preview-2.jpg
+    label: Part 5 labor rate formula
+  - image: preview-3.jpg
+    label: Part 8 money system and taxes
+  - image: preview-4.jpg
+    label: Part 11 90-day launch checklist
+
+audienceHeading: Para kanino ito?
+audience:
+  - Gustong magtayo ng sariling talyer
+  - Mekanikong nagpaplanong magbukas ng sariling shop
+  - OFW na nagpaplanong mag-negosyo pag-uwi
+
+creatorNoteHeading: Sino ang gumawa nito?
+creatorNote:
+  - Isinulat mula sa hands-on shop experience, hindi mula sa school feasibility study.
+  - Hindi ito tax o legal advice. Para ito sa education at planning — laging i-verify sa DTI, BIR, LGU at iba pang ahensya bago kumilos.
+
+howToOrder:
+  - I-message kami sa Messenger
+  - Magbayad via GCash gamit ang details na ise-send namin
+  - Matanggap ang download link sa Messenger pagka-verify ng bayad
+
+faqs:
+  - q: Is this tax/legal advice?
+    a: Hindi. Para ito sa education at planning. Laging i-verify sa DTI, BIR, LGU, DOLE, SSS, PhilHealth, Pag-IBIG at DENR bago kumilos, at kumonsulta sa lisensyadong accountant o lawyer para sa tax at legal decisions.
+  - q: Updated ba ito?
+    a: Oo, as of October 2026. Nagbabago ang rules, kaya laging i-confirm sa ahensya bago magbayad o mag-file.
+  - q: Paano ko makukuha?
+    a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger.
+
+finalCta:
+  heading: Huwag manghula. Simulan sa tamang roadmap.
+
+disclaimer: 'This guide is for education and planning. Government fees, rates and procedures change and differ by LGU. Verify with DTI, BIR, your LGU, DOLE, SSS, PhilHealth, Pag-IBIG and DENR before acting. For tax and legal decisions, consult a licensed accountant or lawyer. {BRAND_NAME} is not affiliated with any government agency.'
+
+seo:
+  title: Talyer Starter Kit PH 2026 — Paano Magtayo ng Talyer na Kumikita at Legal
+  description: 'Step-by-step na gabay sa pagtatayo ng talyer sa Pilipinas: permits (DTI, BIR ORUS, SRE accreditation), labor rate, payroll na may 2026 SSS/PhilHealth/Pag-IBIG, taxes, at 90-day launch checklist. May Excel toolkit.'
+
+addOns: []
