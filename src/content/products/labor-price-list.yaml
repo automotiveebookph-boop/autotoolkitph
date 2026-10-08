@@ -1,10 +1,10 @@
 # Talyer Labor Price List PH — sold on its own (₱149) and included as a bonus in the Talyer Starter Kit PH 2026.
 # Field reference: see _TEMPLATE.yaml in this folder.
 # Images: src/assets/products/labor-price-list/ (from product/talyer-kit/make-shop-previews.py)
-# NOT LIVE YET: set status: active and push when the user says go.
+# LIVE since 2026-10-08.
 
 slug: labor-price-list
-status: hidden
+status: active
 sortOrder: 3
 category: Talyer owners
 

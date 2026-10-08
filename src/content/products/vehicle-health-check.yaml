@@ -1,10 +1,10 @@
 # Vehicle Health / Safety Check Report — sold on its own (₱99) and included as a bonus in the Talyer Starter Kit PH 2026.
 # Field reference: see _TEMPLATE.yaml in this folder.
 # Images: src/assets/products/vehicle-health-check/ (from product/talyer-kit/make-shop-previews.py)
-# NOT LIVE YET: set status: active and push when the user says go.
+# LIVE since 2026-10-08.
 
 slug: vehicle-health-check
-status: hidden
+status: active
 sortOrder: 4
 category: Talyer owners
 

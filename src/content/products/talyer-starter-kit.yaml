@@ -3,10 +3,10 @@
 # Images for this product go in: src/assets/products/talyer-starter-kit/
 #   (preview-1..4.jpg come from product/talyer-kit/ebook/make-previews.py)
 #
-# NOT LIVE YET: set status: active and push when the user says go. Price ₱999 (set 2026-10-08).
+# LIVE since 2026-10-08. Price ₱999 (set 2026-10-08).
 
 slug: talyer-starter-kit
-status: hidden
+status: active
 sortOrder: 2
 category: Talyer owners
 
