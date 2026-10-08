@@ -1,11 +1,13 @@
 /**
- * Buyer download links: /kit/<token>  (page)  and  /kit/<token>/<phone|printable>  (PDF).
+ * Buyer download links: /kit/<token>  (page)  and  /kit/<token>/<file>  (the file).
  * vercel.json rewrites those paths to this function.
  *
  * <token> is created by the private order page: AES-256-GCM over
- * {o: order no., n: name, e: email, x: expiry (unix seconds)} with LINK_KEY, so it can't be
- * read, forged or edited. Each request decrypts the kit (KIT_KEY), stamps the buyer's name,
- * email and order number on every page, and returns it.
+ * {o: order no., n: name, e: email, x: expiry (unix seconds), k: product} with LINK_KEY, so it can't be
+ * read, forged or edited. Links made before products existed have no k and mean the inspection kit.
+ * Each request decrypts the file (KIT_KEY). PDFs that buyers keep get the buyer's name, email and order
+ * number stamped on every page; forms meant for a talyer's own customers and Excel files are not stamped
+ * on the page (PDF forms get it in their metadata only).
  *
  * Environment variables (Vercel → Settings → Environment Variables): KIT_KEY, LINK_KEY.
  */
@@ -15,10 +17,47 @@ import * as kit from './_kit-data.js';
 
 const BRAND = 'AutoToolKitPH';
 const MESSENGER = 'https://m.me/AutoToolKitPH'; // keep in sync with FB_PAGE_NAME in src/config/site.ts
-const FILES = {
-  phone: { label: 'Phone Version', note: 'Para gamitin sa phone mismo, kahit walang printer', filename: '2nd Hand Car Inspection Kit PH - Phone Version' },
-  printable: { label: 'Printable (Letter / short bond)', note: 'I-print at dalhin sa viewing', filename: '2nd Hand Car Inspection Kit PH - Printable (Letter)' },
+const OPEN_TIP = 'Kung hindi bumukas ang file dito sa Messenger, i-tap ang <b>⋯</b> at piliin ang <b>Open in browser</b>, tapos i-download ulit.';
+
+/* data = export name in _kit-data.js · stamp = how the buyer is marked · ext = file type */
+const F = {
+  phone: { label: 'Phone Version', note: 'Para gamitin sa phone mismo, kahit walang printer', filename: '2nd Hand Car Inspection Kit PH - Phone Version', data: 'phone', stamp: 'phone', ext: 'pdf' },
+  printable: { label: 'Printable (Letter / short bond)', note: 'I-print at dalhin sa viewing', filename: '2nd Hand Car Inspection Kit PH - Printable (Letter)', data: 'printable', stamp: 'printable', ext: 'pdf' },
+  guide: { label: 'Talyer Starter Kit PH 2026 (PDF guide)', note: 'Ang step-by-step na roadmap — simulan dito', filename: 'Talyer Starter Kit PH 2026', data: 'talyer_guide', stamp: 'ebook', ext: 'pdf' },
+  toolkit: { label: 'Talyer Business Toolkit 2026 (Excel)', note: '9 tabs: startup cost, labor rate, job order, daily log, payroll, inventory, P&L, tax', filename: 'AutoToolKitPH Talyer Business Toolkit 2026', data: 'talyer_toolkit', ext: 'xlsx' },
+  example: { label: 'Toolkit EXAMPLE (Excel)', note: 'Halimbawang shop na naka-fill in — tingnan muna ito', filename: 'AutoToolKitPH Talyer Business Toolkit 2026 - EXAMPLE', data: 'talyer_example', ext: 'xlsx' },
+  pricelist: { label: 'Talyer Labor Price List (Excel)', note: '99 jobs, member price at printable price board', filename: 'AutoToolKitPH Talyer Labor Price List', data: 'pricelist', ext: 'xlsx' },
+  'check-a4': { label: 'Vehicle Health Check Report (A4)', note: 'Fillable PDF — i-fill in sa phone o i-print', filename: 'AutoToolKitPH Vehicle Health Check Report - A4', data: 'check_a4', stamp: 'meta', ext: 'pdf' },
+  'check-letter': { label: 'Vehicle Health Check Report (Letter / short bond)', note: 'Parehong form, para sa short bond', filename: 'AutoToolKitPH Vehicle Health Check Report - Letter', data: 'check_letter', stamp: 'meta', ext: 'pdf' },
 };
+const bonus = (k) => ({ ...F[k], label: 'BONUS: ' + F[k].label });
+const PRODUCTS = {
+  inspection: {
+    name: '2nd Hand Car Inspection Kit PH',
+    files: { phone: F.phone, printable: F.printable },
+    tips: ['Basahin muna ang <b>“Paano gamitin”</b> (page 2) bago ang viewing.', OPEN_TIP, 'Para sa personal na gamit lamang ang kit; naka-pangalan ito sa inyo.'],
+    guarantee: true,
+  },
+  talyer: {
+    name: 'Talyer Starter Kit PH 2026',
+    files: { guide: F.guide, toolkit: F.toolkit, example: F.example, pricelist: bonus('pricelist'), 'check-a4': bonus('check-a4'), 'check-letter': bonus('check-letter') },
+    tips: ['Basahin muna ang <b>Parts 1–4</b> ng guide bago pumirma ng lease o bumili ng tools.',
+      'Buksan ang Excel files sa computer (Microsoft Excel) para sa pinakamagandang resulta. Tingnan muna ang <b>EXAMPLE</b> file para makita kung paano gamitin.',
+      OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang guide.'],
+  },
+  pricelist: {
+    name: 'Talyer Labor Price List PH',
+    files: { pricelist: F.pricelist },
+    tips: ['Buksan sa Excel, i-type ang shop name sa <b>Price List</b> tab, i-adjust ang presyo, tapos i-print ang <b>Price Board</b> tab.', OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang.'],
+  },
+  check: {
+    name: 'Vehicle Health Check Report PH',
+    files: { 'check-a4': F['check-a4'], 'check-letter': F['check-letter'] },
+    tips: ['Para mag-fill in sa phone, buksan sa PDF app na may forms (hal. Adobe Acrobat Reader). Pwede rin itong i-print nang marami.',
+      'Piliin ang A4 o Letter (short bond) depende sa papel na gamit ninyo.', OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang.'],
+  },
+};
+const TYPES = { pdf: 'application/pdf', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' };
 
 const key = (name) => {
   const k = Buffer.from(process.env[name] || '', 'base64');
@@ -39,6 +78,8 @@ function readToken(t) {
   try {
     const p = JSON.parse(aesOpen(Buffer.from(t, 'base64url'), key('LINK_KEY')).toString('utf8'));
     if (typeof p.o !== 'string' || typeof p.n !== 'string' || typeof p.x !== 'number') return null;
+    p.k = p.k === undefined ? 'inspection' : p.k;
+    if (!PRODUCTS[p.k]) return null;
     return p;
   } catch (e) {
     if (/LINK_KEY/.test(e.message)) throw e;
@@ -46,10 +87,11 @@ function readToken(t) {
   }
 }
 
-/** Kit stored as base64( iv(12) | tag(16) | ciphertext ). */
+/** Files stored as base64( iv(12) | tag(16) | ciphertext ). */
 const masters = {};
 function master(name) {
   if (!masters[name]) {
+    if (!kit[name]) throw new Error(`file "${name}" is not in _kit-data.js`);
     const buf = Buffer.from(kit[name], 'base64');
     const d = createDecipheriv('aes-256-gcm', key('KIT_KEY'), buf.subarray(0, 12));
     d.setAuthTag(buf.subarray(12, 28));
@@ -74,24 +116,29 @@ function fit(font, head, tail, maxW, size, minSize) {
   while (w(t, size) > maxW && t.length > 12) t = t.slice(0, -2).trimEnd() + '…';
   return { text: t + tail, size };
 }
-async function stamp(name, p) {
-  const pdf = await PDFDocument.load(master(name));
+async function makeFile(file, p) {
+  const raw = master(file.data);
+  if (file.ext !== 'pdf') return raw;
+  const pdf = await PDFDocument.load(raw);
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const head = forFont(font, `Para kay ${p.n}${p.e ? ` · ${p.e}` : ''}`);
   const tail = forFont(font, ` · Order #${p.o}`);
   const grey = rgb(0x6b / 255, 0x6f / 255, 0x75 / 255);
   const coverGrey = rgb(0xb8 / 255, 0xbc / 255, 0xc2 / 255);
-  pdf.getPages().forEach((page, i) => {
+  const pages = pdf.getPages();
+  pages.forEach((page, i) => {
     const { width } = page.getSize();
-    if (name === 'printable') {
+    if (file.stamp === 'printable') {
       const f = fit(font, head, tail, 300, 7.5, 6);
       page.drawText(f.text, { x: 386 - font.widthOfTextAtSize(f.text, f.size) / 2, y: 18.8, size: f.size, font, color: grey });
-    } else if (i === 0) {
-      const f = fit(font, head, tail, width - 36, 7, 5.5);
-      page.drawText(f.text, { x: 18, y: 11, size: f.size, font, color: coverGrey });
-    } else {
-      const f = fit(font, head, tail, width - 27, 6, 5);
-      page.drawText(f.text, { x: 13.5, y: 20.5, size: f.size, font, color: grey });
+    } else if (file.stamp === 'phone') {
+      const f = i === 0 ? fit(font, head, tail, width - 36, 7, 5.5) : fit(font, head, tail, width - 27, 6, 5);
+      page.drawText(f.text, i === 0 ? { x: 18, y: 11, size: f.size, font, color: coverGrey } : { x: 13.5, y: 20.5, size: f.size, font, color: grey });
+    } else if (file.stamp === 'ebook') {
+      // Centered under the page number; the cover and back page are dark, so a light grey there.
+      const f = fit(font, head, tail, width - 80, 6.5, 5.5);
+      const dark = i === 0 || i === pages.length - 1;
+      page.drawText(f.text, { x: (width - font.widthOfTextAtSize(f.text, f.size)) / 2, y: 12, size: f.size, font, color: dark ? coverGrey : grey });
     }
   });
   pdf.setSubject(`Para kay ${p.n}${p.e ? ` · ${p.e}` : ''} · Order #${p.o}`);
@@ -119,28 +166,25 @@ a{color:var(--accent);font-weight:700}
 </style></head><body><div class="top"><img src="/brand/logo-horizontal-dark.svg" width="172" height="26" alt="AutoToolKitPH"></div><main>${body}</main></body></html>`;
 
 function downloadPage(t, p) {
+  const prod = PRODUCTS[p.k];
   const first = p.n.split(' ')[0];
-  return shell(`Kit ni ${p.n} — ${BRAND}`, `
+  const files = Object.entries(prod.files);
+  return shell(`${prod.name} ni ${p.n} — ${BRAND}`, `
 <h1>Salamat, ${esc(first)}! 🎉</h1>
-<p class="muted">Order #${esc(p.o)} · 2nd Hand Car Inspection Kit PH</p>
+<p class="muted">Order #${esc(p.o)} · ${esc(prod.name)}</p>
 <section class="card">
-  <a class="btn" href="/kit/${t}/phone">⬇ I-download: ${FILES.phone.label}<small>${FILES.phone.note}</small></a>
-  <a class="btn alt" href="/kit/${t}/printable">⬇ I-download: ${FILES.printable.label}<small>${FILES.printable.note}</small></a>
-  <p class="muted" style="font-size:.9rem">Valid ang link hanggang <b>${fmtDate(p.x)}</b>. I-download na po agad at i-save sa phone.</p>
+  ${files.map(([k, f], i) => `<a class="btn${i ? ' alt' : ''}" href="/kit/${t}/${k}">⬇ I-download: ${f.label}<small>${f.note}</small></a>`).join('\n  ')}
+  <p class="muted" style="font-size:.9rem">Valid ang link hanggang <b>${fmtDate(p.x)}</b>. I-download na po agad${files.length > 1 ? ' ang lahat ng file' : ''} at i-save.</p>
 </section>
 <section class="card">
   <p><b>Paano magsimula</b></p>
-  <ul>
-    <li>Basahin muna ang <b>“Paano gamitin”</b> (page 2) bago ang viewing.</li>
-    <li>Kung hindi bumukas ang PDF dito sa Messenger, i-tap ang <b>⋯</b> at piliin ang <b>Open in browser</b>, tapos i-download ulit.</li>
-    <li>Para sa personal na gamit lamang ang kit; naka-pangalan ito sa inyo.</li>
-  </ul>
+  <ul>${prod.tips.map((x) => `<li>${x}</li>`).join('')}</ul>
 </section>
-<section class="card tint">
+${prod.guarantee ? `<section class="card tint">
   <p><b>7-day money-back guarantee</b></p>
   <p class="muted">Kung hindi ninyo nakitang useful, i-message lang kami at ibabalik namin ang bayad.</p>
   <p><a href="${MESSENGER}">I-message ang AutoToolKitPH</a></p>
-</section>`);
+</section>` : `<section class="card"><p class="muted">May tanong? <a href="${MESSENGER}">I-message ang AutoToolKitPH</a></p></section>`}`);
 }
 function problemPage(title, text) {
   return shell(`${title} — ${BRAND}`, `
@@ -152,9 +196,9 @@ export default async function handler(req, res) {
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   res.setHeader('Cache-Control', 'private, no-store');
   const t = String(req.query.t || '');
-  const f = req.query.f ? String(req.query.f).replace(/\.pdf$/, '') : '';
+  const f = req.query.f ? String(req.query.f).replace(/\.(pdf|xlsx)$/, '') : '';
 
-  // /kit/check — setup diagnostic. Reports only whether each key is set and usable, never a value.
+  // /kit/check — setup diagnostic. Reports only whether each key is set and usable (and which files exist), never a value.
   if (t === 'check') {
     const probe = (name) => {
       const v = process.env[name];
@@ -162,8 +206,9 @@ export default async function handler(req, res) {
       if (/^\s|\s$|["']/.test(v)) return 'set, but has spaces or quotes around it';
       return Buffer.from(v, 'base64').length === 32 ? 'ok' : 'set, but not a 32-byte key';
     };
+    const files = [...new Set(Object.values(F).map((x) => x.data))].filter((d) => !kit[d]);
     res.status(200).setHeader('Content-Type', 'application/json; charset=utf-8');
-    return res.send(JSON.stringify({ KIT_KEY: probe('KIT_KEY'), LINK_KEY: probe('LINK_KEY'), environment: process.env.VERCEL_ENV || 'unknown' }));
+    return res.send(JSON.stringify({ KIT_KEY: probe('KIT_KEY'), LINK_KEY: probe('LINK_KEY'), missingFiles: files, environment: process.env.VERCEL_ENV || 'unknown' }));
   }
 
   let p;
@@ -172,7 +217,7 @@ export default async function handler(req, res) {
   } catch (e) {
     console.error('kit: configuration error:', e.message);
     res.status(500).setHeader('Content-Type', 'text/html; charset=utf-8');
-    return res.send(problemPage('May problema sa download', 'Pasensya na po, may problema sa ngayon. I-message lang po kami at ipapadala namin ulit ang kit ninyo.'));
+    return res.send(problemPage('May problema sa download', 'Pasensya na po, may problema sa ngayon. I-message lang po kami at ipapadala namin ulit ang files ninyo.'));
   }
   if (!p) {
     res.status(404).setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -187,20 +232,21 @@ export default async function handler(req, res) {
     res.status(200).setHeader('Content-Type', 'text/html; charset=utf-8');
     return res.send(downloadPage(t, p));
   }
-  if (!FILES[f]) {
+  const file = PRODUCTS[p.k].files[f];
+  if (!file) {
     res.status(404).setHeader('Content-Type', 'text/html; charset=utf-8');
-    return res.send(problemPage('Walang ganitong file', 'Bumalik sa download page at piliin ang Phone Version o Printable.'));
+    return res.send(problemPage('Walang ganitong file', 'Bumalik sa download page at piliin ang file doon.'));
   }
   try {
-    const pdf = await stamp(f, p);
-    const filename = `${FILES[f].filename} - ${p.o}.pdf`;
+    const data = await makeFile(file, p);
+    const filename = `${file.filename} - ${p.o}.${file.ext}`;
     res.status(200);
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Length', pdf.length);
+    res.setHeader('Content-Type', TYPES[file.ext]);
+    res.setHeader('Content-Length', data.length);
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"; filename*=UTF-8''${encodeURIComponent(filename)}`);
-    return res.send(pdf);
+    return res.send(data);
   } catch (e) {
-    console.error('kit: stamping failed:', e.message);
+    console.error('kit: file failed:', e.message);
     res.status(500).setHeader('Content-Type', 'text/html; charset=utf-8');
     return res.send(problemPage('May problema sa download', 'Pasensya na po, hindi nagawa ang file. I-message lang po kami at ipapadala namin ulit.'));
   }
