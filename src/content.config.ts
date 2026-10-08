@@ -33,6 +33,8 @@ const products = defineCollection({
       h1: text('h1'),
       subhead: text('subhead'),
       mockupLine: text('mockupLine'),
+      /** File format badge on the CSS product cover. */
+      format: z.string().trim().default('PDF'),
       /** One-line summary used on homepage cards. Falls back to subhead. */
       cardBlurb: z.string().trim().optional(),
 

@@ -41,6 +41,7 @@ eyebrow: PARA SA ...                  # Small caps line above the H1
 h1: Main headline ng product page.
 subhead: One or two sentences explaining what it is.
 mockupLine: Part A · Part B · Part C  # Shown on the CSS product mockup card
+format: PDF                           # (optional) badge on the mockup cover, e.g. XLSX or PDF + XLSX
 cardBlurb: One sentence for the homepage card.   # (optional) defaults to subhead
 
 # ── Price ───────────────────────────────────────────────────────────────────

@@ -13,7 +13,7 @@ const Heading = headingLevel;
 
 <article class:list={['pcard', { 'pcard--soon': soon }]}>
   <div class="art">
-    <ProductMockup name={p.name} mockupLine={p.mockupLine} size="sm" />
+    <ProductMockup name={p.name} mockupLine={p.mockupLine} format={p.format} size="sm" />
     {soon && <span class="badge">Coming soon</span>}
   </div>
   <div class="body">

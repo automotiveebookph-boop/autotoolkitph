@@ -1,0 +1,94 @@
+# Talyer Labor Price List PH — sold on its own (₱149) and included as a bonus in the Talyer Starter Kit PH 2026.
+# Field reference: see _TEMPLATE.yaml in this folder.
+# Images: src/assets/products/labor-price-list/ (from product/talyer-kit/make-shop-previews.py)
+# NOT LIVE YET: set status: active and push when the user says go.
+
+slug: labor-price-list
+status: hidden
+sortOrder: 3
+category: Talyer owners
+
+name: Talyer Labor Price List PH
+shortName: Labor Price List
+eyebrow: PARA SA TALYER OWNERS AT MEKANIKO
+h1: Magkano ang singil mo sa labor? Handa na ang listahan.
+subhead: '99 common na trabaho sa talyer na may labor price, naka-group by system. I-adjust sa area mo, tapos i-print bilang price board.'
+mockupLine: Brakes · Suspension · Engine · Clutch · 99 jobs
+format: XLSX
+cardBlurb: 99 trabaho na may labor price, i-adjust sa area mo at i-print bilang price board.
+
+price: 149
+priceLabel: Excel + printable price board
+valueLine: Isang Excel file na tapos na ang listahan. I-type lang ang shop name, i-adjust ang presyo, at i-print.
+
+problem:
+  heading: Hula-hula pa rin ba ang singil mo sa labor?
+  body: Kapag walang nakasulat na presyo, iba-iba ang singil sa bawat customer, at mas madali kang tawaran o pagdudahan.
+  bullets:
+    - Walang posted price menu, kaya kulang ang tiwala ng customer
+    - Iba ang singil sa parehong trabaho
+    - Hindi sigurado kung sakto ang presyo sa oras ng mekaniko
+
+modulesHeading: Isang file. Handa nang gamitin.
+modules:
+  - number: '01'
+    title: 99 jobs, 11 groups
+    description: Brakes, tires at alignment, engine, diagnostics, cooling, fuel, belts at timing, clutch at transmission, steering, suspension, bearings
+  - number: '02'
+    title: One-click price adjustment
+    description: Itaas o ibaba ang lahat ng presyo gamit ang isang % para sa area at gastos mo
+  - number: '03'
+    title: Member / suki price
+    description: Automatic na discount sa bawat trabaho (default 20%, pwedeng baguhin)
+  - number: '04'
+    title: Printable price board
+    description: Listahan na may pangalan ng shop mo, pang-post sa shop at sa Facebook
+  - number: BONUS
+    title: Labor rate check
+    description: I-type ang oras ng trabaho para makita kung sakto ang presyo sa labor rate mo
+
+previewsHeading: Silipin ang loob
+previews:
+  - image: preview-1.jpg
+    label: Printable price board
+  - image: preview-2.jpg
+    label: Price list with your settings
+
+audienceHeading: Para kanino ito?
+audience:
+  - Talyer owners na gusto ng posted price menu
+  - Mekanikong nagsisimula ng sariling shop
+  - Home service at mobile mechanics
+
+creatorNoteHeading: Saan galing ang mga presyo?
+creatorNote:
+  - Galing sa totoong labor price list ng isang talyer sa Pilipinas (2024), inayos at ginawang madaling i-edit.
+  - I-adjust sa area mo at sa sarili mong gastos. Presyuhan mula sa costs mo, hindi mula sa pinakamurang shop sa tabi mo.
+
+howToOrder:
+  - I-message kami sa Messenger
+  - Magbayad via GCash gamit ang details na ise-send namin
+  - Matanggap ang download link sa Messenger pagka-verify ng bayad
+
+faqs:
+  - q: Kasama ba ang presyo ng piyesa?
+    a: Hindi. Labor price lang ito; hiwalay na quote ang piyesa.
+  - q: Pwede ko bang baguhin ang mga presyo?
+    a: Oo. Editable ang lahat ng presyo, at may isang % para i-adjust ang buong listahan nang sabay.
+  - q: Anong file ito?
+    a: Excel file (.xlsx). Ang price board ay pwedeng i-print o i-save as PDF.
+  - q: Kasama ba ito sa Talyer Starter Kit?
+    a: Oo. Bonus ito sa Talyer Starter Kit PH 2026.
+  - q: Paano ko makukuha?
+    a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger.
+
+finalCta:
+  heading: '{PRICE} lang para sa handa nang labor price list.'
+
+disclaimer: Reference prices based on a 2024 labor price list from a Philippine repair shop. Labor rates vary by area, vehicle and shop; adjust them to your own costs. {BRAND_NAME} is not affiliated with any vehicle manufacturer.
+
+seo:
+  title: Talyer Labor Price List PH — 99 Jobs, Editable Excel + Price Board
+  description: 'Labor price list para sa talyer sa Pilipinas: 99 trabaho (brakes, suspension, engine, clutch at iba pa), editable Excel, member price, at printable price board. ₱149.'
+
+addOns: []

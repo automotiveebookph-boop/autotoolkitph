@@ -6,8 +6,10 @@ interface Props {
   name: string;
   mockupLine: string;
   size?: 'lg' | 'sm';
+  /** File format badge on the cover, e.g. "PDF" or "XLSX". */
+  format?: string;
 }
-const { name, mockupLine, size = 'lg' } = Astro.props;
+const { name, mockupLine, size = 'lg', format = 'PDF' } = Astro.props;
 ---
 
 <div class:list={['mockup', `mockup--${size}`]} aria-hidden="true">
@@ -16,7 +18,7 @@ const { name, mockupLine, size = 'lg' } = Astro.props;
   <div class="cover">
     <div class="top">
       <img class="brand" src={LOGOS.horizontalDark.src} width={LOGOS.horizontalDark.width} height={LOGOS.horizontalDark.height} alt="" />
-      <span class="pdf">PDF</span>
+      <span class="pdf">{format}</span>
     </div>
     <p class="name">{name}</p>
     <div class="rule"></div>

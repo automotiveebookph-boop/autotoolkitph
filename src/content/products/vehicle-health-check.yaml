@@ -1,0 +1,93 @@
+# Vehicle Health / Safety Check Report — sold on its own (₱99) and included as a bonus in the Talyer Starter Kit PH 2026.
+# Field reference: see _TEMPLATE.yaml in this folder.
+# Images: src/assets/products/vehicle-health-check/ (from product/talyer-kit/make-shop-previews.py)
+# NOT LIVE YET: set status: active and push when the user says go.
+
+slug: vehicle-health-check
+status: hidden
+sortOrder: 4
+category: Talyer owners
+
+name: Vehicle Health Check Report PH
+shortName: Vehicle Check Report
+eyebrow: PARA SA TALYER AT HOME SERVICE MECHANICS
+h1: Ipakita sa customer ang tiningnan mo, sa isang page.
+subhead: 'One-page na multi-point inspection form: ilaw, fluids, preno, gulong, at estimate. I-print o i-fill in sa phone.'
+mockupLine: Lights · Fluids · Brakes · Tires · Estimate
+cardBlurb: One-page inspection form para sa customer. I-print o i-fill in sa phone.
+
+price: 99
+priceLabel: Fillable PDF · A4 + short bond
+valueLine: Mukhang propesyonal ang shop mo, at may nakasulat na record ka ng bawat inspection.
+
+problem:
+  heading: '"Okay naman lahat, boss" — pero walang nakasulat?'
+  body: Kapag verbal lang ang findings, mahirap ipaliwanag sa customer kung bakit kailangan ang repair, at wala kang record kapag may reklamo.
+  bullets:
+    - Walang written proof ng nakita sa inspection
+    - Hirap ipaliwanag kung ano ang urgent at ano ang pwedeng hintayin
+    - Walang paalala para sa next service
+
+modulesHeading: Isang page. Kumpletong inspection.
+modules:
+  - number: '01'
+    title: Exterior, lights at controls
+    description: Car diagram para sa existing body damage, at 9 checks (ilaw, horn, parking brake, DTC scan)
+  - number: '02'
+    title: Under the hood at underneath
+    description: 11 checks — fluids, belts, filters, battery, ingay, leaks
+  - number: '03'
+    title: Brakes at tires
+    description: Disc condition, pad thickness, tread depth, production date at PSI bawat gulong
+  - number: '04'
+    title: Estimate at next service
+    description: Estimate of repairs, next service due, at pirma ng customer
+  - number: BONUS
+    title: Fillable sa phone o PC
+    description: I-tap ang mga box at i-type ang details, o i-print. May A4 at Letter (short bond)
+
+previewsHeading: Silipin ang form
+previews:
+  - image: preview-1.jpg
+    label: Inspection form, filled in
+  - image: preview-2.jpg
+    label: Brakes and tires section
+
+audienceHeading: Para kanino ito?
+audience:
+  - Talyer owners na gusto ng propesyonal na inspection report
+  - Home service at mobile mechanics
+  - Shops na gumagawa ng PMS at pre-trip checks
+
+creatorNoteHeading: Bakit ganito ang form?
+creatorNote:
+  - Batay sa inspection form na ginagamit sa shop, inayos para madaling i-print o i-fill in sa phone.
+  - Green, yellow, red — kita agad ng customer kung ano ang okay, ano ang babantayan, at ano ang kailangang ayusin ngayon.
+
+howToOrder:
+  - I-message kami sa Messenger
+  - Magbayad via GCash gamit ang details na ise-send namin
+  - Matanggap ang download link sa Messenger pagka-verify ng bayad
+
+faqs:
+  - q: Pwede ko bang i-fill in sa phone?
+    a: Oo. Fillable PDF ito. Buksan sa PDF app na may forms (hal. Adobe Acrobat Reader), i-tap ang mga box, i-type ang details, tapos i-send sa customer o i-print.
+  - q: Pwede bang ilagay ang pangalan ng shop ko?
+    a: Oo. May box para sa shop name, contact at stamp.
+  - q: Anong size ng papel?
+    a: May A4 at Letter (short bond).
+  - q: Kasama ba ito sa Talyer Starter Kit?
+    a: Oo. Bonus ito sa Talyer Starter Kit PH 2026.
+  - q: Paano ko makukuha?
+    a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger.
+
+finalCta:
+  heading: '{PRICE} lang para sa propesyonal na inspection report.'
+
+disclaimer: This form is a checklist and record-keeping tool. It does not replace the inspection procedures in the vehicle manufacturer's service manual. {BRAND_NAME} is not affiliated with any vehicle manufacturer.
+
+seo:
+  title: Vehicle Health Check Report PH — Fillable Multi-Point Inspection Form
+  description: 'One-page vehicle inspection form para sa talyer: lights, fluids, brakes, tires, estimate at next service. Fillable PDF, A4 at short bond. ₱99.'
+
+addOns: []

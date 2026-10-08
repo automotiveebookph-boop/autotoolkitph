@@ -3,10 +3,7 @@
 # Images for this product go in: src/assets/products/talyer-starter-kit/
 #   (preview-1..4.jpg come from product/talyer-kit/ebook/make-previews.py)
 #
-# NOT LIVE YET: no price is set, so the page shows "₱___". Before going live:
-#   1. set "price" below (and optionally regularPrice)
-#   2. set status: active
-# A production build refuses an active product with no price, so "₱___" can't go live by accident.
+# NOT LIVE YET: set status: active and push when the user says go. Price ₱999 (set 2026-10-08).
 
 slug: talyer-starter-kit
 status: hidden
@@ -19,11 +16,12 @@ eyebrow: PARA SA MAGTATAYO NG TALYER
 h1: Magtatayo ka ba ng talyer? Huwag manghula — gamitin ang 2026 roadmap.
 subhead: 'Paano magtayo ng talyer na kumikita, legal, at pinagkakatiwalaan: step-by-step na guide + Excel toolkit, updated for 2026.'
 mockupLine: Permits · Pricing · Payroll · Taxes · 90-day plan
+format: PDF + XLSX
 cardBlurb: Step-by-step na roadmap at Excel toolkit para magtayo ng talyer na kumikita, legal, at pinagkakatiwalaan.
 
-# price: not set yet → shows ₱___ (see the note at the top)
+price: 999
 priceLabel: 2026 Edition
-valueLine: Isang guide at isang Excel toolkit para sa buong setup — mula model at location hanggang permits, payroll, taxes at launch.
+valueLine: 'Guide + Excel toolkit para sa buong setup, plus 2 bonus tools: Labor Price List (₱149) at Vehicle Health Check Report (₱99).'
 
 trust:
   heading: Updated for 2026
