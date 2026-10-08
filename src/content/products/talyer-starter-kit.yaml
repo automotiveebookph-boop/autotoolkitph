@@ -41,7 +41,7 @@ problem:
     - Kulang o maling permits
     - Walang sistema para sa job orders
 
-modulesHeading: 2 files. Isang kumpletong roadmap.
+modulesHeading: 3 files. Isang kumpletong roadmap.
 modules:
   - number: '01'
     title: Talyer Starter Kit PH 2026 (PDF guide)
@@ -49,6 +49,9 @@ modules:
   - number: '02'
     title: Talyer Business Toolkit 2026 (Excel)
     description: '9 working tabs: startup cost, labor rate calculator, job order/estimate, daily sales log, payroll with 2026 contributions, parts inventory, monthly P&L, tax option comparison'
+  - number: BONUS
+    title: Talyer Labor Price List (Excel)
+    description: '99 common jobs with labor prices in 11 groups, one-click price adjustment, member/suki price, and a printable price board for your shop'
 
 previewsHeading: Silipin ang loob
 previews:
