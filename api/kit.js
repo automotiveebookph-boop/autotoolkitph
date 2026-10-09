@@ -9,11 +9,16 @@
  * number stamped on every page; forms meant for a talyer's own customers and Excel files are not stamped
  * on the page (PDF forms get it in their metadata only).
  *
+ * The flagship (k = flagship) has one group per guide: the guide PDF and a toolkit .zip built on request from
+ * api/_kit-flagship-<id>.js (product/delivery/encrypt-flagship.mjs); booklets inside the zip get the visible stamp.
+ *
  * Environment variables (Vercel → Settings → Environment Variables): KIT_KEY, LINK_KEY.
  */
 import { createDecipheriv } from 'node:crypto';
+import { inflateRawSync } from 'node:zlib';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import * as kit from './_kit-data.js';
+import { zip } from './_zip.js';
 
 const BRAND = 'AutoToolKitPH';
 const MESSENGER = 'https://m.me/AutoToolKitPH'; // keep in sync with FB_PAGE_NAME in src/config/site.ts
@@ -31,6 +36,39 @@ const F = {
   'check-letter': { label: 'Vehicle Health Check Report (Letter / short bond)', note: 'Parehong form, para sa short bond', filename: 'AutoToolKitPH Vehicle Health Check Report - Letter', data: 'check_letter', stamp: 'meta', ext: 'pdf' },
 };
 const bonus = (k) => ({ ...F[k], label: 'BONUS: ' + F[k].label });
+
+/* Flagship: one group per guide. Literal import paths so Vercel bundles every part; each loads only when needed. */
+const FLAG_PARTS = {
+  starter: () => import('./_kit-flagship-starter.js'),
+  sa: () => import('./_kit-flagship-sa.js'),
+  tech: () => import('./_kit-flagship-tech.js'),
+  ops: () => import('./_kit-flagship-ops.js'),
+  fin: () => import('./_kit-flagship-fin.js'),
+  hr: () => import('./_kit-flagship-hr.js'),
+  gm: () => import('./_kit-flagship-gm.js'),
+  media: () => import('./_kit-flagship-media.js'),
+};
+const SYS = 'Auto Service Center System PH';
+const FLAGSHIP = [
+  { id: 'starter', n: 1, title: 'Talyer Starter Guide', guideNote: 'Simulan dito: permits, puhunan, labor rate, presyo, tauhan', toolkitNote: 'Business Toolkit Excel + EXAMPLE, Labor Price List, Vehicle Health Check Report' },
+  { id: 'sa', n: 2, title: 'Service Advisor', guideNote: 'Mula tawag hanggang release at follow-up', toolkitNote: 'Job Order form, 44 Messenger scripts, Follow-up Tracker, stickers + warranty cards' },
+  { id: 'tech', n: 3, title: 'Technician Training', guideNote: 'Skills ladder, PMS, quality check, safety', toolkitNote: 'Skills Checklist, PMS checklist, QC sheet + Comeback Log, safety posters, 52 toolbox talks' },
+  { id: 'ops', n: 4, title: 'Operations Manager', guideNote: 'Job flow, capacity, parts, weekly numbers', toolkitNote: 'Job Board kit, Capacity Planner, Parts Control, Weekly Report, daily checklists' },
+  { id: 'fin', n: 5, title: 'Finance', guideNote: 'Cash control, receivables, P&L, BIR calendar', toolkitNote: '13-Week Cash Forecast, Receivables Tracker, cash count forms, BIR calendar' },
+  { id: 'hr', n: 6, title: 'HR', guideNote: 'Hiring, pay, incentives, discipline, DOLE basics', toolkitNote: 'Incentive Calculator, HR forms, House Rules (Word), 201 File Tracker' },
+  { id: 'gm', n: 7, title: 'General Manager', guideNote: 'Scorecard, weekly meeting, pricing, growth', toolkitNote: 'GM Scorecard, meeting tracker, Pricing Review, Growth Calculator, Yearly Plan, forms' },
+  { id: 'media', n: 8, title: 'Media', guideNote: 'Facebook, Google reviews, ads, partnerships', toolkitNote: 'Caption Bank, Posting Planner, Review Kit, Media Report, consent kit, Partnership Kit' },
+];
+const two = (n) => String(n).padStart(2, '0');
+const flagFiles = {};
+for (const g of FLAGSHIP) {
+  flagFiles[`${g.id}-guide`] = g.id === 'starter'
+    ? { ...F.guide, label: `Guide ${g.n}: ${g.title} (PDF)`, note: g.guideNote }
+    : { label: `Guide ${g.n}: ${g.title} (PDF)`, note: g.guideNote, filename: `${SYS} - Guide ${g.n} ${g.title}`, flag: g.id, part: 'guide', stamp: 'ebook', ext: 'pdf' };
+  const tk = g.id === 'starter' ? 'Talyer Starter' : g.title;
+  flagFiles[`${g.id}-toolkit`] = { label: `${tk} Toolkit (.zip)`, note: g.toolkitNote, filename: `${SYS} - ${two(g.n)} ${tk} Toolkit`, flag: g.id, part: 'toolkit', ext: 'zip' };
+}
+
 const PRODUCTS = {
   inspection: {
     name: '2nd Hand Car Inspection Kit PH',
@@ -56,8 +94,16 @@ const PRODUCTS = {
     tips: ['Para mag-fill in sa phone, buksan sa PDF app na may forms (hal. Adobe Acrobat Reader). Pwede rin itong i-print nang marami.',
       'Piliin ang A4 o Letter (short bond) depende sa papel na gamit ninyo.', OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang.'],
   },
+  flagship: {
+    name: SYS,
+    files: flagFiles,
+    groups: FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
+    tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager).',
+      'Ang <b>Guide PDF</b> ay mababasa sa phone. Ang <b>Toolkit (.zip)</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>, tapos buksan ang Excel at forms. Tingnan muna ang mga <b>EXAMPLE</b> file.',
+      OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang mga guide.'],
+  },
 };
-const TYPES = { pdf: 'application/pdf', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' };
+const TYPES = { pdf: 'application/pdf', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', zip: 'application/zip' };
 
 const key = (name) => {
   const k = Buffer.from(process.env[name] || '', 'base64');
@@ -89,15 +135,39 @@ function readToken(t) {
 
 /** Files stored as base64( iv(12) | tag(16) | ciphertext ). */
 const masters = {};
+function unseal(b64) {
+  const buf = Buffer.from(b64, 'base64');
+  const d = createDecipheriv('aes-256-gcm', key('KIT_KEY'), buf.subarray(0, 12));
+  d.setAuthTag(buf.subarray(12, 28));
+  return Buffer.concat([d.update(buf.subarray(28)), d.final()]);
+}
 function master(name) {
   if (!masters[name]) {
     if (!kit[name]) throw new Error(`file "${name}" is not in _kit-data.js`);
-    const buf = Buffer.from(kit[name], 'base64');
-    const d = createDecipheriv('aes-256-gcm', key('KIT_KEY'), buf.subarray(0, 12));
-    d.setAuthTag(buf.subarray(12, 28));
-    masters[name] = Buffer.concat([d.update(buf.subarray(28)), d.final()]);
+    masters[name] = unseal(kit[name]);
   }
   return masters[name];
+}
+async function flagMaster(id, part) {
+  const name = `flag:${id}:${part}`;
+  if (!masters[name]) {
+    const mod = await FLAG_PARTS[id]();
+    if (!mod[part]) throw new Error(`part "${part}" is not in _kit-flagship-${id}.js`);
+    masters[name] = unseal(mod[part]);
+  }
+  return masters[name];
+}
+/** Toolkit bundle (deflate-compressed before encryption): u32 manifest length | manifest JSON {folder, files: [{path, size, kind}]} | file bytes in order. */
+function readBundle(buf) {
+  const len = buf.readUInt32LE(0);
+  const m = JSON.parse(buf.subarray(4, 4 + len).toString('utf8'));
+  let at = 4 + len;
+  const files = m.files.map((f) => {
+    const data = buf.subarray(at, at + f.size);
+    at += f.size;
+    return { ...f, data };
+  });
+  return { folder: m.folder, files };
 }
 
 /* Stamp: same placement as the PC tool and the order page. */
@@ -117,8 +187,22 @@ function fit(font, head, tail, maxW, size, minSize) {
   return { text: t + tail, size };
 }
 async function makeFile(file, p) {
-  const raw = master(file.data);
+  if (file.part === 'toolkit') {
+    // Booklets the buyer keeps get the visible stamp; forms for the shop's customers get metadata only; Excel/Word/text as-is.
+    const b = readBundle(inflateRawSync(await flagMaster(file.flag, 'toolkit')));
+    const entries = [];
+    for (const f of b.files) {
+      const data = f.kind === 'raw' ? f.data : await stampPdf(f.data, f.kind === 'booklet' ? 'ebook' : 'meta', p);
+      entries.push({ name: `${b.folder}/${f.path}`, data });
+    }
+    return zip(entries);
+  }
+  const raw = file.flag ? await flagMaster(file.flag, file.part) : master(file.data);
   if (file.ext !== 'pdf') return raw;
+  return stampPdf(raw, file.stamp, p);
+}
+async function stampPdf(raw, stamp, p) {
+  const file = { stamp };
   const pdf = await PDFDocument.load(raw);
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const head = forFont(font, `Para kay ${p.n}${p.e ? ` · ${p.e}` : ''}`);
@@ -169,13 +253,22 @@ function downloadPage(t, p) {
   const prod = PRODUCTS[p.k];
   const first = p.n.split(' ')[0];
   const files = Object.entries(prod.files);
+  const btn = ([k, f], i) => `<a class="btn${i ? ' alt' : ''}" href="/kit/${t}/${k}">⬇ I-download: ${f.label}<small>${f.note}</small></a>`;
+  const valid = `<p class="muted" style="font-size:.9rem">Valid ang link hanggang <b>${fmtDate(p.x)}</b>. I-download na po agad${files.length > 1 ? ' ang lahat ng file' : ''} at i-save.</p>`;
+  const list = prod.groups
+    ? `<section class="card">${valid}</section>
+${prod.groups.map((g) => `<section class="card">
+  <p><b>${esc(g.title)}</b></p>
+  ${g.keys.map((k, i) => btn([k, prod.files[k]], i)).join('\n  ')}
+</section>`).join('\n')}`
+    : `<section class="card">
+  ${files.map(btn).join('\n  ')}
+  ${valid}
+</section>`;
   return shell(`${prod.name} ni ${p.n} — ${BRAND}`, `
 <h1>Salamat, ${esc(first)}! 🎉</h1>
 <p class="muted">Order #${esc(p.o)} · ${esc(prod.name)}</p>
-<section class="card">
-  ${files.map(([k, f], i) => `<a class="btn${i ? ' alt' : ''}" href="/kit/${t}/${k}">⬇ I-download: ${f.label}<small>${f.note}</small></a>`).join('\n  ')}
-  <p class="muted" style="font-size:.9rem">Valid ang link hanggang <b>${fmtDate(p.x)}</b>. I-download na po agad${files.length > 1 ? ' ang lahat ng file' : ''} at i-save.</p>
-</section>
+${list}
 <section class="card">
   <p><b>Paano magsimula</b></p>
   <ul>${prod.tips.map((x) => `<li>${x}</li>`).join('')}</ul>
@@ -196,7 +289,7 @@ export default async function handler(req, res) {
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   res.setHeader('Cache-Control', 'private, no-store');
   const t = String(req.query.t || '');
-  const f = req.query.f ? String(req.query.f).replace(/\.(pdf|xlsx)$/, '') : '';
+  const f = req.query.f ? String(req.query.f).replace(/\.(pdf|xlsx|zip)$/, '') : '';
 
   // /kit/check — setup diagnostic. Reports only whether each key is set and usable (and which files exist), never a value.
   if (t === 'check') {
@@ -207,6 +300,14 @@ export default async function handler(req, res) {
       return Buffer.from(v, 'base64').length === 32 ? 'ok' : 'set, but not a 32-byte key';
     };
     const files = [...new Set(Object.values(F).map((x) => x.data))].filter((d) => !kit[d]);
+    for (const [id, load] of Object.entries(FLAG_PARTS)) {
+      try {
+        const mod = await load();
+        if (!mod.toolkit || (id !== 'starter' && !mod.guide)) files.push(`flagship:${id}`);
+      } catch {
+        files.push(`flagship:${id}`);
+      }
+    }
     res.status(200).setHeader('Content-Type', 'application/json; charset=utf-8');
     return res.send(JSON.stringify({ KIT_KEY: probe('KIT_KEY'), LINK_KEY: probe('LINK_KEY'), missingFiles: files, environment: process.env.VERCEL_ENV || 'unknown' }));
   }

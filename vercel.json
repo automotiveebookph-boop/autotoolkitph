@@ -2,6 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/kit.js": {
+      "maxDuration": 60
+    }
+  },
   "headers": [
     {
       "source": "/_astro/(.*)",
