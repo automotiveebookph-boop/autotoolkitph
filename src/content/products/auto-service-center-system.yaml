@@ -1,0 +1,125 @@
+# Auto Service Center System PH 2026 (flagship)
+# Field reference: see _TEMPLATE.yaml in this folder.
+# Images for this product go in: src/assets/products/auto-service-center-system/
+#   (preview-1..6.jpg come from product/talyer-kit/flagship/make-previews.py)
+# Delivery: api/kit.js product "flagship" (8 guide PDFs + 8 toolkit zips); order page product "flagship" (₱2,499).
+
+slug: auto-service-center-system
+status: active
+sortOrder: 2.5
+category: Talyer owners
+
+name: Auto Service Center System PH 2026
+shortName: Auto Service Center System
+eyebrow: PARA SA MAY TALYER NA GUSTONG LUMAKI
+h1: Mula talyer, gawing service center.
+subhead: 'Ang buong sistema ng isang maayos na service center, hinati sa 8 guide para sa bawat role: Service Advisor, mekaniko, operations, finance, HR, GM at media. May kasamang 36 working tools.'
+mockupLine: 8 guides · 36 tools · SOPs para sa bawat role
+format: PDF + XLSX + DOCX
+cardBlurb: 8 role guides at 36 working tools para patakbuhin ang talyer na parang service center, kahit ikaw lang muna.
+
+price: 2499
+priceLabel: 2026 Edition
+valueLine: 'Kasama na ang buong Talyer Starter Kit (₱999, may 2 bonus tools), plus 7 role guides at ang toolkit ng bawat guide.'
+
+trust:
+  heading: Updated for 2026
+  items:
+    - Batay sa paraan ng dealer service centers
+    - 2026 BIR, DOLE at wage order rules
+    - Taglish scripts na pwedeng gamitin agad
+
+problem:
+  heading: Kapag lumalaki ang talyer, ikaw pa rin ang sumasalo ng lahat.
+  body: 'Maraming talyer ang may magaling na mekaniko pero walang sistema. Ang resulta, ang may-ari ang nasa counter, sa ilalim ng kotse, sa supplier at sa sweldo, sabay-sabay. Ito ang mga butas na inaayos ng system:'
+  bullets:
+    - Walang nakasulat na job order at approval, kaya may away sa bayad
+    - Bumabalik ang kotse (comeback) at walang nakaka-alam kung bakit
+    - Maraming trabaho pero kulang pa rin ang pera sa katapusan
+    - Lahat ng desisyon at problema, sa may-ari pa rin bumabagsak
+
+modulesHeading: 8 guides, isa para sa bawat role, at toolkit ang bawat isa.
+modules:
+  - number: '01'
+    title: Talyer Starter Guide + Starter Toolkit
+    description: 'Ang buong Talyer Starter Kit: permits, puhunan, labor rate, presyo, payroll at taxes, plus Business Toolkit Excel, Labor Price List at Vehicle Health Check Report'
+  - number: '02'
+    title: Service Advisor
+    description: 'Mula tawag hanggang release at follow-up: walk-around, 3C job order, estimate, approval, complaints. Toolkit: Job Order form, 44 Messenger scripts, Follow-up Tracker, stickers at warranty cards'
+  - number: '03'
+    title: Technician / Mechanic Training
+    description: 'Safety, diagnosis, standard steps, quality check at skills ladder mula helper hanggang senior. Toolkit: Skills Checklist, PMS checklist, QC sheet, Comeback Log, safety posters, 52 toolbox talks'
+  - number: '04'
+    title: Operations Manager
+    description: 'Daily rhythm, bay capacity, job board, parts control at productivity. Toolkit: Job Board kit, Capacity Planner, Parts Control, Weekly Report, daily checklists'
+  - number: '05'
+    title: Finance
+    description: 'Daily cash, receivables ng fleet at insurance, monthly P&L, 13-week cash forecast at BIR calendar. Toolkit: Cash Forecast, Receivables Tracker, cash count forms, BIR calendar'
+  - number: '06'
+    title: HR
+    description: 'Hiring, sweldo, incentives na may comeback check, discipline at due process. Toolkit: Incentive Calculator, HR forms, House Rules (Word), 201 File Tracker'
+  - number: '07'
+    title: General Manager
+    description: 'Weekly scorecard, management meeting, pricing review at growth decisions. Toolkit: GM Scorecard, meeting tracker, Pricing Review, Growth Calculator, Yearly Plan'
+  - number: '08'
+    title: Media
+    description: 'Facebook Page, Google reviews, posting plan, ads na sinusukat sa dumating na kotse, at partnerships. Toolkit: 52 captions, Posting Planner, Review Kit, Media Report, Partnership Kit'
+
+previewsHeading: Silipin ang loob
+previews:
+  - image: preview-1.jpg
+    label: Service Advisor, Part 4 · 3C job order
+  - image: preview-2.jpg
+    label: Technician, Part 10 · skills ladder
+  - image: preview-3.jpg
+    label: Operations, Part 5 · job board
+  - image: preview-4.jpg
+    label: Finance, Part 9 · 13-week cash forecast
+  - image: preview-5.jpg
+    label: HR, Part 6 · technician incentives
+  - image: preview-6.jpg
+    label: General Manager, Part 2 · weekly scorecard
+
+audienceHeading: Para kanino ito?
+audience:
+  - May talyer na at gustong patakbuhin ito na parang service center
+  - May 2 o higit pang mekaniko at kailangan na ng sistema
+  - Gustong may maipasa sa SA, mekaniko o manager, para hindi lahat nasa may-ari
+  - Nagpaplanong magdagdag ng bay o branch
+
+creatorNoteHeading: Sino ang gumawa nito?
+creatorNote:
+  - Isinulat mula sa hands-on shop experience, at inayos batay sa mga sistemang ginagamit ng dealer service centers at industry standards, inangkop sa talyer sa Pilipinas.
+  - Ang bawat guide ay SOP na pwede mong ibigay sa tao mo. Kung ikaw lang muna ang gumagawa ng lahat, simulan sa Guide 1 at 2.
+  - Hindi ito tax o legal advice. Para ito sa training at planning; laging i-verify sa BIR, DOLE, DTI, LGU at DENR bago kumilos.
+
+howToOrder:
+  - I-message kami sa Messenger
+  - Magbayad via GCash gamit ang details na ise-send namin
+  - Matanggap ang download link sa Messenger pagka-verify ng bayad
+
+faqs:
+  - q: Ano ang pagkakaiba nito sa Talyer Starter Kit?
+    a: Ang Talyer Starter Kit (₱999) ay para sa pagtatayo ng talyer. Ang Auto Service Center System ay para sa pagpapatakbo at pagpapalaki nito. Kasama na rito ang buong Starter Kit, plus 7 role guides at 36 tools.
+  - q: Kailangan ko ba ng computer?
+    a: Mababasa ang 8 guide PDF sa phone. Ang mga toolkit (Excel, Word at fillable forms) ay mas maganda sa computer na may Microsoft Excel. Naka-ZIP ang bawat toolkit, kaya i-extract muna bago buksan.
+  - q: Para lang ba sa malaking shop?
+    a: Hindi. Isinulat ito para sa talyer na may 2 hanggang 10 tao, at gumagana kahit ikaw lang muna ang may hawak ng maraming role.
+  - q: Pwede ko bang ibigay ang guide sa mga tauhan ko?
+    a: Oo, para sa loob ng shop ninyo. Ang hindi pwede ay ibenta o i-share sa ibang shop. Naka-pangalan sa inyo ang mga guide.
+  - q: Is this tax/legal advice?
+    a: Hindi. Para ito sa training at planning. Laging i-verify sa BIR, DOLE, DTI, LGU, SSS, PhilHealth, Pag-IBIG at DENR, at kumonsulta sa lisensyadong accountant o lawyer para sa tax at legal decisions.
+  - q: Paano ko makukuha?
+    a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger. Valid ang link nang 30 araw.
+
+finalCta:
+  heading: Mula talyer, gawing service center.
+  body: Simulan sa isang role. Idagdag ang susunod kapag handa na ang shop.
+
+disclaimer: 'These guides are for training and planning. Laws, rates and procedures change and differ by LGU. Verify with BIR, DOLE, DTI, your LGU, SSS, PhilHealth, Pag-IBIG and DENR before acting. For tax and legal decisions, consult a licensed accountant or lawyer. Industry practices are described for education; {BRAND_NAME} is not affiliated with any carmaker, certification body or government agency.'
+
+seo:
+  title: Auto Service Center System PH 2026 — Mula Talyer, Gawing Service Center
+  description: '8 role guides at 36 working tools para sa talyer sa Pilipinas: Service Advisor scripts at job order, technician training, operations, finance at BIR calendar, HR at DOLE basics, GM scorecard, at Facebook/Google marketing. Kasama ang Talyer Starter Kit.'
+
+addOns: []
