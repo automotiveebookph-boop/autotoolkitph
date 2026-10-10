@@ -4,7 +4,7 @@
  * (or ?p=upgrade). Not in the sitemap and noindex: only buyers who are ordering need it.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { BRAND_NAME, GCASH_NAME_MASKED, GCASH_NUMBER, MESSENGER_BASE, UPGRADE_PRICE } from '../config/site';
+import { BRAND_NAME, DELIVERY_HOURS, GCASH_NAME_MASKED, GCASH_NUMBER, MESSENGER_BASE, UPGRADE_PRICE } from '../config/site';
 import { formatPrice, getActiveProducts } from '../lib/products';
 
 const products = (await getActiveProducts()).filter((p) => p.price !== undefined);
@@ -95,7 +95,7 @@ const shownNumber = local.length === 11 ? `${local.slice(0, 4)} ${local.slice(4,
           <h2>I-send sa Messenger</h2>
           <p>Kasama ang pangalang gusto mong ilagay sa kopya mo.</p>
           <a class="btn" id="messenger" href={`${MESSENGER_BASE}?ref=bayad`}>I-send sa Messenger</a>
-          <p class="small muted">Ipapadala namin ang download link sa Messenger, kadalasan within minutes (8AM–9PM).</p>
+          <p class="small muted">Ipapadala namin ang download link sa Messenger, kadalasan within minutes ({DELIVERY_HOURS}).</p>
         </li>
       </ol>
     </div>

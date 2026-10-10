@@ -15,7 +15,7 @@ export const FB_PAGE_NAME: string = 'AutoToolKitPH';
 export const YEARS_EXPERIENCE: string = '10';
 
 // Used via the {DELIVERY_HOURS} token.
-export const DELIVERY_HOURS = '8AM–9PM';
+export const DELIVERY_HOURS = '8AM–12MN';
 
 /**
  * Meta Pixel ID, read from the PUBLIC_META_PIXEL_ID environment variable at build time.
