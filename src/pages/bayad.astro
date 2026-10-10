@@ -51,9 +51,10 @@ const shownNumber = local.length === 11 ? `${local.slice(0, 4)} ${local.slice(4,
           <div class="way">
             <h3>Paraan A: QR code</h3>
             <img src="/pay/gcash-qr.jpg" width="760" height="675" alt={`GCash QR code, ${GCASH_NAME_MASKED}`} class="qr" />
-            <a class="btn btn-ghost" href="/pay/gcash-qr.jpg" download="AutoToolKitPH-GCash-QR.jpg">I-save ang QR</a>
+            <button type="button" class="btn btn-ghost" id="save-qr">I-save ang QR sa Gallery</button>
+            <p class="saved small" id="saved" hidden>Na-save na ✓ Tingnan sa Gallery (Downloads).</p>
             <ol class="how">
-              <li>I-save ang QR (o i-screenshot ito).</li>
+              <li>I-save ang QR sa Gallery (o i-screenshot ito).</li>
               <li>Buksan ang GCash → <b>Pay QR</b> → <b>Upload QR</b> → piliin ang na-save na QR.</li>
               <li>I-type ang halaga sa itaas → <b>Pay</b>.</li>
             </ol>
@@ -99,6 +100,13 @@ const shownNumber = local.length === 11 ? `${local.slice(0, 4)} ${local.slice(4,
       </ol>
     </div>
   </section>
+
+  <div class="qr-full" id="qr-full" hidden>
+    <p class="qr-tip">Pindutin nang <b>matagal</b> ang QR, tapos piliin ang <b>Save image</b> (o Download image).</p>
+    <img src="/pay/gcash-qr.jpg" width="760" height="675" alt={`GCash QR code, ${GCASH_NAME_MASKED}`} />
+    <p class="qr-tip small">Ayaw gumana? I-screenshot na lang ang screen na ito.</p>
+    <button type="button" class="btn" id="qr-close">Tapos na</button>
+  </div>
 </BaseLayout>
 
 <script is:inline define:vars={{ messenger: MESSENGER_BASE }}>
@@ -130,6 +138,42 @@ const shownNumber = local.length === 11 ? `${local.slice(0, 4)} ${local.slice(4,
       change.hidden = true;
     });
   }
+
+  // Save the QR the shortest way each phone allows: iPhone share sheet ("Save Image"), a real download
+  // elsewhere, and inside Facebook/Messenger's browser (downloads blocked) a full-screen QR to long-press.
+  const ua = navigator.userAgent;
+  const inApp = /FBAN|FBAV|FB_IAB|FBIOS|Messenger|Instagram/i.test(ua);
+  const ios = /iPhone|iPad|iPod/i.test(ua);
+  const full = document.getElementById('qr-full');
+  const showFull = () => {
+    full.hidden = false;
+    document.body.style.overflow = 'hidden';
+  };
+  document.getElementById('qr-close').addEventListener('click', () => {
+    full.hidden = true;
+    document.body.style.overflow = '';
+  });
+  document.getElementById('save-qr').addEventListener('click', async () => {
+    if (inApp) return showFull();
+    try {
+      const blob = await (await fetch('/pay/gcash-qr.jpg')).blob();
+      const file = new File([blob], 'AutoToolKitPH-GCash-QR.jpg', { type: 'image/jpeg' });
+      if (ios && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file] });
+        return;
+      }
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = file.name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      document.getElementById('saved').hidden = false;
+    } catch (e) {
+      if (e && e.name === 'AbortError') return;
+      showFull();
+    }
+  });
 
   document.querySelectorAll('.copy').forEach((btn) =>
     btn.addEventListener('click', async () => {
@@ -334,6 +378,46 @@ const shownNumber = local.length === 11 ? `${local.slice(0, 4)} ${local.slice(4,
     color: var(--color-accent);
     border: 1px solid var(--color-accent);
     font-size: var(--fs-sm);
+  }
+  .saved {
+    color: var(--color-accent);
+    font-weight: 700;
+    text-align: center;
+  }
+  .qr-full {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--gutter);
+    background: var(--color-dark);
+    color: var(--color-on-dark);
+    text-align: center;
+  }
+  .qr-full[hidden] {
+    display: none;
+  }
+  .qr-full img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    border-radius: var(--radius);
+    -webkit-touch-callout: default;
+  }
+  .qr-tip {
+    max-width: 420px;
+    font-size: var(--fs-lg);
+  }
+  .qr-tip.small {
+    font-size: var(--fs-sm);
+    color: var(--color-on-dark-muted);
+  }
+  .qr-full .btn {
+    max-width: 420px;
   }
   .copy[hidden] {
     display: none;
