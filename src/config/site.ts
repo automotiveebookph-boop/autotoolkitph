@@ -35,6 +35,18 @@ export const SITE_URL: string = '';
 
 export const PAYMENT_METHODS = ['GCash'];
 
+/** Account name as GCash itself masks it. Never put the full name on the site. */
+export const GCASH_NAME_MASKED = 'RO****O J* D.';
+
+/**
+ * GCash number for the "Send money" option on /bayad, read from PUBLIC_GCASH_NUMBER at build time
+ * (Vercel → Settings → Environments → Production). While empty, /bayad shows the QR only.
+ */
+export const GCASH_NUMBER: string = readEnv('PUBLIC_GCASH_NUMBER');
+
+/** Starter Kit buyers can get the Auto Service Center System for this amount. */
+export const UPGRADE_PRICE = 1500;
+
 export const GUARANTEE_TEXT = '7-day money-back guarantee';
 
 /** Show products with status "coming-soon" on the homepage as non-clickable cards. */

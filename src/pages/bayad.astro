@@ -1,0 +1,344 @@
+---
+/**
+ * /bayad — how to pay by GCash. Linked from the Messenger order replies as /bayad?p=<slug>
+ * (or ?p=upgrade). Not in the sitemap and noindex: only buyers who are ordering need it.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { BRAND_NAME, GCASH_NAME_MASKED, GCASH_NUMBER, MESSENGER_BASE, UPGRADE_PRICE } from '../config/site';
+import { formatPrice, getActiveProducts } from '../lib/products';
+
+const products = (await getActiveProducts()).filter((p) => p.price !== undefined);
+const options = [
+  ...products.map((p) => ({ id: p.slug, label: p.shortName, price: p.price as number })),
+  { id: 'upgrade', label: 'Upgrade: Starter Kit → Service Center System', price: UPGRADE_PRICE },
+];
+
+const digits = GCASH_NUMBER.replace(/\D/g, '');
+const local = digits.startsWith('63') ? `0${digits.slice(2)}` : digits;
+const shownNumber = local.length === 11 ? `${local.slice(0, 4)} ${local.slice(4, 7)} ${local.slice(7)}` : GCASH_NUMBER;
+---
+
+<BaseLayout title={`Magbayad gamit ang GCash — ${BRAND_NAME}`} description="Paano magbayad ng order mo gamit ang GCash." noindex>
+  <section class="section pay">
+    <div class="container container-narrow">
+      <h1>Magbayad gamit ang GCash</h1>
+      <p class="lead">3 hakbang lang: bayad → screenshot → i-send sa Messenger. Ipapadala namin ang download link mo.</p>
+
+      <fieldset class="pick">
+        <legend>Ano ang binibili mo?</legend>
+        {
+          options.map((o) => (
+            <label class="chip">
+              <input type="radio" name="product" value={o.id} data-price={o.price} />
+              <span>{o.label}</span>
+              <strong>{formatPrice(o.price)}</strong>
+            </label>
+          ))
+        }
+        <button type="button" class="change" id="change" hidden>Iba ang binibili ko</button>
+      </fieldset>
+
+      <div class="amount" aria-live="polite">
+        <span>Halagang babayaran</span>
+        <strong id="amount">Pumili sa itaas</strong>
+        <button type="button" class="copy" id="copy-amount" data-copy="" hidden>Kopyahin ang halaga</button>
+      </div>
+
+      <ol class="steps">
+        <li class="step">
+          <h2>Magbayad</h2>
+
+          <div class="way">
+            <h3>Paraan A: QR code</h3>
+            <img src="/pay/gcash-qr.jpg" width="760" height="675" alt={`GCash QR code, ${GCASH_NAME_MASKED}`} class="qr" />
+            <a class="btn btn-ghost" href="/pay/gcash-qr.jpg" download="AutoToolKitPH-GCash-QR.jpg">I-save ang QR</a>
+            <ol class="how">
+              <li>I-save ang QR (o i-screenshot ito).</li>
+              <li>Buksan ang GCash → <b>Pay QR</b> → <b>Upload QR</b> → piliin ang na-save na QR.</li>
+              <li>I-type ang halaga sa itaas → <b>Pay</b>.</li>
+            </ol>
+            <p class="small muted">Nasa ibang phone o computer? I-scan na lang ang QR. Pwede rin sa Maya o bank app (InstaPay).</p>
+          </div>
+
+          {
+            shownNumber && (
+              <div class="way">
+                <h3>Paraan B: Send Money sa number</h3>
+                <p class="number">
+                  <strong>{shownNumber}</strong>
+                  <button type="button" class="copy" data-copy={local || GCASH_NUMBER}>
+                    Kopyahin
+                  </button>
+                </p>
+                <ol class="how">
+                  <li>
+                    Buksan ang GCash → <b>Send</b> → <b>Express Send</b> → i-paste ang number.
+                  </li>
+                  <li>I-type ang halaga sa itaas → <b>Send</b>.</li>
+                </ol>
+              </div>
+            )
+          }
+
+          <p class="check">
+            Bago mag-confirm, siguraduhing <strong>{GCASH_NAME_MASKED}</strong> ang pangalang lumalabas.
+          </p>
+        </li>
+
+        <li class="step">
+          <h2>I-screenshot ang resibo</h2>
+          <p>Yung page na may <b>reference number</b> pagkatapos magbayad.</p>
+        </li>
+
+        <li class="step">
+          <h2>I-send sa Messenger</h2>
+          <p>Kasama ang pangalang gusto mong ilagay sa kopya mo.</p>
+          <a class="btn" id="messenger" href={`${MESSENGER_BASE}?ref=bayad`}>I-send sa Messenger</a>
+          <p class="small muted">Ipapadala namin ang download link sa Messenger, kadalasan within minutes (8AM–9PM).</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ messenger: MESSENGER_BASE }}>
+  const amountEl = document.getElementById('amount');
+  const copyAmount = document.getElementById('copy-amount');
+  const link = document.getElementById('messenger');
+  const radios = document.querySelectorAll('input[name="product"]');
+
+  function select(input) {
+    input.checked = true;
+    const price = Number(input.dataset.price);
+    amountEl.textContent = '₱' + price.toLocaleString('en-PH');
+    copyAmount.dataset.copy = String(price);
+    copyAmount.hidden = false;
+    link.href = messenger + '?ref=bayad_' + input.value;
+  }
+  radios.forEach((r) => r.addEventListener('change', () => select(r)));
+  const wanted = new URLSearchParams(location.search).get('p');
+  const match = [...radios].find((r) => r.value === wanted);
+  if (match) {
+    // Came from the chat with the product already known: show only that one.
+    select(match);
+    const pick = document.querySelector('.pick');
+    const change = document.getElementById('change');
+    pick.classList.add('chosen');
+    change.hidden = false;
+    change.addEventListener('click', () => {
+      pick.classList.remove('chosen');
+      change.hidden = true;
+    });
+  }
+
+  document.querySelectorAll('.copy').forEach((btn) =>
+    btn.addEventListener('click', async () => {
+      const label = btn.textContent;
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+        btn.textContent = 'Nakopya ✓';
+      } catch {
+        btn.textContent = btn.dataset.copy;
+      }
+      setTimeout(() => (btn.textContent = label), 2000);
+    }),
+  );
+</script>
+
+<style>
+  .pay .container > * + * {
+    margin-top: var(--space-5);
+  }
+  .pick {
+    border: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .pick legend {
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--tap);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    cursor: pointer;
+  }
+  .chip span {
+    flex: 1;
+  }
+  .chip:has(input:checked) {
+    border-color: var(--color-accent);
+    background: var(--color-accent-tint);
+    box-shadow: inset 0 0 0 1px var(--color-accent);
+  }
+  .chosen .chip:not(:has(input:checked)) {
+    display: none;
+  }
+  .change {
+    justify-self: start;
+    padding: var(--space-1) 0;
+    border: 0;
+    background: none;
+    color: var(--color-accent);
+    font: inherit;
+    font-size: var(--fs-sm);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .chip input {
+    accent-color: var(--color-accent);
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .amount {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border-radius: var(--radius);
+    background: var(--color-dark);
+    color: var(--color-on-dark);
+    text-align: center;
+  }
+  .amount span {
+    color: var(--color-on-dark-muted);
+  }
+  .amount strong {
+    font-family: var(--font-h);
+    font-size: var(--fs-2xl);
+    color: var(--color-accent-bright);
+  }
+  .amount .copy {
+    background: transparent;
+    color: var(--color-on-dark);
+    border-color: var(--color-on-dark-muted);
+  }
+  .steps {
+    list-style: none;
+    padding: 0;
+    counter-reset: step;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .step {
+    counter-increment: step;
+    padding: var(--space-5);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    box-shadow: var(--shadow);
+  }
+  .step > * + * {
+    margin-top: var(--space-3);
+  }
+  .step h2 {
+    font-size: var(--fs-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .step h2::before {
+    content: counter(step);
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: var(--fs-base);
+    flex: none;
+  }
+  .way {
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+  .way > * + * {
+    margin-top: var(--space-3);
+  }
+  .way h3 {
+    font-size: var(--fs-lg);
+  }
+  .qr {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    margin-inline: auto;
+    border-radius: var(--radius-sm);
+  }
+  .how {
+    padding-left: 1.25rem;
+    display: grid;
+    gap: var(--space-1);
+  }
+  .number {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .number strong {
+    font-family: var(--font-h);
+    font-size: var(--fs-xl);
+    letter-spacing: 0.02em;
+  }
+  .check {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-sm);
+    background: var(--color-accent-tint);
+  }
+  .btn,
+  .copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tap);
+    padding: 0 var(--space-5);
+    border-radius: 999px;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn {
+    width: 100%;
+    min-height: 54px;
+    background: var(--color-accent);
+    color: #fff;
+    border: 0;
+  }
+  .btn:hover {
+    background: var(--color-accent-hover);
+    color: #fff;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+  }
+  .btn-ghost:hover {
+    color: #fff;
+  }
+  .copy {
+    min-height: 40px;
+    padding: 0 var(--space-4);
+    background: var(--color-surface);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    font-size: var(--fs-sm);
+  }
+  .copy[hidden] {
+    display: none;
+  }
+  .small {
+    font-size: var(--fs-sm);
+  }
+</style>
