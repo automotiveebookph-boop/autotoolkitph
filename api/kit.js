@@ -31,7 +31,7 @@ const F = {
   guide: { label: 'Talyer Starter Kit PH 2026 (PDF guide)', note: 'Ang step-by-step na roadmap — simulan dito', filename: 'Talyer Starter Kit PH 2026', data: 'talyer_guide', stamp: 'ebook', ext: 'pdf' },
   toolkit: { label: 'Talyer Business Toolkit 2026 (Excel)', note: '9 tabs: startup cost, labor rate, job order, daily log, payroll, inventory, P&L, tax', filename: 'AutoToolKitPH Talyer Business Toolkit 2026', data: 'talyer_toolkit', ext: 'xlsx' },
   example: { label: 'Toolkit EXAMPLE (Excel)', note: 'Halimbawang shop na naka-fill in — tingnan muna ito', filename: 'AutoToolKitPH Talyer Business Toolkit 2026 - EXAMPLE', data: 'talyer_example', ext: 'xlsx' },
-  pricelist: { label: 'Talyer Labor Price List (Excel)', note: '99 jobs, member price at printable price board', filename: 'AutoToolKitPH Talyer Labor Price List', data: 'pricelist', ext: 'xlsx' },
+  pricelist: { label: 'Labor Price List + Service Menu (Excel)', note: '99 jobs + 10 service packages, member price, printable boards', filename: 'AutoToolKitPH Talyer Labor Price List', data: 'pricelist', ext: 'xlsx' },
   'check-a4': { label: 'Vehicle Health Check Report (A4)', note: 'Fillable PDF — i-fill in sa phone o i-print', filename: 'AutoToolKitPH Vehicle Health Check Report - A4', data: 'check_a4', stamp: 'meta', ext: 'pdf' },
   'check-letter': { label: 'Vehicle Health Check Report (Letter / short bond)', note: 'Parehong form, para sa short bond', filename: 'AutoToolKitPH Vehicle Health Check Report - Letter', data: 'check_letter', stamp: 'meta', ext: 'pdf' },
 };
@@ -47,6 +47,7 @@ const FLAG_PARTS = {
   hr: () => import('./_kit-flagship-hr.js'),
   gm: () => import('./_kit-flagship-gm.js'),
   media: () => import('./_kit-flagship-media.js'),
+  menu: () => import('./_kit-flagship-menu.js'),
 };
 const SYS = 'Auto Service Center System PH';
 const FLAGSHIP = [
@@ -69,6 +70,16 @@ for (const g of FLAGSHIP) {
   flagFiles[`${g.id}-toolkit`] = { label: `${tk} Toolkit (.zip)`, note: g.toolkitNote, filename: `${SYS} - ${two(g.n)} ${tk} Toolkit`, flag: g.id, part: 'toolkit', ext: 'zip' };
 }
 
+/* Talyer Service Menu & Price List Kit (product "pricelist"; also a BONUS group in the System) */
+const MENU_KIT = 'Talyer Service Menu & Price List Kit PH';
+const menuFiles = {
+  'menu-guide': { label: 'Service Menu & Pricing Guide (PDF)', note: 'Paano mag-presyo, mag-present at magbenta ng packages', filename: `${MENU_KIT} - Guide`, flag: 'menu', part: 'guide', stamp: 'ebook', ext: 'pdf' },
+  // Single files taken from the kit bundle, for owners who only have a phone (no zip needed)
+  'menu-poster': { label: 'Service Menu Poster (A4, fillable PDF)', note: 'Para sa phone: i-fill in sa Adobe Acrobat Reader, tapos i-print', filename: `${MENU_KIT} - Service Menu Poster A4`, flag: 'menu', part: 'toolkit', pick: '2 Service Menu Poster/AutoToolKitPH_Service_Menu_Poster_A4.pdf', ext: 'pdf' },
+  'menu-estimate': { label: 'Service Package Estimate (A4, fillable PDF)', note: 'Written quote na may APPROVE o HINDI MUNA', filename: `${MENU_KIT} - Service Package Estimate A4`, flag: 'menu', part: 'toolkit', pick: '4 Service Package Estimate/AutoToolKitPH_Service_Package_Estimate_A4.pdf', ext: 'pdf' },
+  'menu-toolkit': { label: 'Service Menu Kit (.zip)', note: 'Excel + EXAMPLE, poster (A4, short bond, A3), 12 Facebook posts, estimate form, checklists', filename: `${MENU_KIT} - Service Menu Kit`, flag: 'menu', part: 'toolkit', ext: 'zip' },
+};
+
 const PRODUCTS = {
   inspection: {
     name: '2nd Hand Car Inspection Kit PH',
@@ -84,9 +95,11 @@ const PRODUCTS = {
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang guide.'],
   },
   pricelist: {
-    name: 'Talyer Labor Price List PH',
-    files: { pricelist: F.pricelist },
-    tips: ['Buksan sa Excel, i-type ang shop name sa <b>Price List</b> tab, i-adjust ang presyo, tapos i-print ang <b>Price Board</b> tab.', OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang.'],
+    name: MENU_KIT,
+    files: { ...menuFiles, pricelist: { ...F.pricelist, note: 'Kasama rin sa .zip; i-download dito kung Excel lang ang kailangan' } },
+    tips: ['Basahin muna ang <b>Quick start</b> sa simula ng guide: isang hapon lang, may Service Menu na kayo.',
+      'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>. Nandoon ang Excel, poster, Facebook templates, estimate form at checklists. Tingnan muna ang <b>EXAMPLE</b> file.',
+      OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang guide.'],
   },
   check: {
     name: 'Vehicle Health Check Report PH',
@@ -96,8 +109,9 @@ const PRODUCTS = {
   },
   flagship: {
     name: SYS,
-    files: flagFiles,
-    groups: FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
+    files: { ...flagFiles, ...menuFiles },
+    groups: [...FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
+      { title: 'BONUS · Service Menu Kit', keys: ['menu-guide', 'menu-toolkit', 'menu-poster', 'menu-estimate'] }],
     tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager).',
       'Ang <b>Guide PDF</b> ay mababasa sa phone. Ang <b>Toolkit (.zip)</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>, tapos buksan ang Excel at forms. Tingnan muna ang mga <b>EXAMPLE</b> file.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang mga guide.'],
@@ -187,6 +201,12 @@ function fit(font, head, tail, maxW, size, minSize) {
   return { text: t + tail, size };
 }
 async function makeFile(file, p) {
+  if (file.pick) {
+    const b = readBundle(inflateRawSync(await flagMaster(file.flag, 'toolkit')));
+    const f = b.files.find((x) => x.path === file.pick);
+    if (!f) throw new Error(`"${file.pick}" is not in the ${file.flag} toolkit`);
+    return stampPdf(f.data, 'meta', p);
+  }
   if (file.part === 'toolkit') {
     // Booklets the buyer keeps get the visible stamp; forms for the shop's customers get metadata only; Excel/Word/text as-is.
     const b = readBundle(inflateRawSync(await flagMaster(file.flag, 'toolkit')));
@@ -247,6 +267,13 @@ a.btn small{font-weight:400;opacity:.9}a.btn:hover{background:var(--accent-h)}a.
 a.btn:focus-visible{outline:3px solid #1b6fd1;outline-offset:3px}
 ul{margin:0;padding-left:1.1rem;display:grid;gap:6px}.tint{background:var(--tint);border-color:#cfe0b8}
 a{color:var(--accent);font-weight:700}
+form{display:grid;gap:14px}label{display:grid;gap:6px;font-weight:600;font-size:.95rem}.hint{font-weight:400;color:var(--muted);font-size:.85rem}
+input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-height:48px;width:100%}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid #1b6fd1;outline-offset:2px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pair>*{min-width:0}
+.tick{display:flex;gap:10px;align-items:flex-start;font-weight:400}.tick input{width:22px;min-height:22px;height:22px;flex:none;margin-top:2px}
+button{font:700 1rem system-ui,sans-serif;border:0;border-radius:12px;min-height:52px;padding:12px 16px;background:var(--accent);color:#fff;cursor:pointer}
+.err{color:#a32d2d;font-weight:600}.hp{position:absolute;left:-9999px}
 </style></head><body><div class="top"><img src="/brand/logo-horizontal-dark.svg" width="172" height="26" alt="AutoToolKitPH"></div><main>${body}</main></body></html>`;
 
 function downloadPage(t, p) {
@@ -273,11 +300,94 @@ ${list}
   <p><b>Paano magsimula</b></p>
   <ul>${prod.tips.map((x) => `<li>${x}</li>`).join('')}</ul>
 </section>
+${p.k !== 'inspection' && regOn() ? `<section class="card tint">
+  <p><b>I-register ang kopya ninyo (libre)</b></p>
+  <p class="muted">Para makatanggap ng libreng update (2027 edition) at invite sa app version para sa talyer na ginagawa namin.</p>
+  <a class="btn alt" href="/kit/${t}/register">I-register ang kopya<small>1 minuto lang · optional</small></a>
+</section>` : ''}
 ${prod.guarantee ? `<section class="card tint">
   <p><b>7-day money-back guarantee</b></p>
   <p class="muted">Kung hindi ninyo nakitang useful, i-message lang kami at ibabalik namin ang bayad.</p>
   <p><a href="${MESSENGER}">I-message ang AutoToolKitPH</a></p>
 </section>` : `<section class="card"><p class="muted">May tanong? <a href="${MESSENGER}">I-message ang AutoToolKitPH</a></p></section>`}`);
+}
+/* Registration (optional, shop-owner products only): leads for the shop app. Stored in Supabase through one
+   insert-only function (public.register_kit_buyer, see product/delivery/register-setup.sql).
+   Environment variables: SUPABASE_URL, SUPABASE_KEY (publishable/anon key), REGISTER_SECRET. */
+const REG = {
+  bays: ['1', '2', '3', '4-5', '6-10', '11+'],
+  mechanics: ['1', '2-3', '4-6', '7-10', '11+'],
+  current_tool: { paper: 'Papel / notebook', excel: 'Excel', software: 'Software o app', none: 'Wala pa' },
+  biggest_problem: {
+    joborder: 'Job order at approval', comebacks: 'Bumabalik na kotse (comebacks)', cash: 'Pera at cash flow', people: 'Tauhan at sweldo',
+    parts: 'Parts at inventory', customers: 'Kulang ang customers', other: 'Iba pa',
+  },
+  app_interest: { yes: 'Oo, gusto kong i-try', maybe: 'Siguro, ipakita muna', no: 'Hindi muna' },
+};
+const regOn = () => ['SUPABASE_URL', 'SUPABASE_KEY', 'REGISTER_SECRET'].every((n) => process.env[n]);
+const opts = (list, val, blank = 'Pumili') =>
+  `<option value="">${blank}</option>` + (Array.isArray(list) ? list.map((v) => [v, v]) : Object.entries(list))
+    .map(([v, l]) => `<option value="${esc(v)}"${v === val ? ' selected' : ''}>${esc(l)}</option>`).join('');
+function registerPage(t, p, v = {}, error = '') {
+  const val = (k, d = '') => esc(v[k] ?? d);
+  return shell(`I-register ang kopya — ${BRAND}`, `
+<h1>I-register ang kopya ninyo</h1>
+<p class="muted">Order #${esc(p.o)} · ${esc(PRODUCTS[p.k].name)}</p>
+<section class="card">
+  <p>Libreng update (2027 edition) at invite sa app version para sa talyer na ginagawa namin. 1 minuto lang.</p>
+  ${error ? `<p class="err" role="alert">${esc(error)}</p>` : ''}
+  <form method="post" action="/kit/${t}/register" novalidate>
+    <label>Pangalan<input name="name" maxlength="80" required autocomplete="name" value="${val('name', p.n)}"></label>
+    <div class="pair">
+      <label>Mobile<input name="mobile" maxlength="20" inputmode="tel" autocomplete="tel" value="${val('mobile')}"></label>
+      <label>Email<input name="email" maxlength="120" type="email" inputmode="email" autocomplete="email" value="${val('email', p.e)}"></label>
+    </div>
+    <p class="hint" style="margin-top:-6px">Kahit isa lang sa dalawa.</p>
+    <label>Pangalan ng shop <span class="hint">(optional)</span><input name="shop_name" maxlength="120" value="${val('shop_name')}"></label>
+    <label>Lungsod / probinsya<input name="city" maxlength="80" placeholder="hal. Pulilan, Bulacan" value="${val('city')}"></label>
+    <div class="pair">
+      <label>Ilang bay?<select name="bays">${opts(REG.bays, v.bays)}</select></label>
+      <label>Ilang mekaniko?<select name="mechanics">${opts(REG.mechanics, v.mechanics)}</select></label>
+    </div>
+    <label>Ano ang gamit ninyo ngayon sa records?<select name="current_tool">${opts(REG.current_tool, v.current_tool)}</select></label>
+    <label>Pinakamalaking problema sa shop ngayon?<select name="biggest_problem">${opts(REG.biggest_problem, v.biggest_problem)}</select></label>
+    <label>Gusto mo bang i-try ang app version kapag handa na?<select name="app_interest">${opts(REG.app_interest, v.app_interest)}</select></label>
+    <label class="tick"><input type="checkbox" name="consent_updates" value="1"${v.consent_updates ? ' checked' : ''}><span>Pumapayag akong padalhan ng updates ng kit na ito (Messenger, SMS o email).</span></label>
+    <label class="tick"><input type="checkbox" name="consent_beta" value="1"${v.consent_beta ? ' checked' : ''}><span>Pumapayag akong ma-invite sa beta ng app para sa talyer. <span class="hint">(optional)</span></span></label>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button type="submit">I-register</button>
+    <p class="hint">Gagamitin lang namin ito para sa updates at invites na pinayagan ninyo. Hindi namin ito ibinebenta. Basahin ang <a href="/privacy">privacy policy</a>.</p>
+  </form>
+</section>`);
+}
+function readRegistration(body) {
+  const b = body && typeof body === 'object' ? body : {};
+  const s = (k, n) => String(b[k] ?? '').replace(/\s+/g, ' ').trim().slice(0, n);
+  const pick = (k, list) => { const x = s(k, 40); return (Array.isArray(list) ? list : Object.keys(list)).includes(x) ? x : ''; };
+  const v = {
+    name: s('name', 80), mobile: s('mobile', 20), email: s('email', 120), shop_name: s('shop_name', 120), city: s('city', 80),
+    bays: pick('bays', REG.bays), mechanics: pick('mechanics', REG.mechanics), current_tool: pick('current_tool', REG.current_tool),
+    biggest_problem: pick('biggest_problem', REG.biggest_problem), app_interest: pick('app_interest', REG.app_interest),
+    consent_updates: !!b.consent_updates, consent_beta: !!b.consent_beta, bot: s('website', 50),
+  };
+  let error = '';
+  if (!v.name) error = 'Ilagay ang pangalan ninyo.';
+  else if (!v.mobile && !v.email) error = 'Ilagay ang mobile o email, kahit isa lang.';
+  else if (v.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) error = 'Mukhang mali ang email. Ayusin o burahin.';
+  else if (v.mobile && !/^[+\d][\d\s-]{6,19}$/.test(v.mobile)) error = 'Mukhang mali ang mobile number.';
+  else if (!v.consent_updates) error = 'I-check ang unang box para makatanggap ng updates.';
+  return { v, error };
+}
+async function saveRegistration(p, v) {
+  const { SUPABASE_URL: url, SUPABASE_KEY: k, REGISTER_SECRET: secret } = process.env;
+  if (!url || !k || !secret) throw new Error('registration is not configured (SUPABASE_URL / SUPABASE_KEY / REGISTER_SECRET)');
+  const { bot, ...fields } = v;
+  const r = await fetch(`${url.replace(/\/+$/, '')}/rest/v1/rpc/register_kit_buyer`, {
+    method: 'POST',
+    headers: { apikey: k, Authorization: `Bearer ${k}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ p: { ...fields, order_no: p.o, product: p.k }, p_secret: secret }),
+  });
+  if (!r.ok) throw new Error(`supabase ${r.status}: ${(await r.text()).slice(0, 200)}`);
 }
 function problemPage(title, text) {
   return shell(`${title} — ${BRAND}`, `
@@ -309,7 +419,8 @@ export default async function handler(req, res) {
       }
     }
     res.status(200).setHeader('Content-Type', 'application/json; charset=utf-8');
-    return res.send(JSON.stringify({ KIT_KEY: probe('KIT_KEY'), LINK_KEY: probe('LINK_KEY'), missingFiles: files, environment: process.env.VERCEL_ENV || 'unknown' }));
+    const registration = regOn() ? 'configured' : 'not configured';
+    return res.send(JSON.stringify({ KIT_KEY: probe('KIT_KEY'), LINK_KEY: probe('LINK_KEY'), missingFiles: files, registration, environment: process.env.VERCEL_ENV || 'unknown' }));
   }
 
   let p;
@@ -329,6 +440,25 @@ export default async function handler(req, res) {
     return res.send(problemPage('Expired na ang link', `Valid lang ang link hanggang ${esc(fmtDate(p.x))}. I-message lang po kami at bibigyan namin kayo ng bagong link.`));
   }
 
+  if (f === 'register' && p.k !== 'inspection' && regOn()) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    if (req.method !== 'POST') return res.status(200).send(registerPage(t, p));
+    const { v, error } = readRegistration(req.body);
+    if (error) return res.status(422).send(registerPage(t, p, v, error));
+    try {
+      if (!v.bot) await saveRegistration(p, v); // bots fill the hidden field: pretend it worked
+    } catch (e) {
+      console.error('kit: registration failed:', e.message);
+      return res.status(503).send(registerPage(t, p, v, 'Pasensya na po, hindi na-save ngayon. Subukan ulit mamaya, o i-message kami.'));
+    }
+    return res.status(200).send(shell(`Registered — ${BRAND}`, `
+<h1>Salamat, ${esc(v.name.split(' ')[0])}! ✅</h1>
+<section class="card">
+  <p>Naka-register na ang kopya ninyo (Order #${esc(p.o)}).</p>
+  <p class="muted">Padadalhan namin kayo ng update kapag may bagong edition${v.consent_beta ? ', at invite kapag bukas na ang beta ng app' : ''}.</p>
+  <p><a href="/kit/${t}">← Bumalik sa downloads</a></p>
+</section>`));
+  }
   if (!f) {
     res.status(200).setHeader('Content-Type', 'text/html; charset=utf-8');
     return res.send(downloadPage(t, p));

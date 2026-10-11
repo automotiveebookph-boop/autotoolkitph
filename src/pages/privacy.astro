@@ -6,7 +6,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BRAND_NAME, MESSENGER_BASE, PAYMENT_METHODS } from '../config/site';
 
-const updated = 'October 2, 2026'; // TODO: update when the policy changes
+const updated = 'October 10, 2026'; // TODO: update when the policy changes
 const payments = PAYMENT_METHODS.join(' / ');
 // Contact goes through Messenger (not a link to the Facebook page) so the page name isn't shown on the site.
 const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
@@ -43,7 +43,13 @@ const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
             <strong>When you visit this website:</strong> we use the <strong>Meta Pixel</strong>, a tool from Meta
             (Facebook), to measure how our ads perform — for example, which pages were viewed and whether a "Order via
             Messenger" button was tapped. Meta may use cookies and receive information such as your IP address and browser
-            details. This site has no forms and no accounts.
+            details. This site has no accounts.
+          </li>
+          <li>
+            <strong>If you register your copy (optional):</strong> buyers of our shop-owner products can fill in a short form
+            on their download page: name, mobile and/or email, shop name, city, number of bays and mechanics, what you use for
+            records, your biggest shop problem, and whether you'd like to try our shop app. We only keep it if you tick the
+            consent box, and the app beta invite has its own separate box.
           </li>
         </ul>
 
@@ -53,13 +59,14 @@ const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
           <li>To print your name (and email, if given) and order number on your copy of the kit, for personal use.</li>
           <li>To answer your questions and handle refund requests.</li>
           <li>To measure and improve our ads.</li>
+          <li>If you registered: to send the updates you agreed to, to invite you to our shop app's beta if you ticked that box, and to learn which tools shop owners need most.</li>
         </ul>
 
         <h3>What we don't do</h3>
-        <p>We do not sell, rent, or trade your personal data. We only share it with the services needed to run the business (Meta/Messenger and {payments}).</p>
+        <p>We do not sell, rent, or trade your personal data. We only share it with the services needed to run the business (Meta/Messenger, {payments}, and our database provider for registrations).</p>
 
         <h3>How long we keep it</h3>
-        <p>We keep order records only as long as needed to deliver your product, handle refunds, and meet legal or tax requirements.</p>
+        <p>We keep order records only as long as needed to deliver your product, handle refunds, and meet legal or tax requirements. Registrations are kept until you ask us to stop contacting you or to delete them.</p>
 
         <h3>Your rights</h3>
         <p>
@@ -93,7 +100,13 @@ const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
             <strong>Kapag bumisita ka sa website:</strong> gumagamit kami ng <strong>Meta Pixel</strong> mula sa Meta
             (Facebook) para masukat kung gaano kaepektibo ang ads namin — halimbawa, anong pages ang tiningnan at kung na-tap
             ang "Order via Messenger" button. Maaaring gumamit ang Meta ng cookies at makatanggap ng impormasyon tulad ng IP
-            address at browser details mo. Walang forms o accounts sa site na ito.
+            address at browser details mo. Walang accounts sa site na ito.
+          </li>
+          <li>
+            <strong>Kung ire-register mo ang kopya mo (optional):</strong> ang mga bumili ng produkto para sa may talyer ay
+            pwedeng mag-fill in ng maikling form sa download page nila: pangalan, mobile at/o email, pangalan ng shop, lungsod,
+            ilang bay at mekaniko, ano ang gamit sa records, pinakamalaking problema sa shop, at kung gusto mong i-try ang app
+            namin para sa talyer. Itinatago lang namin ito kung i-check mo ang consent box, at may sariling box ang beta invite.
           </li>
         </ul>
 
@@ -103,13 +116,14 @@ const contactUrl = `${MESSENGER_BASE}?ref=privacy`;
           <li>Para i-print ang pangalan mo (at email, kung ibinigay) at order number sa kopya mo ng kit, para sa personal na gamit.</li>
           <li>Para sagutin ang mga tanong mo at asikasuhin ang refund requests.</li>
           <li>Para masukat at mapaganda ang ads namin.</li>
+          <li>Kung nag-register ka: para ipadala ang updates na pinayagan mo, i-invite ka sa beta ng app kung na-check mo iyon, at malaman kung anong tools ang pinakakailangan ng mga may talyer.</li>
         </ul>
 
         <h3>Hindi namin ginagawa</h3>
-        <p>Hindi namin ibinebenta, pinapaupahan, o ipinagpapalit ang personal data mo. Ibinabahagi lang namin ito sa mga serbisyong kailangan para patakbuhin ang negosyo (Meta/Messenger at {payments}).</p>
+        <p>Hindi namin ibinebenta, pinapaupahan, o ipinagpapalit ang personal data mo. Ibinabahagi lang namin ito sa mga serbisyong kailangan para patakbuhin ang negosyo (Meta/Messenger, {payments}, at ang database provider namin para sa registrations).</p>
 
         <h3>Gaano katagal namin itinatago</h3>
-        <p>Itinatago lang namin ang order records hangga't kailangan para sa delivery, refunds, at legal o tax requirements.</p>
+        <p>Itinatago lang namin ang order records hangga't kailangan para sa delivery, refunds, at legal o tax requirements. Ang registrations ay itinatago hanggang hilingin mong itigil ang pag-contact sa iyo o burahin ito.</p>
 
         <h3>Mga karapatan mo</h3>
         <p>

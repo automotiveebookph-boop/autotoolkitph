@@ -1,69 +1,89 @@
-# Talyer Labor Price List PH — sold on its own (₱149) and included as a bonus in the Talyer Starter Kit PH 2026.
+# Talyer Service Menu & Price List Kit PH — ₱499 (was the ₱149 Labor Price List; upgraded 2026-10-11, same slug/link).
+# The Excel (Price List + Service Menu) is also a bonus in the Talyer Starter Kit; the whole kit is a bonus group in the System.
 # Field reference: see _TEMPLATE.yaml in this folder.
-# Images: src/assets/products/labor-price-list/ (from product/talyer-kit/make-shop-previews.py)
-# LIVE since 2026-10-08.
+# Images: src/assets/products/labor-price-list/ (from product/talyer-kit/price-list/make-previews.py)
+# Delivery: api/kit.js product "pricelist" (guide PDF + Service Menu Kit .zip + Excel); order page product "pricelist".
 
 slug: labor-price-list
 status: active
 sortOrder: 3
 category: Talyer owners
 
-name: Talyer Labor Price List PH
-shortName: Labor Price List
+name: Talyer Service Menu & Price List Kit PH
+shortName: Service Menu Kit
 eyebrow: PARA SA TALYER OWNERS AT MEKANIKO
-h1: Magkano ang singil mo sa labor? Handa na ang listahan.
-subhead: '99 common na trabaho sa talyer na may labor price, naka-group by system. I-adjust sa area mo, tapos i-print bilang price board.'
-mockupLine: Brakes · Suspension · Engine · Clutch · 99 jobs
-format: XLSX
-cardBlurb: 99 trabaho na may labor price, i-adjust sa area mo at i-print bilang price board.
+h1: Malinaw na service menu, may laman at presyo. Handa na.
+subhead: 'Piliin ang kotse, i-type ang odometer: lalabas ang PMS at services na due, presyo at Messenger reply. Plus 10 service packages na may laman at presyo, 99 labor prices, poster, Facebook posts at checklists.'
+mockupLine: PMS · ATF Dialysis · EGR · Turbo · 10 packages
+format: XLSX + PDF + PPTX
+cardBlurb: 10 service packages na may laman at presyo, 99 labor prices, poster, Facebook posts, estimate form at checklists.
 
-price: 149
-priceLabel: Excel + printable price board
-valueLine: Isang Excel file na tapos na ang listahan. I-type lang ang shop name, i-adjust ang presyo, at i-print.
+price: 499
+priceLabel: 2026 Edition
+valueLine: 'Isang kit: PMS Quote calculator, Excel price list at service menu, designed poster, 12 Facebook posts, estimate form, 6 service checklists at 18-page pricing guide.'
+
+trust:
+  heading: Ginawa para sa talyer sa Pilipinas
+  items:
+    - Presyo mula sa sarili mong gastos, hindi hula
+    - 4 vehicle sizes, mula Wigo hanggang Fortuner
+    - Taglish scripts na pwedeng gamitin agad
 
 problem:
-  heading: Hula-hula pa rin ba ang singil mo sa labor?
-  body: Kapag walang nakasulat na presyo, iba-iba ang singil sa bawat customer, at mas madali kang tawaran o pagdudahan.
+  heading: '"Magkano po PMS?" Ano ang sagot mo?'
+  body: Kapag "depende po" ang sagot at walang nakasulat na laman, presyo lang ang kinukumpara ng customer, at mas madali kang tawaran o pagdudahan.
   bullets:
-    - Walang posted price menu, kaya kulang ang tiwala ng customer
-    - Iba ang singil sa parehong trabaho
-    - Hindi sigurado kung sakto ang presyo sa oras ng mekaniko
+    - Walang malinaw na listahan ng kasama sa bawat package
+    - Iba-iba ang singil sa parehong trabaho
+    - Hindi sigurado kung kumikita ka pa sa parts at oras ng mekaniko
 
-modulesHeading: Isang file. Handa nang gamitin.
+modulesHeading: Ano ang laman ng kit
 modules:
   - number: '01'
-    title: 99 jobs, 11 groups
-    description: Brakes, tires at alignment, engine, diagnostics, cooling, fuel, belts at timing, clutch at transmission, steering, suspension, bearings
+    title: PMS Quote calculator + Service Menu (Excel)
+    description: Piliin ang kotse, i-type ang odometer, lalabas ang PMS at services na due, presyo, total at Messenger reply. 10 packages na may scope of work para sa 4 vehicle sizes
   - number: '02'
-    title: One-click price adjustment
-    description: Itaas o ibaba ang lahat ng presyo gamit ang isang % para sa area at gastos mo
+    title: 99 labor prices
+    description: Brakes, suspension, engine, clutch at iba pa, may member / suki price at printable price board
   - number: '03'
-    title: Member / suki price
-    description: Automatic na discount sa bawat trabaho (default 20%, pwedeng baguhin)
+    title: Designed Service Menu poster
+    description: Fillable PDF (A4, short bond at A3 pang-tarpaulin). I-type ang shop name, presyo at contact
   - number: '04'
-    title: Printable price board
-    description: Listahan na may pangalan ng shop mo, pang-post sa shop at sa Facebook
-  - number: BONUS
-    title: Labor rate check
-    description: I-type ang oras ng trabaho para makita kung sakto ang presyo sa labor rate mo
+    title: 12 Facebook post templates
+    description: Isang post bawat package + full menu + promo. I-edit sa PowerPoint, Google Slides o WPS
+  - number: '05'
+    title: Estimate form + 6 checklists
+    description: Written quote na may APPROVE o HINDI MUNA, at step-by-step checklist para sa mekaniko (turbo, EGR, cooling, ATF, underchassis, scan) + PMS checklist
+  - number: '06'
+    title: Service Menu & Pricing Guide
+    description: 18 pages kung paano mag-presyo, mag-present at magbenta nang tapat, may Taglish Messenger scripts
 
 previewsHeading: Silipin ang loob
 previews:
   - image: preview-1.jpg
-    label: Printable price board
+    label: Service Menu poster (sample shop)
   - image: preview-2.jpg
-    label: Price list with your settings
+    label: Facebook post templates
+  - image: preview-3.jpg
+    label: Service Board mula sa Excel
+  - image: preview-4.jpg
+    label: Service Package Estimate form
+  - image: preview-5.jpg
+    label: Service Menu & Pricing Guide
+  - image: preview-6.jpg
+    label: Service checklists para sa mekaniko
 
 audienceHeading: Para kanino ito?
 audience:
-  - Talyer owners na gusto ng posted price menu
-  - Mekanikong nagsisimula ng sariling shop
-  - Home service at mobile mechanics
+  - Talyer owners na gusto ng malinaw na PMS at service packages
+  - Shops na gustong mag-post ng presyo sa Facebook nang propesyonal
+  - 'Magbubukas pa lang ng talyer: ihanda ang menu at presyo bago magbukas'
+  - Mekanikong nagsisimula ng sariling shop o home service
 
 creatorNoteHeading: Saan galing ang mga presyo?
 creatorNote:
-  - Galing sa totoong labor price list ng isang talyer sa Pilipinas (2024), inayos at ginawang madaling i-edit.
-  - I-adjust sa area mo at sa sarili mong gastos. Presyuhan mula sa costs mo, hindi mula sa pinakamurang shop sa tabi mo.
+  - Ang labor prices ay galing sa totoong price list ng isang talyer sa Pilipinas (2024). Ang 10 packages ay batay sa mga serbisyong inaalok ng mga talyer ngayon.
+  - Ang parts costs ay typical na presyo sa Pilipinas (Oktubre 2026). Palitan ng presyo ng supplier mo; automatic na mag-a-update ang lahat ng package.
 
 howToOrder:
   - I-message kami sa Messenger
@@ -71,24 +91,24 @@ howToOrder:
   - Matanggap ang download link sa Messenger pagka-verify ng bayad
 
 faqs:
-  - q: Kasama ba ang presyo ng piyesa?
-    a: Hindi. Labor price lang ito; hiwalay na quote ang piyesa.
-  - q: Pwede ko bang baguhin ang mga presyo?
-    a: Oo. Editable ang lahat ng presyo, at may isang % para i-adjust ang buong listahan nang sabay.
-  - q: Anong file ito?
-    a: Excel file (.xlsx). Ang price board ay pwedeng i-print o i-save as PDF.
-  - q: Kasama ba ito sa Talyer Starter Kit?
-    a: Oo. Bonus ito sa Talyer Starter Kit PH 2026.
+  - q: Kasama ba ang piyesa sa presyo ng packages?
+    a: Oo, sa 10 service packages kasama na ang standard parts (langis, filter at iba pa) gamit ang parts costs na pwede mong palitan. Sa 99 labor prices, labor lang; hiwalay ang quote ng piyesa.
+  - q: Pwede ko bang baguhin ang laman at presyo?
+    a: Oo. Editable ang scope of work, parts, quantities, labor at markup. May isang slot din para sa sarili mong package.
+  - q: Kailangan ko ba ng computer?
+    a: Para sa Excel at Facebook templates, mas madali sa computer. Ang guide at fillable forms ay pwede sa phone (Adobe Acrobat Reader).
+  - q: Kasama ba ito sa Talyer Starter Kit o sa System?
+    a: Ang Excel (Price List + Service Menu) ay bonus sa Talyer Starter Kit. Ang buong kit ay kasama sa Auto Service Center System.
   - q: Paano ko makukuha?
     a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger.
 
 finalCta:
-  heading: '{PRICE} lang para sa handa nang labor price list.'
+  heading: '{PRICE} para sa service menu na handa nang i-print at i-post.'
 
-disclaimer: Reference prices based on a 2024 labor price list from a Philippine repair shop. Labor rates vary by area, vehicle and shop; adjust them to your own costs. {BRAND_NAME} is not affiliated with any vehicle manufacturer.
+disclaimer: Package prices are starting points based on typical Philippine parts costs (October 2026) and a 2024 labor price list from a Philippine repair shop. Prices vary by area, vehicle, supplier and shop; adjust them to your own costs. All specifications (oil grade, capacities, fluids, torque, maintenance schedule) must follow the vehicle manufacturer. {BRAND_NAME} is not affiliated with any vehicle manufacturer.
 
 seo:
-  title: Talyer Labor Price List PH — 99 Jobs, Editable Excel + Price Board
-  description: 'Labor price list para sa talyer sa Pilipinas: 99 trabaho (brakes, suspension, engine, clutch at iba pa), editable Excel, member price, at printable price board. ₱149.'
+  title: Talyer Service Menu & Price List Kit PH — PMS Packages, Poster, FB Posts
+  description: 'Service menu para sa talyer sa Pilipinas: 10 packages (PMS, ATF dialysis, EGR, turbo, cooling) na may laman at presyo, 99 labor prices, poster, Facebook templates, estimate form at checklists. ₱499.'
 
 addOns: []
