@@ -21,7 +21,7 @@ cardBlurb: Step-by-step na roadmap at Excel toolkit para magtayo ng talyer na ku
 
 price: 999
 priceLabel: 2026 Edition
-valueLine: 'Guide + Excel toolkit para sa buong setup, plus 2 bonus tools: Labor Price List + Service Menu (Excel) at Vehicle Health Check Report (₱99).'
+valueLine: 'Guide + Excel toolkit para sa buong setup, plus 2 bonus tools: PMS Quote & Price System (Excel) at Vehicle Health Check Report (₱99).'
 
 trust:
   heading: Updated for 2026
@@ -48,8 +48,8 @@ modules:
     title: Talyer Business Toolkit 2026 (Excel)
     description: '9 working tabs: startup cost, labor rate calculator, job order/estimate, daily sales log, payroll with 2026 contributions, parts inventory, monthly P&L, tax option comparison'
   - number: BONUS
-    title: Labor Price List + Service Menu (Excel)
-    description: '99 common jobs with labor prices, plus 10 service packages (PMS, ATF dialysis, EGR and more) with scope of work and prices for 4 vehicle sizes, member/suki price, and printable boards for your shop'
+    title: PMS Quote & Price System (Excel)
+    description: 'PMS quote by car and odometer (187 cars), printable quote, customer reminders, profit check, and 101 labor prices with a printable price board'
   - number: BONUS
     title: Vehicle Health / Safety Check Report (PDF)
     description: 'One-page multi-point inspection form for your customers: lights, fluids, brakes, tires, estimate. Print it or fill it in on your phone'

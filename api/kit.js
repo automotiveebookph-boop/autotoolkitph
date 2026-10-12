@@ -31,7 +31,7 @@ const F = {
   guide: { label: 'Talyer Starter Kit PH 2026 (PDF guide)', note: 'Ang step-by-step na roadmap — simulan dito', filename: 'Talyer Starter Kit PH 2026', data: 'talyer_guide', stamp: 'ebook', ext: 'pdf' },
   toolkit: { label: 'Talyer Business Toolkit 2026 (Excel)', note: '9 tabs: startup cost, labor rate, job order, daily log, payroll, inventory, P&L, tax', filename: 'AutoToolKitPH Talyer Business Toolkit 2026', data: 'talyer_toolkit', ext: 'xlsx' },
   example: { label: 'Toolkit EXAMPLE (Excel)', note: 'Halimbawang shop na naka-fill in — tingnan muna ito', filename: 'AutoToolKitPH Talyer Business Toolkit 2026 - EXAMPLE', data: 'talyer_example', ext: 'xlsx' },
-  pricelist: { label: 'Labor Price List + Service Menu (Excel)', note: '99 jobs + 10 service packages, member price, printable boards', filename: 'AutoToolKitPH Talyer Labor Price List', data: 'pricelist', ext: 'xlsx' },
+  pricelist: { label: 'PMS Quote & Price System (Excel)', note: 'PMS quote by car + odometer, printable quote, reminders, profit check, 101 labor prices', filename: 'AutoToolKitPH PMS Quote and Price System', data: 'pricelist', ext: 'xlsx' },
   'check-a4': { label: 'Vehicle Health Check Report (A4)', note: 'Fillable PDF — i-fill in sa phone o i-print', filename: 'AutoToolKitPH Vehicle Health Check Report - A4', data: 'check_a4', stamp: 'meta', ext: 'pdf' },
   'check-letter': { label: 'Vehicle Health Check Report (Letter / short bond)', note: 'Parehong form, para sa short bond', filename: 'AutoToolKitPH Vehicle Health Check Report - Letter', data: 'check_letter', stamp: 'meta', ext: 'pdf' },
 };
@@ -73,11 +73,11 @@ for (const g of FLAGSHIP) {
 /* Talyer Service Menu & Price List Kit (product "pricelist"; also a BONUS group in the System) */
 const MENU_KIT = 'Talyer Service Menu & Price List Kit PH';
 const menuFiles = {
-  'menu-guide': { label: 'Service Menu & Pricing Guide (PDF)', note: 'Paano mag-presyo, mag-present at magbenta ng packages', filename: `${MENU_KIT} - Guide`, flag: 'menu', part: 'guide', stamp: 'ebook', ext: 'pdf' },
+  'menu-guide': { label: 'How to Use guide (PDF)', note: 'Setup sa 30 minuto at paano gamitin ang bawat tab', filename: `${MENU_KIT} - How to Use`, flag: 'menu', part: 'guide', stamp: 'ebook', ext: 'pdf' },
   // Single files taken from the kit bundle, for owners who only have a phone (no zip needed)
-  'menu-poster': { label: 'Service Menu Poster (A4, fillable PDF)', note: 'Para sa phone: i-fill in sa Adobe Acrobat Reader, tapos i-print', filename: `${MENU_KIT} - Service Menu Poster A4`, flag: 'menu', part: 'toolkit', pick: '2 Service Menu Poster/AutoToolKitPH_Service_Menu_Poster_A4.pdf', ext: 'pdf' },
-  'menu-estimate': { label: 'Service Package Estimate (A4, fillable PDF)', note: 'Written quote na may APPROVE o HINDI MUNA', filename: `${MENU_KIT} - Service Package Estimate A4`, flag: 'menu', part: 'toolkit', pick: '4 Service Package Estimate/AutoToolKitPH_Service_Package_Estimate_A4.pdf', ext: 'pdf' },
-  'menu-toolkit': { label: 'Service Menu Kit (.zip)', note: 'Excel + EXAMPLE, poster (A4, short bond, A3), 12 Facebook posts, estimate form, checklists', filename: `${MENU_KIT} - Service Menu Kit`, flag: 'menu', part: 'toolkit', ext: 'zip' },
+  'menu-pms': { label: 'BONUS: PMS Checklist (A4, fillable PDF)', note: 'Parehong PMS steps sa bawat kotse, para sa mekaniko', filename: `${MENU_KIT} - PMS Checklist A4`, flag: 'menu', part: 'toolkit', pick: '2 BONUS - PMS Checklist/AutoToolKitPH_PMS_Checklist_A4.pdf', ext: 'pdf' },
+  'menu-check': { label: 'BONUS: Vehicle Health Check Report (A4, fillable PDF)', note: 'Green / yellow / red report para sa customer', filename: `${MENU_KIT} - Vehicle Health Check Report A4`, flag: 'menu', part: 'toolkit', pick: '3 BONUS - Vehicle Health Check Report/AutoToolKitPH_Vehicle_Health_Check_Report_A4.pdf', ext: 'pdf' },
+  'menu-toolkit': { label: 'Complete kit (.zip)', note: 'Excel + EXAMPLE, PMS Checklist at Health Check Report (A4 at short bond)', filename: `${MENU_KIT} - Complete Kit`, flag: 'menu', part: 'toolkit', ext: 'zip' },
 };
 
 const PRODUCTS = {
@@ -96,9 +96,9 @@ const PRODUCTS = {
   },
   pricelist: {
     name: MENU_KIT,
-    files: { ...menuFiles, pricelist: { ...F.pricelist, note: 'Kasama rin sa .zip; i-download dito kung Excel lang ang kailangan' } },
-    tips: ['Basahin muna ang <b>Quick start</b> sa simula ng guide: isang hapon lang, may Service Menu na kayo.',
-      'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>. Nandoon ang Excel, poster, Facebook templates, estimate form at checklists. Tingnan muna ang <b>EXAMPLE</b> file.',
+    files: { pricelist: F.pricelist, 'menu-guide': menuFiles['menu-guide'], 'menu-pms': menuFiles['menu-pms'], 'menu-check': menuFiles['menu-check'], 'menu-toolkit': menuFiles['menu-toolkit'] },
+    tips: ['Buksan ang Excel sa computer at tingnan muna ang <b>EXAMPLE</b> file. Unang tab ang <b>PMS Quote</b>: piliin ang kotse at i-type ang odometer.',
+      'Sundan ang <b>Set up in 30 minutes</b> sa guide. Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang guide.'],
   },
   check: {
@@ -111,7 +111,7 @@ const PRODUCTS = {
     name: SYS,
     files: { ...flagFiles, ...menuFiles },
     groups: [...FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
-      { title: 'BONUS · Service Menu Kit', keys: ['menu-guide', 'menu-toolkit', 'menu-poster', 'menu-estimate'] }],
+      { title: 'BONUS · PMS Quote & Price System', keys: ['menu-toolkit', 'menu-guide'] }],
     tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager).',
       'Ang <b>Guide PDF</b> ay mababasa sa phone. Ang <b>Toolkit (.zip)</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>, tapos buksan ang Excel at forms. Tingnan muna ang mga <b>EXAMPLE</b> file.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang mga guide.'],

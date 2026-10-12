@@ -1,8 +1,9 @@
-# Talyer Service Menu & Price List Kit PH — ₱499 (was the ₱149 Labor Price List; upgraded 2026-10-11, same slug/link).
-# The Excel (Price List + Service Menu) is also a bonus in the Talyer Starter Kit; the whole kit is a bonus group in the System.
+# Talyer Service Menu & Price List Kit PH — ₱499 (was the ₱149 Labor Price List; same slug/link).
+# 2026-10-12 rebuild: PMS Quote & Price System (Excel) on a real 6-bay PH shop's pricing + How to Use guide + 2 bonus PDFs.
+# The Excel is also a bonus in the Talyer Starter Kit; the kit is a bonus group in the System.
 # Field reference: see _TEMPLATE.yaml in this folder.
 # Images: src/assets/products/labor-price-list/ (from product/talyer-kit/price-list/make-previews.py)
-# Delivery: api/kit.js product "pricelist" (guide PDF + Service Menu Kit .zip + Excel); order page product "pricelist".
+# Delivery: api/kit.js product "pricelist" (Excel, guide, PMS Checklist, Health Check, kit .zip); order page product "pricelist".
 
 slug: labor-price-list
 status: active
@@ -10,80 +11,79 @@ sortOrder: 3
 category: Talyer owners
 
 name: Talyer Service Menu & Price List Kit PH
-shortName: Service Menu Kit
-eyebrow: PARA SA TALYER OWNERS AT MEKANIKO
-h1: Malinaw na service menu, may laman at presyo. Handa na.
-subhead: 'Piliin ang kotse, i-type ang odometer: lalabas ang PMS at services na due, presyo at Messenger reply. Plus 10 service packages na may laman at presyo, 99 labor prices, poster, Facebook posts at checklists.'
-mockupLine: PMS · ATF Dialysis · EGR · Turbo · 10 packages
-format: XLSX + PDF + PPTX
-cardBlurb: 10 service packages na may laman at presyo, 99 labor prices, poster, Facebook posts, estimate form at checklists.
+shortName: PMS Quote Kit
+eyebrow: PARA SA TALYER AT AUTO SERVICE SHOPS
+h1: Kotse + odometer = presyo ng PMS. Sa loob ng ilang segundo.
+subhead: 'Piliin ang kotse at i-type ang odometer: lalabas ang PMS package, ang services na due sa mileage na iyon, ang total at ang Messenger reply. May printable quote, profit check at paalala para bumalik ang customer.'
+mockupLine: 187 cars · PMS by mileage · profit check
+format: XLSX + PDF
+cardBlurb: PMS quote sa ilang segundo, printable estimate, profit check at reminders para bumalik ang customer.
 
 price: 499
 priceLabel: 2026 Edition
-valueLine: 'Isang kit: PMS Quote calculator, Excel price list at service menu, designed poster, 12 Facebook posts, estimate form, 6 service checklists at 18-page pricing guide.'
+valueLine: 'Isang Excel na pinapatakbo ang buong PMS: quote, printed estimate, kita sa bawat job, at listahan ng customers na dapat paalalahanan. Plus 101 labor prices at 2 bonus forms.'
 
 trust:
-  heading: Ginawa para sa talyer sa Pilipinas
+  heading: Galing sa totoong shop
   items:
-    - Presyo mula sa sarili mong gastos, hindi hula
-    - 4 vehicle sizes, mula Wigo hanggang Fortuner
-    - Taglish scripts na pwedeng gamitin agad
+    - Batay sa pricing ng isang 6-bay auto service shop sa Pilipinas
+    - 187 car models, mula Wigo hanggang Ranger
+    - Taglish replies at paalala na handa nang i-send
 
 problem:
-  heading: '"Magkano po PMS?" Ano ang sagot mo?'
-  body: Kapag "depende po" ang sagot at walang nakasulat na laman, presyo lang ang kinukumpara ng customer, at mas madali kang tawaran o pagdudahan.
+  heading: '"Magkano po PMS?" Gaano katagal bago ka makasagot?'
+  body: 'Kapag hinahanap pa ang presyo ng oil at filter, iba-iba ang singil, at walang nagpapaalala sa customer, nawawala ang kita at ang suki.'
   bullets:
-    - Walang malinaw na listahan ng kasama sa bawat package
-    - Iba-iba ang singil sa parehong trabaho
-    - Hindi sigurado kung kumikita ka pa sa parts at oras ng mekaniko
+    - Matagal sumagot sa price inquiry, kaya lumilipat ang customer
+    - Hindi sigurado kung kumikita pa ang bawat PMS
+    - Hindi na bumabalik ang customer dahil walang paalala
 
 modulesHeading: Ano ang laman ng kit
 modules:
   - number: '01'
-    title: PMS Quote calculator + Service Menu (Excel)
-    description: Piliin ang kotse, i-type ang odometer, lalabas ang PMS at services na due, presyo, total at Messenger reply. 10 packages na may scope of work para sa 4 vehicle sizes
+    title: PMS Quote calculator
+    description: 'Brand, model, odometer at oil: lalabas ang package price, ang add-ons na due sa mileage (Recommended), ang libreng checks, ang total at ang Messenger reply'
   - number: '02'
-    title: 99 labor prices
-    description: Brakes, suspension, engine, clutch at iba pa, may member / suki price at printable price board
+    title: Printable Quote
+    description: Isang-pahinang estimate na naka-fill na, may APPROVE o HINDI MUNA at pirma ng customer
   - number: '03'
-    title: Designed Service Menu poster
-    description: Fillable PDF (A4, short bond at A3 pang-tarpaulin). I-type ang shop name, presyo at contact
+    title: Customers + This Week reminders
+    description: 'Isang row bawat job: next PMS km at petsa, sino ang dapat paalalahanan ngayong linggo, at Taglish na mensahe na handa nang i-send'
   - number: '04'
-    title: 12 Facebook post templates
-    description: Isang post bawat package + full menu + promo. I-edit sa PowerPoint, Google Slides o WPS
+    title: Profit Check
+    description: Kita at margin ng bawat PMS at add-on mula sa sarili mong gastos sa oil, filter at oras ng mekaniko; pula kapag mababa
   - number: '05'
-    title: Estimate form + 6 checklists
-    description: Written quote na may APPROVE o HINDI MUNA, at step-by-step checklist para sa mekaniko (turbo, EGR, cooling, ATF, underchassis, scan) + PMS checklist
-  - number: '06'
-    title: Service Menu & Pricing Guide
-    description: 18 pages kung paano mag-presyo, mag-present at magbenta nang tapat, may Taglish Messenger scripts
+    title: Prices, schedule at 187 cars
+    description: PMS at change oil prices by oil liters, add-ons sa mileage schedule (80,000 km cycle), 101 labor prices at printable price board
+  - number: BONUS
+    title: PMS Checklist + Health Check Report
+    description: Fillable PDF para sa mekaniko at para sa customer (A4 at short bond), plus How to Use guide
 
 previewsHeading: Silipin ang loob
 previews:
   - image: preview-1.jpg
-    label: Service Menu poster (sample shop)
+    label: PMS Quote calculator
   - image: preview-2.jpg
-    label: Facebook post templates
+    label: Printable Quote
   - image: preview-3.jpg
-    label: Service Board mula sa Excel
+    label: This Week reminders
   - image: preview-4.jpg
-    label: Service Package Estimate form
+    label: Customers at next PMS
   - image: preview-5.jpg
-    label: Service Menu & Pricing Guide
+    label: Profit Check
   - image: preview-6.jpg
-    label: Service checklists para sa mekaniko
+    label: Add-ons at mileage schedule
 
 audienceHeading: Para kanino ito?
 audience:
-  - Talyer owners na gusto ng malinaw na PMS at service packages
-  - Shops na gustong mag-post ng presyo sa Facebook nang propesyonal
-  - 'Magbubukas pa lang ng talyer: ihanda ang menu at presyo bago magbukas'
-  - Mekanikong nagsisimula ng sariling shop o home service
+  - Talyer at auto service shops na nagpa-PMS at change oil
+  - Service advisors na sumasagot ng price inquiries sa Messenger
+  - 'Magbubukas pa lang ng shop: ihanda ang presyo at sistema bago magbukas'
 
 creatorNoteHeading: Saan galing ang mga presyo?
 creatorNote:
-  - Ang labor prices ay galing sa totoong price list ng isang talyer sa Pilipinas (2024). Ang 10 packages ay batay sa mga serbisyong inaalok ng mga talyer ngayon.
-  - Ang parts costs ay typical na presyo sa Pilipinas (Oktubre 2026). Palitan ng presyo ng supplier mo; automatic na mag-a-update ang lahat ng package.
+  - Ang mga presyo, car list at schedule ay galing sa totoong pricing system ng isang 6-bay auto service shop sa Pilipinas (2026).
+  - Lahat ay pwedeng palitan. Ang oil liters ng mga pinakakaraniwang kotse ay may "Check" note mula sa manual-based sources.
 
 howToOrder:
   - I-message kami sa Messenger
@@ -91,24 +91,24 @@ howToOrder:
   - Matanggap ang download link sa Messenger pagka-verify ng bayad
 
 faqs:
-  - q: Kasama ba ang piyesa sa presyo ng packages?
-    a: Oo, sa 10 service packages kasama na ang standard parts (langis, filter at iba pa) gamit ang parts costs na pwede mong palitan. Sa 99 labor prices, labor lang; hiwalay ang quote ng piyesa.
-  - q: Pwede ko bang baguhin ang laman at presyo?
-    a: Oo. Editable ang scope of work, parts, quantities, labor at markup. May isang slot din para sa sarili mong package.
   - q: Kailangan ko ba ng computer?
-    a: Para sa Excel at Facebook templates, mas madali sa computer. Ang guide at fillable forms ay pwede sa phone (Adobe Acrobat Reader).
+    a: Mas maganda sa computer (Microsoft Excel). Gumagana rin ang PMS Quote sa Excel o WPS app sa phone. Ang guide at bonus forms ay pwede sa phone.
+  - q: Pwede ko bang palitan ang presyo at schedule?
+    a: Oo. Editable ang PMS prices, add-ons, mileage schedule, car list at labor prices. Isang beses lang i-type; automatic na ang lahat ng quote.
+  - q: Kasama ba ang piyesa sa presyo?
+    a: Ang PMS at change oil packages ay kasama na ang oil at filter. Ang ilang add-ons ay labor only (hal. spark plugs, fuel filter); nakasulat ito sa quote.
   - q: Kasama ba ito sa Talyer Starter Kit o sa System?
-    a: Ang Excel (Price List + Service Menu) ay bonus sa Talyer Starter Kit. Ang buong kit ay kasama sa Auto Service Center System.
+    a: Ang Excel ay bonus sa Talyer Starter Kit, at ang buong kit ay kasama sa Auto Service Center System.
   - q: Paano ko makukuha?
     a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger.
 
 finalCta:
-  heading: '{PRICE} para sa service menu na handa nang i-print at i-post.'
+  heading: '{PRICE} para sumagot ng PMS quote sa ilang segundo.'
 
-disclaimer: Package prices are starting points based on typical Philippine parts costs (October 2026) and a 2024 labor price list from a Philippine repair shop. Prices vary by area, vehicle, supplier and shop; adjust them to your own costs. All specifications (oil grade, capacities, fluids, torque, maintenance schedule) must follow the vehicle manufacturer. {BRAND_NAME} is not affiliated with any vehicle manufacturer.
+disclaimer: Prices, oil liters and schedules are starting points from the pricing of one Philippine auto service shop (2026) and public sources. Actual figures depend on your area, suppliers and costs. Every vehicle specification must follow the vehicle manufacturer. {BRAND_NAME} is not affiliated with any vehicle manufacturer.
 
 seo:
-  title: Talyer Service Menu & Price List Kit PH — PMS Packages, Poster, FB Posts
-  description: 'Service menu para sa talyer sa Pilipinas: 10 packages (PMS, ATF dialysis, EGR, turbo, cooling) na may laman at presyo, 99 labor prices, poster, Facebook templates, estimate form at checklists. ₱499.'
+  title: PMS Quote & Price Kit PH — PMS Price by Car and Odometer, Printable Quote, Reminders
+  description: 'PMS quote calculator para sa talyer sa Pilipinas: piliin ang kotse at odometer, lalabas ang presyo, services na due, Messenger reply, printable quote, profit check at customer reminders. 187 cars. ₱499.'
 
 addOns: []
