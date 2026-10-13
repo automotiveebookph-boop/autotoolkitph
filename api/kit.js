@@ -31,7 +31,7 @@ const F = {
   guide: { label: 'Talyer Starter Kit PH 2026 (PDF guide)', note: 'Ang step-by-step na roadmap — simulan dito', filename: 'Talyer Starter Kit PH 2026', data: 'talyer_guide', stamp: 'ebook', ext: 'pdf' },
   toolkit: { label: 'Talyer Business Toolkit 2026 (Excel)', note: '9 tabs: startup cost, labor rate, job order, daily log, payroll, inventory, P&L, tax', filename: 'AutoToolKitPH Talyer Business Toolkit 2026', data: 'talyer_toolkit', ext: 'xlsx' },
   example: { label: 'Toolkit EXAMPLE (Excel)', note: 'Halimbawang shop na naka-fill in — tingnan muna ito', filename: 'AutoToolKitPH Talyer Business Toolkit 2026 - EXAMPLE', data: 'talyer_example', ext: 'xlsx' },
-  pricelist: { label: 'PMS Quote & Price System (Excel)', note: 'PMS quote by car + odometer, printable quote, reminders, profit check, 101 labor prices', filename: 'AutoToolKitPH PMS Quote and Price System', data: 'pricelist', ext: 'xlsx' },
+  pricelist: { label: 'PMS Quote & Price System (Excel)', note: 'PMS quote by car + odometer, service menu na may kung ano ang kasama, PMS by mileage chart, printable quote, reminders, profit check, 101 labor prices', filename: 'AutoToolKitPH PMS Quote and Price System', data: 'pricelist', ext: 'xlsx' },
   'check-a4': { label: 'Vehicle Health Check Report (A4)', note: 'Fillable PDF — i-fill in sa phone o i-print', filename: 'AutoToolKitPH Vehicle Health Check Report - A4', data: 'check_a4', stamp: 'meta', ext: 'pdf' },
   'check-letter': { label: 'Vehicle Health Check Report (Letter / short bond)', note: 'Parehong form, para sa short bond', filename: 'AutoToolKitPH Vehicle Health Check Report - Letter', data: 'check_letter', stamp: 'meta', ext: 'pdf' },
 };
