@@ -1,5 +1,6 @@
 # Talyer Service Menu & Price List Kit PH — ₱499 (was the ₱149 Labor Price List; same slug/link).
 # 2026-10-12 rebuild: PMS Quote & Price System (Excel) on a real 6-bay PH shop's pricing + How to Use guide + 2 bonus PDFs.
+# 2026-10-13: + what's included for every service, Service Menu and PMS by Mileage tabs (12 tabs).
 # The Excel is also a bonus in the Talyer Starter Kit; the kit is a bonus group in the System.
 # Field reference: see _TEMPLATE.yaml in this folder.
 # Images: src/assets/products/labor-price-list/ (from product/talyer-kit/price-list/make-previews.py)
@@ -14,14 +15,14 @@ name: Talyer Service Menu & Price List Kit PH
 shortName: PMS Quote Kit
 eyebrow: PARA SA TALYER AT AUTO SERVICE SHOPS
 h1: Kotse + odometer = presyo ng PMS. Sa loob ng ilang segundo.
-subhead: 'Piliin ang kotse at i-type ang odometer: lalabas ang PMS package, ang services na due sa mileage na iyon, ang total at ang Messenger reply. May printable quote, profit check at paalala para bumalik ang customer.'
-mockupLine: 187 cars · PMS by mileage · profit check
+subhead: 'Piliin ang kotse at i-type ang odometer: lalabas ang PMS package, ang services na due sa mileage na iyon, kung ano ang kasama sa bawat isa, ang total at ang Messenger reply. May printable service menu, PMS by mileage chart, profit check at paalala para bumalik ang customer.'
+mockupLine: 187 cars · what's included · PMS by mileage
 format: XLSX + PDF
-cardBlurb: PMS quote sa ilang segundo, printable estimate, profit check at reminders para bumalik ang customer.
+cardBlurb: PMS quote sa ilang segundo, kung ano ang kasama sa bawat service, printable menu at estimate, profit check at reminders.
 
 price: 499
 priceLabel: 2026 Edition
-valueLine: 'Isang Excel na pinapatakbo ang buong PMS: quote, printed estimate, kita sa bawat job, at listahan ng customers na dapat paalalahanan. Plus 101 labor prices at 2 bonus forms.'
+valueLine: 'Isang Excel na pinapatakbo ang buong PMS: quote, service menu na may "ano ang kasama", printed estimate, kita sa bawat job, at listahan ng customers na dapat paalalahanan. Plus 101 labor prices at 2 bonus forms.'
 
 trust:
   heading: Galing sa totoong shop
@@ -35,6 +36,7 @@ problem:
   body: 'Kapag hinahanap pa ang presyo ng oil at filter, iba-iba ang singil, at walang nagpapaalala sa customer, nawawala ang kita at ang suki.'
   bullets:
     - Matagal sumagot sa price inquiry, kaya lumilipat ang customer
+    - 'Hindi malinaw sa customer kung ano ang kasama sa binabayaran niya'
     - Hindi sigurado kung kumikita pa ang bawat PMS
     - Hindi na bumabalik ang customer dahil walang paalala
 
@@ -45,14 +47,17 @@ modules:
     description: 'Brand, model, odometer at oil: lalabas ang package price, ang add-ons na due sa mileage (Recommended), ang libreng checks, ang total at ang Messenger reply'
   - number: '02'
     title: Printable Quote
-    description: Isang-pahinang estimate na naka-fill na, may APPROVE o HINDI MUNA at pirma ng customer
+    description: Isang-pahinang estimate na naka-fill na, may "Kasama" sa bawat service, APPROVE o HINDI MUNA at pirma ng customer
   - number: '03'
+    title: Service Menu + PMS by Mileage
+    description: 'Printable menu na may presyo, oras at kung ano ang kasama sa bawat service (101 labor jobs + add-ons), at chart ng PMS mula 5,000 hanggang 80,000 km: kasama, libre at recommended'
+  - number: '04'
     title: Customers + This Week reminders
     description: 'Isang row bawat job: next PMS km at petsa, sino ang dapat paalalahanan ngayong linggo, at Taglish na mensahe na handa nang i-send'
-  - number: '04'
+  - number: '05'
     title: Profit Check
     description: Kita at margin ng bawat PMS at add-on mula sa sarili mong gastos sa oil, filter at oras ng mekaniko; pula kapag mababa
-  - number: '05'
+  - number: '06'
     title: Prices, schedule at 187 cars
     description: PMS at change oil prices by oil liters, add-ons sa mileage schedule (80,000 km cycle), 101 labor prices at printable price board
   - number: BONUS
@@ -66,13 +71,13 @@ previews:
   - image: preview-2.jpg
     label: Printable Quote
   - image: preview-3.jpg
-    label: This Week reminders
+    label: Service Menu (what's included)
   - image: preview-4.jpg
-    label: Customers at next PMS
+    label: PMS by Mileage chart
   - image: preview-5.jpg
-    label: Profit Check
+    label: This Week reminders
   - image: preview-6.jpg
-    label: Add-ons at mileage schedule
+    label: Profit Check
 
 audienceHeading: Para kanino ito?
 audience:
@@ -96,7 +101,9 @@ faqs:
   - q: Pwede ko bang palitan ang presyo at schedule?
     a: Oo. Editable ang PMS prices, add-ons, mileage schedule, car list at labor prices. Isang beses lang i-type; automatic na ang lahat ng quote.
   - q: Kasama ba ang piyesa sa presyo?
-    a: Ang PMS at change oil packages ay kasama na ang oil at filter. Ang ilang add-ons ay labor only (hal. spark plugs, fuel filter); nakasulat ito sa quote.
+    a: Ang PMS at change oil packages ay kasama na ang oil at filter. Ang ilang add-ons ay labor only (hal. spark plugs, fuel filter); nakasulat ito sa quote at sa service menu.
+  - q: Nakasulat ba kung ano ang kasama sa bawat service?
+    a: 'Oo. Bawat PMS item, add-on at 101 labor jobs ay may "what''s included", kung kasama ang piyesa, at karaniwang oras. Lumalabas ito sa service menu, quote at Messenger reply, at pwede mong palitan para tugma sa shop mo.'
   - q: Kasama ba ito sa Talyer Starter Kit o sa System?
     a: Ang Excel ay bonus sa Talyer Starter Kit, at ang buong kit ay kasama sa Auto Service Center System.
   - q: Paano ko makukuha?
@@ -108,7 +115,7 @@ finalCta:
 disclaimer: Prices, oil liters and schedules are starting points from the pricing of one Philippine auto service shop (2026) and public sources. Actual figures depend on your area, suppliers and costs. Every vehicle specification must follow the vehicle manufacturer. {BRAND_NAME} is not affiliated with any vehicle manufacturer.
 
 seo:
-  title: PMS Quote & Price Kit PH — PMS Price by Car and Odometer, Printable Quote, Reminders
-  description: 'PMS quote calculator para sa talyer sa Pilipinas: piliin ang kotse at odometer, lalabas ang presyo, services na due, Messenger reply, printable quote, profit check at customer reminders. 187 cars. ₱499.'
+  title: PMS Quote & Price Kit PH — PMS Price by Car, Service Menu, What's Included, Reminders
+  description: 'PMS quote calculator para sa talyer sa Pilipinas: piliin ang kotse at odometer, lalabas ang presyo, services na due at kung ano ang kasama. May service menu, PMS by mileage chart, printable quote, profit check at reminders. 187 cars. ₱499.'
 
 addOns: []

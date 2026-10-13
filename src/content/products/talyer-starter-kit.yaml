@@ -49,7 +49,7 @@ modules:
     description: '9 working tabs: startup cost, labor rate calculator, job order/estimate, daily sales log, payroll with 2026 contributions, parts inventory, monthly P&L, tax option comparison'
   - number: BONUS
     title: PMS Quote & Price System (Excel)
-    description: 'PMS quote by car and odometer (187 cars), printable quote, customer reminders, profit check, and 101 labor prices with a printable price board'
+    description: 'PMS quote by car and odometer (187 cars), service menu with what''s included, PMS by mileage chart, printable quote, customer reminders, profit check, and 101 labor prices with a printable price board'
   - number: BONUS
     title: Vehicle Health / Safety Check Report (PDF)
     description: 'One-page multi-point inspection form for your customers: lights, fluids, brakes, tires, estimate. Print it or fill it in on your phone'
