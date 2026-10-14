@@ -73,11 +73,14 @@ for (const g of FLAGSHIP) {
 /* Talyer Service Menu & Price List Kit (product "pricelist"; also a BONUS group in the System) */
 const MENU_KIT = 'Talyer Service Menu & Price List Kit PH';
 const menuFiles = {
-  'menu-guide': { label: 'How to Use guide (PDF)', note: 'Setup sa 30 minuto at paano gamitin ang bawat tab', filename: `${MENU_KIT} - How to Use`, flag: 'menu', part: 'guide', stamp: 'ebook', ext: 'pdf' },
+  'menu-guide': { label: 'Quick Start guide (PDF)', note: 'Setup sa 15 minuto: i-type ang shop name, i-check ang presyo, i-print', filename: `${MENU_KIT} - Quick Start`, flag: 'menu', part: 'guide', stamp: 'ebook', ext: 'pdf' },
   // Single files taken from the kit bundle, for owners who only have a phone (no zip needed)
-  'menu-pms': { label: 'BONUS: PMS Checklist (A4, fillable PDF)', note: 'Parehong PMS steps sa bawat kotse, para sa mekaniko', filename: `${MENU_KIT} - PMS Checklist A4`, flag: 'menu', part: 'toolkit', pick: '2 BONUS - PMS Checklist/AutoToolKitPH_PMS_Checklist_A4.pdf', ext: 'pdf' },
-  'menu-check': { label: 'BONUS: Vehicle Health Check Report (A4, fillable PDF)', note: 'Green / yellow / red report para sa customer', filename: `${MENU_KIT} - Vehicle Health Check Report A4`, flag: 'menu', part: 'toolkit', pick: '3 BONUS - Vehicle Health Check Report/AutoToolKitPH_Vehicle_Health_Check_Report_A4.pdf', ext: 'pdf' },
-  'menu-toolkit': { label: 'Complete kit (.zip)', note: 'Excel + EXAMPLE, PMS Checklist at Health Check Report (A4 at short bond)', filename: `${MENU_KIT} - Complete Kit`, flag: 'menu', part: 'toolkit', ext: 'zip' },
+  'menu-menu': { label: 'Service Menu (A4, fillable PDF)', note: 'PMS at change oil by engine size, kung ano ang kasama, 24 services. I-type ang shop name, i-print, i-post', filename: `${MENU_KIT} - Service Menu A4`, flag: 'menu', part: 'toolkit', pick: '1 Service Menu/AutoToolKitPH_Service_Menu_A4.pdf', ext: 'pdf' },
+  'menu-board': { label: 'Labor Price List (A4, fillable PDF)', note: '101 labor jobs, may presyo na. Palitan kung iba ang inyo', filename: `${MENU_KIT} - Labor Price List A4`, flag: 'menu', part: 'toolkit', pick: '2 Labor Price List/AutoToolKitPH_Labor_Price_List_A4.pdf', ext: 'pdf' },
+  'menu-chart': { label: 'PMS by Mileage chart (A4 landscape, fillable PDF)', note: '5,000 hanggang 80,000 km: kasama, libre at recommended', filename: `${MENU_KIT} - PMS by Mileage A4`, flag: 'menu', part: 'toolkit', pick: '3 PMS by Mileage/AutoToolKitPH_PMS_by_Mileage_A4.pdf', ext: 'pdf' },
+  'menu-replies': { label: 'Messenger Reply Pack (phone PDF)', note: 'Handang reply sa bawat PMS mileage: kopyahin, ilagay ang kotse at presyo, i-send', filename: `${MENU_KIT} - Messenger Reply Pack`, flag: 'menu', part: 'toolkit', pick: '4 Messenger Reply Pack/Messenger_Reply_Pack.pdf', ext: 'pdf' },
+  'menu-editor': { label: 'Edit Your Service Menu (Excel)', note: 'I-type ang shop name minsan, palitan ang kahit anong presyo, i-print', filename: `${MENU_KIT} - Edit Your Service Menu`, flag: 'menu', part: 'toolkit', pick: '5 Edit Your Service Menu (Excel)/AutoToolKitPH_Edit_Your_Service_Menu.xlsx', ext: 'xlsx' },
+  'menu-toolkit': { label: 'Complete kit (.zip)', note: 'Lahat: A4 at short bond, blank copies, Reply Pack .txt, Excel + BONUS: PMS Quote Excel, PMS Checklist, Health Check Report', filename: `${MENU_KIT} - Complete Kit`, flag: 'menu', part: 'toolkit', ext: 'zip' },
 };
 
 const PRODUCTS = {
@@ -96,9 +99,11 @@ const PRODUCTS = {
   },
   pricelist: {
     name: MENU_KIT,
-    files: { pricelist: F.pricelist, 'menu-guide': menuFiles['menu-guide'], 'menu-pms': menuFiles['menu-pms'], 'menu-check': menuFiles['menu-check'], 'menu-toolkit': menuFiles['menu-toolkit'] },
-    tips: ['Buksan ang Excel sa computer at tingnan muna ang <b>EXAMPLE</b> file. Unang tab ang <b>PMS Quote</b>: piliin ang kotse at i-type ang odometer.',
-      'Sundan ang <b>Set up in 30 minutes</b> sa guide. Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>.',
+    files: { 'menu-guide': menuFiles['menu-guide'], 'menu-menu': menuFiles['menu-menu'], 'menu-board': menuFiles['menu-board'], 'menu-chart': menuFiles['menu-chart'],
+      'menu-replies': menuFiles['menu-replies'], 'menu-editor': menuFiles['menu-editor'], 'menu-toolkit': menuFiles['menu-toolkit'] },
+    tips: ['Buksan ang PDFs sa <b>Adobe Acrobat Reader</b> (libre, sa phone o computer): i-type ang shop name sa itaas, i-check ang presyo, i-print.',
+      'Gusto ninyong kami na ang gumawa? I-message lang kami ng <b>shop name, contact at presyong papalitan</b>: ibabalik namin ang print-ready na Service Menu, Price List at PMS chart.',
+      'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang guide.'],
   },
   check: {
@@ -111,7 +116,7 @@ const PRODUCTS = {
     name: SYS,
     files: { ...flagFiles, ...menuFiles },
     groups: [...FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
-      { title: 'BONUS · PMS Quote & Price System', keys: ['menu-toolkit', 'menu-guide'] }],
+      { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-toolkit', 'menu-guide'] }],
     tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager).',
       'Ang <b>Guide PDF</b> ay mababasa sa phone. Ang <b>Toolkit (.zip)</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>, tapos buksan ang Excel at forms. Tingnan muna ang mga <b>EXAMPLE</b> file.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang mga guide.'],
@@ -205,7 +210,8 @@ async function makeFile(file, p) {
     const b = readBundle(inflateRawSync(await flagMaster(file.flag, 'toolkit')));
     const f = b.files.find((x) => x.path === file.pick);
     if (!f) throw new Error(`"${file.pick}" is not in the ${file.flag} toolkit`);
-    return stampPdf(f.data, 'meta', p);
+    // same rule as inside the zip: Excel as-is, booklets get the visible stamp, forms metadata only
+    return f.kind === 'raw' ? f.data : stampPdf(f.data, f.kind === 'booklet' ? 'ebook' : 'meta', p);
   }
   if (file.part === 'toolkit') {
     // Booklets the buyer keeps get the visible stamp; forms for the shop's customers get metadata only; Excel/Word/text as-is.
