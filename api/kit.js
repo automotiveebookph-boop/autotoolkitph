@@ -80,7 +80,10 @@ const menuFiles = {
   'menu-chart': { label: 'PMS by Mileage chart (A4 landscape, fillable PDF)', note: '5,000 hanggang 80,000 km: kasama, libre at recommended', filename: `${MENU_KIT} - PMS by Mileage A4`, flag: 'menu', part: 'toolkit', pick: '3 PMS by Mileage/AutoToolKitPH_PMS_by_Mileage_A4.pdf', ext: 'pdf' },
   'menu-replies': { label: 'Messenger Reply Pack (phone PDF)', note: 'Handang reply sa bawat PMS mileage: kopyahin, ilagay ang kotse at presyo, i-send', filename: `${MENU_KIT} - Messenger Reply Pack`, flag: 'menu', part: 'toolkit', pick: '4 Messenger Reply Pack/Messenger_Reply_Pack.pdf', ext: 'pdf' },
   'menu-editor': { label: 'Edit Your Service Menu (Excel)', note: 'I-type ang shop name minsan, palitan ang kahit anong presyo, i-print', filename: `${MENU_KIT} - Edit Your Service Menu`, flag: 'menu', part: 'toolkit', pick: '5 Edit Your Service Menu (Excel)/AutoToolKitPH_Edit_Your_Service_Menu.xlsx', ext: 'xlsx' },
-  'menu-toolkit': { label: 'Complete kit (.zip)', note: 'Lahat: A4 at short bond, blank copies, Reply Pack .txt, Excel + BONUS: PMS Quote Excel, PMS Checklist, Health Check Report', filename: `${MENU_KIT} - Complete Kit`, flag: 'menu', part: 'toolkit', ext: 'zip' },
+  'menu-quote': { label: 'PMS Quote Calculator (Excel)', note: 'Piliin ang kotse, i-type ang odometer: presyo ng PMS, kasama, libreng checks, recommended, Messenger reply at printable quote', filename: `${MENU_KIT} - PMS Quote Calculator`, flag: 'menu', part: 'toolkit', pick: '6 PMS Quote Calculator (Excel)/AutoToolKitPH_Talyer_Labor_Price_List.xlsx', ext: 'xlsx' },
+  'menu-quote-example': { label: 'PMS Quote Calculator EXAMPLE (Excel)', note: 'Halimbawang shop na naka-fill in: buksan muna ito', filename: `${MENU_KIT} - PMS Quote Calculator EXAMPLE`, flag: 'menu', part: 'toolkit', pick: '6 PMS Quote Calculator (Excel)/AutoToolKitPH_Talyer_Labor_Price_List_EXAMPLE.xlsx', ext: 'xlsx' },
+  'menu-quote-guide': { label: 'PMS Quote Calculator: How to Use (PDF)', note: 'Setup at paano gamitin ang bawat tab ng calculator', filename: `${MENU_KIT} - PMS Quote Calculator How to Use`, flag: 'menu', part: 'toolkit', pick: '6 PMS Quote Calculator (Excel)/PMS-Quote-and-Price-System-How-to-Use-PH-2026.pdf', ext: 'pdf' },
+  'menu-toolkit': { label: 'Complete kit (.zip)', note: 'Lahat: A4 at short bond, blank copies, Reply Pack .txt, Excel files + BONUS: PMS Checklist at Health Check Report', filename: `${MENU_KIT} - Complete Kit`, flag: 'menu', part: 'toolkit', ext: 'zip' },
 };
 
 const PRODUCTS = {
@@ -100,9 +103,11 @@ const PRODUCTS = {
   pricelist: {
     name: MENU_KIT,
     files: { 'menu-guide': menuFiles['menu-guide'], 'menu-menu': menuFiles['menu-menu'], 'menu-board': menuFiles['menu-board'], 'menu-chart': menuFiles['menu-chart'],
-      'menu-replies': menuFiles['menu-replies'], 'menu-editor': menuFiles['menu-editor'], 'menu-toolkit': menuFiles['menu-toolkit'] },
+      'menu-replies': menuFiles['menu-replies'], 'menu-editor': menuFiles['menu-editor'], 'menu-quote': menuFiles['menu-quote'],
+      'menu-quote-example': menuFiles['menu-quote-example'], 'menu-quote-guide': menuFiles['menu-quote-guide'], 'menu-toolkit': menuFiles['menu-toolkit'] },
     tips: ['Buksan ang PDFs sa <b>Adobe Acrobat Reader</b> (libre, sa phone o computer): i-type ang shop name sa itaas, i-check ang presyo, i-print.',
       'Gusto ninyong kami na ang gumawa? I-message lang kami ng <b>shop name, contact at presyong papalitan</b>: ibabalik namin ang print-ready na Service Menu, Price List at PMS chart.',
+      'Para sa <b>PMS Quote Calculator</b>: buksan muna ang <b>EXAMPLE</b> file sa computer (o Excel app sa phone). Piliin ang kotse, i-type ang odometer, at kopyahin ang Messenger reply.',
       'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang guide.'],
   },
@@ -116,7 +121,8 @@ const PRODUCTS = {
     name: SYS,
     files: { ...flagFiles, ...menuFiles },
     groups: [...FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
-      { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-toolkit', 'menu-guide'] }],
+      { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-guide', 'menu-menu', 'menu-board', 'menu-chart', 'menu-replies', 'menu-editor',
+        'menu-quote', 'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'] }],
     tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager).',
       'Ang <b>Guide PDF</b> ay mababasa sa phone. Ang <b>Toolkit (.zip)</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>, tapos buksan ang Excel at forms. Tingnan muna ang mga <b>EXAMPLE</b> file.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang mga guide.'],

@@ -22,7 +22,7 @@ cardBlurb: Handang service menu, labor price list, PMS by mileage chart at Messe
 
 price: 499
 priceLabel: 2026 Edition
-valueLine: 'Lahat ng kailangan para malinaw ang presyo mo sa customer: service menu, price list, PMS chart at handang Messenger replies. Kasama ang editable Excel, at kami na ang maglalagay ng shop name mo kung gusto mo.'
+valueLine: 'Lahat ng kailangan para malinaw ang presyo mo sa customer: service menu, price list, PMS chart, handang Messenger replies at PMS Quote Calculator. Kasama ang editable Excel, at kami na ang maglalagay ng shop name mo kung gusto mo.'
 
 trust:
   heading: Galing sa totoong shop
@@ -57,9 +57,12 @@ modules:
   - number: '05'
     title: Edit sa Excel, o kami na
     description: 'Editable Excel: i-type ang shop name minsan, palitan ang kahit anong presyo, i-print. Ayaw mag-edit? I-message lang kami ng shop name at contact: ibabalik namin print-ready'
+  - number: '06'
+    title: PMS Quote Calculator (Excel)
+    description: 'Piliin ang kotse (187 models) at i-type ang odometer: lalabas ang presyo ng PMS, kung ano ang kasama, libreng checks, recommended services, Messenger reply at printable quote. May customer reminders at profit check'
   - number: BONUS
-    title: PMS Quote Excel + PMS Checklist + Health Check Report
-    description: Ang buong PMS quote calculator para sa computer users, at fillable forms para sa mekaniko at customer (A4 at short bond)
+    title: PMS Checklist + Health Check Report
+    description: Fillable forms para sa mekaniko at para sa customer (A4 at short bond)
 
 previewsHeading: Silipin ang loob
 previews:
@@ -94,7 +97,9 @@ howToOrder:
 
 faqs:
   - q: Kailangan ko ba ng computer?
-    a: Hindi. Ang Service Menu, Price List at PMS chart ay fillable PDF na mabubuksan sa phone (Adobe Acrobat Reader, libre). Ang Messenger replies ay may .txt para madaling kopyahin. Ang Excel ay para sa may computer.
+    a: 'Hindi. Ang Service Menu, Price List at PMS chart ay fillable PDF na mabubuksan sa phone (Adobe Acrobat Reader, libre). Ang Messenger replies ay may .txt para madaling kopyahin. Ang PMS Quote Calculator ay Excel: pinakamaganda sa computer, gumagana rin sa Excel app sa phone.'
+  - q: Paano gumagana ang PMS Quote Calculator?
+    a: 'Piliin ang brand at model, i-type ang odometer. Lalabas ang presyo ng PMS para sa laki ng makina at langis, kung ano ang kasama, ang libreng checks sa mileage na iyon, at ang recommended services (hindi pa kasama sa total hangga''t hindi mo pinipili). May handang Messenger reply at printable quote na pipirmahan ng customer.'
   - q: Pwede ko bang palitan ang presyo?
     a: Oo. Tap lang ang presyo sa PDF para palitan, o gamitin ang Excel para palitan ang kahit ano, pati services at schedule. May blank copy rin para isulat sa kamay.
   - q: Pwede bang kayo na ang maglagay ng shop name ko?
