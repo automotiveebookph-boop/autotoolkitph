@@ -15,8 +15,8 @@ name: Talyer Service Menu & Price List Kit PH
 shortName: Service Menu Kit
 eyebrow: PARA SA TALYER AT AUTO SERVICE SHOPS
 h1: Service menu at presyo ng shop mo. I-print, i-post, i-send.
-subhead: 'Handa na: PMS at change oil price by engine size, kung ano ang kasama sa bawat PMS, 101 labor prices, PMS chart mula 5,000 hanggang 80,000 km, at Messenger replies. I-type ang shop name, palitan ang presyo kung gusto, at i-print. O kami na ang gagawa para sa iyo.'
-mockupLine: Service menu · 101 labor prices · PMS chart
+subhead: 'Handa na: PMS at change oil price by engine size, kung ano ang kasama sa bawat PMS, 170 labor prices, PMS chart mula 5,000 hanggang 80,000 km, at Messenger replies. I-type ang shop name, palitan ang presyo kung gusto, at i-print. O kami na ang gagawa para sa iyo.'
+mockupLine: Service menu · 170 labor prices · PMS chart
 format: PDF + Excel
 cardBlurb: Handang service menu, labor price list, PMS by mileage chart at Messenger replies. I-print, i-post, i-send.
 
@@ -47,7 +47,7 @@ modules:
     description: 'PMS at change oil price by engine size (may halimbawang kotse), kung ano ang kasama sa bawat PMS, at 24 popular services na may presyo at oras. 2 pages, i-post sa counter'
   - number: '02'
     title: Labor Price List
-    description: 101 labor jobs sa 5 grupo (preno, gulong, makina, underchassis, iba pa), may presyo na. Pareho ang singil kahit sino ang kausap ng customer
+    description: 170 labor prices sa 13 grupo (preno, gulong, makina, cooling, fuel, electrical, aircon, underchassis, CV joint, steering, exhaust, iba pa, quick jobs). Pareho ang singil kahit sino ang kausap ng customer
   - number: '03'
     title: PMS by Mileage chart
     description: '5,000 hanggang 80,000 km: kasama (✓), libreng checks (FREE) at recommended (●) sa bawat PMS, gaya ng service booklet ng casa'
@@ -118,6 +118,6 @@ disclaimer: Prices and schedules are starting points from the pricing of one Phi
 
 seo:
   title: Service Menu & Price List Kit PH — PMS Price List, Labor Prices, PMS by Mileage Chart
-  description: 'Handang service menu para sa talyer sa Pilipinas: PMS at change oil price by engine size, kung ano ang kasama, 101 labor prices, PMS chart 5K–80K at Messenger replies. Fillable PDF + Excel, o kami na ang maglalagay ng shop name mo. ₱499.'
+  description: 'Handang service menu para sa talyer sa Pilipinas: PMS at change oil price by engine size, kung ano ang kasama, 170 labor prices, PMS chart 5K–80K at Messenger replies. Fillable PDF + Excel, o kami na ang maglalagay ng shop name mo. ₱499.'
 
 addOns: []
