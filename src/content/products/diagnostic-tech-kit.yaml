@@ -1,0 +1,135 @@
+# From Zero to Diagnostic Tech PH — ₱299 launch (regular ₱399). Taglish 90-day training kit for mechanics and helpers.
+# Also a BONUS group in the Auto Service Center System. Source: product/diagnostic-tech/ (content.md, build steps in CLAUDE.md).
+# Field reference: see _TEMPLATE.yaml in this folder.
+# Images: src/assets/products/diagnostic-tech-kit/ (from product/diagnostic-tech/make-previews.py)
+# Delivery: api/kit.js product "diagtech" (diag-guide, diag-phone, diag-cards, diag-workbook, diag-caselog, diag-toolkit); order page product "diagtech".
+
+slug: diagnostic-tech-kit
+status: active
+sortOrder: 3.5
+category: Mechanics
+
+name: From Zero to Diagnostic Tech PH
+shortName: Diagnostic Tech Kit
+eyebrow: PARA SA MEKANIKO, HELPER AT GUSTONG MATUTO
+h1: Huwag manghula, mag-test. Maging diagnostic tech sa loob ng 90 araw.
+subhead: 'Taglish training program na gagamitin mo sa shop araw-araw: PMS na walang comeback, multimeter at voltage drop, wiring diagrams, sensors, scan tool at fuel trims, 6 practice cases, at roadmap sa TESDA NC II at trabaho sa abroad.'
+mockupLine: 10 modules · 6 practice cases · 90-day plan
+format: PDF + phone
+cardBlurb: 90-day Taglish training para sa mekaniko at helper. Electrical, sensors, scan tool, practice cases, TESDA at abroad roadmap.
+
+price: 299
+regularPrice: 399
+priceLabel: Launch price
+valueLine: 'Mas mura kaysa isang maling battery o sensor na pinalitan nang walang test. Kasama ang phone version, spec cards, workbook, case log at resume template.'
+
+trust:
+  heading: Ano ang makukuha mo
+  items:
+    - Self-assessment para malaman kung saang module ka magsisimula
+    - Drill at quiz sa bawat module, may answer key
+    - Phone version para mabasa kahit nasa ilalim ng sasakyan
+
+problem:
+  heading: '"Palitan na lang natin." Ilang beses mo na itong narinig?'
+  body: 'Kapag hindi marunong mag-test, nanghuhula: bagong battery, bagong sensor, bagong alternator, at bumabalik pa rin ang sasakyan. Sayang ang pera ng customer, ang oras mo, at ang tiwala ng boss mo. Karamihan ng sira ngayon ay electrical, at ito ang pinakakinatatakutan ng maraming mekaniko.'
+  bullets:
+    - Takot sa multimeter at wiring diagram
+    - Nagpapalit ng parts dahil sa code, hindi dahil sa test
+    - Hindi alam kung paano basahin ang live data at fuel trims
+    - Walang malinaw na daan papunta sa NC II, mas mataas na sahod, o abroad
+
+modulesHeading: 10 modules. Mula basics hanggang diagnosis.
+modules:
+  - number: '01'
+    title: Foundations
+    description: Shop safety, paano gumagana ang sasakyan, tools, torque at fluids
+  - number: '02'
+    title: PMS Mastery
+    description: Change oil, brake pads, 20-point inspection, at paano iwasan ang mga karaniwang comeback
+  - number: '03'
+    title: Electrical Fundamentals
+    description: Ohm's Law, multimeter, voltage drop test, battery, charging at parasitic draw
+  - number: '04'
+    title: Reading Wiring Diagrams
+    description: Simbolo, wire color codes, relay pins at ang "split the circuit" method
+  - number: '05'
+    title: Sensors and Engine Management
+    description: Paano i-test ang 3-wire sensor, thermistor, crank, cam, O2 at A/F sensor
+  - number: '06'
+    title: Scan Tool and Live Data
+    description: Codes, freeze frame, normal na live data at fuel trims
+  - number: '07'
+    title: Diagnostic Case Files
+    description: Ang 7-step diagnostic process, 6 practice cases at 3 mystery cases
+  - number: '08'
+    title: Modern Vehicles
+    description: Hybrid safety, CVT, CAN bus, ADAS at EV basics
+  - number: '09'
+    title: Career and Money
+    description: TESDA NC II step by step, resume, interview, raise, tools, at ligtas na daan papunta sa abroad
+  - number: '10'
+    title: The Trusted Tech
+    description: Tapat na rekomendasyon, paano ipaliwanag ang repair sa customer, at work ethic
+  - number: BONUS
+    title: Diagnostic Tech Toolkit
+    description: 'Phone version, 8 quick-reference spec cards (phone + print), Drill & Quiz Workbook na may Final Assessment sign-off, Case Log, Resume template (Word) at Career Scripts'
+
+previewsHeading: Silipin ang loob
+previews:
+  - image: preview-1.jpg
+    label: Ang 7-Step Diagnostic Process
+  - image: preview-2.jpg
+    label: Phone version
+  - image: preview-3.jpg
+    label: Quick-reference spec cards
+  - image: preview-4.jpg
+    label: Voltage drop test
+  - image: preview-5.jpg
+    label: Drill & Quiz Workbook
+  - image: preview-6.jpg
+    label: Roadmap papunta sa abroad
+
+audienceHeading: Para kanino ito?
+audience:
+  - Helper at bagong mekaniko na gustong umangat
+  - Mekanikong magaling sa PMS pero takot sa electrical at scan tool
+  - Naghahanda para sa TESDA NC II o trabaho sa abroad
+  - 'Shop owner: ibigay sa mekaniko mo bilang training program'
+
+creatorNoteHeading: Sino ang gumawa nito?
+creatorNote:
+  - Isinulat mula sa hands-on shop experience at sa karaniwang diagnostic practice ng mga technician.
+  - Ang mga spec ay typical values. Laging sundin ang service manual ng mismong sasakyan. Ang mga practice case ay halimbawang training scenario, hindi tunay na job.
+
+howToOrder:
+  - I-message kami sa Messenger
+  - Magbayad via GCash gamit ang details na ise-send namin
+  - Matanggap ang download link sa Messenger pagka-verify ng bayad
+
+faqs:
+  - q: Wala akong alam. Para sa akin ba ito?
+    a: 'Oo. Magsimula ka sa Self-Assessment: kapag 0 hanggang 2 ang tick mo, sa Module 1 ka magsisimula. Kapag may alam ka na, lalaktawan mo ang basics at diretso ka sa electrical at diagnosis.'
+  - q: Kailangan ko ba ng computer?
+    a: 'Hindi. May phone version ang buong kit at ang spec cards. Ang Workbook at Case Log ay fillable PDF na mabubuksan sa Adobe Acrobat Reader (libre), o i-print.'
+  - q: Kailangan ko ba ng sariling scan tool o multimeter?
+    a: 'Hindi agad. Simulan sa tools ng shop. Sa Module 9 may phased plan kung anong tools ang bibilhin at kailan, ayon sa module na natapos mo na.'
+  - q: Makakakuha ba ako ng TESDA certificate dito?
+    a: 'Hindi. Hindi kami TESDA at hindi ito TESDA course. Pero nasa Module 9 ang mga hakbang para kumuha ng NC II assessment, at ang drills ay magandang practice bago ang assessment.'
+  - q: Nag-aalok ba kayo ng trabaho sa abroad?
+    a: 'Hindi. Hindi kami recruitment agency. Ang Module 9 ay nagtuturo kung paano i-check kung lisensyado sa DMW ang agency at paano iwasan ang illegal recruiter.'
+  - q: Kasama ba ito sa Auto Service Center System?
+    a: Oo. Bonus ito sa System, para may training program ang mga mekaniko ng shop mo.
+  - q: Paano ko makukuha?
+    a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger.
+
+finalCta:
+  heading: '{PRICE} para tumigil sa panghuhula at magsimulang mag-test.'
+
+disclaimer: For training only. Specifications are typical values; always follow the vehicle manufacturer's service information. High-voltage hybrid and EV work requires proper training and equipment. Practice cases are training scenarios. TESDA, DMW and the overseas programs mentioned are named only to describe common pathways; {BRAND_NAME} is not affiliated with them, is not a recruitment agency and does not offer job placement.
+
+seo:
+  title: From Zero to Diagnostic Tech PH — Taglish Training para sa Mekaniko
+  description: '90-day Taglish training para sa mekaniko at helper: multimeter, voltage drop, wiring diagrams, sensors, scan tool, fuel trims, 6 practice cases, TESDA NC II at abroad roadmap. May phone version. ₱299.'
+
+addOns: []

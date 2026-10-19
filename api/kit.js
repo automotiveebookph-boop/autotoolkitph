@@ -11,6 +11,8 @@
  *
  * The flagship (k = flagship) has one group per guide: the guide PDF and a toolkit .zip built on request from
  * api/_kit-flagship-<id>.js (product/delivery/encrypt-flagship.mjs); booklets inside the zip get the visible stamp.
+ * The Service Menu Kit (k = pricelist) and From Zero to Diagnostic Tech (k = diagtech) use the same storage and are also
+ * bonus groups in the flagship.
  *
  * Environment variables (Vercel → Settings → Environment Variables): KIT_KEY, LINK_KEY.
  */
@@ -48,6 +50,7 @@ const FLAG_PARTS = {
   gm: () => import('./_kit-flagship-gm.js'),
   media: () => import('./_kit-flagship-media.js'),
   menu: () => import('./_kit-flagship-menu.js'),
+  diag: () => import('./_kit-flagship-diag.js'),
 };
 const SYS = 'Auto Service Center System PH';
 const FLAGSHIP = [
@@ -86,6 +89,19 @@ const menuFiles = {
   'menu-toolkit': { label: 'Complete kit (.zip)', note: 'Lahat: A4 at short bond, blank copies, Reply Pack .txt, Excel files + BONUS: PMS Checklist at Health Check Report', filename: `${MENU_KIT} - Complete Kit`, flag: 'menu', part: 'toolkit', ext: 'zip' },
 };
 
+/* From Zero to Diagnostic Tech PH (product "diagtech", for mechanics; also a BONUS group in the System) */
+const DIAG = 'From Zero to Diagnostic Tech PH';
+const DT = 'Diagnostic Tech Toolkit/';
+const diagFiles = {
+  'diag-guide': { label: 'From Zero to Diagnostic Tech (PDF, A4)', note: '10 modules, 6 practice cases, quizzes at answer key: basahin o i-print', filename: `${DIAG} 2026`, flag: 'diag', part: 'guide', stamp: 'ebook', ext: 'pdf' },
+  'diag-phone': { label: 'Phone version (PDF)', note: 'Parehong kit, sukat sa cellphone: i-tap ang Contents para tumalon sa module', filename: `${DIAG} 2026 - Phone`, flag: 'diag', part: 'toolkit', pick: 'From-Zero-to-Diagnostic-Tech-PH-2026_Phone.pdf', ext: 'pdf' },
+  'diag-cards': { label: 'Quick-Reference Spec Cards (phone PDF)', note: 'Battery, voltage drop, live data, fuel trims, sensors, relays, codes, CAN: buksan habang nasa sasakyan', filename: `${DIAG} - Spec Cards Phone`, flag: 'diag', part: 'toolkit', pick: `${DT}AutoToolKitPH_Diagnostic_Spec_Cards_Phone.pdf`, ext: 'pdf' },
+  'diag-workbook': { label: 'Drill & Quiz Workbook (A4, fillable PDF)', note: 'Self-assessment, progress tracker, quizzes, drill records at Final Assessment sign-off', filename: `${DIAG} - Workbook A4`, flag: 'diag', part: 'toolkit', pick: `${DT}AutoToolKitPH_Diagnostic_Tech_Workbook_A4.pdf`, ext: 'pdf' },
+  'diag-caselog': { label: 'Case Log (A4, fillable PDF)', note: 'Isang diagnostic job bawat pahina, sa 7-step order', filename: `${DIAG} - Case Log A4`, flag: 'diag', part: 'toolkit', pick: `${DT}AutoToolKitPH_Diagnostic_Case_Log_A4.pdf`, ext: 'pdf' },
+  'diag-toolkit': { label: 'Complete kit (.zip)', note: 'Lahat: phone version, spec cards (phone + print), Workbook at Case Log (A4, short bond, blank copies), Resume template (Word), Career Scripts', filename: `${DIAG} - Complete Kit`, flag: 'diag', part: 'toolkit', ext: 'zip' },
+};
+const DIAG_KEYS = Object.keys(diagFiles);
+
 const PRODUCTS = {
   inspection: {
     name: '2nd Hand Car Inspection Kit PH',
@@ -117,17 +133,28 @@ const PRODUCTS = {
     tips: ['Para mag-fill in sa phone, buksan sa PDF app na may forms (hal. Adobe Acrobat Reader). Pwede rin itong i-print nang marami.',
       'Piliin ang A4 o Letter (short bond) depende sa papel na gamit ninyo.', OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang.'],
   },
+  diagtech: {
+    name: DIAG,
+    files: diagFiles,
+    tips: ['Magsimula sa <b>Start here</b> at sa Self-Assessment: malalaman mo kung saang module ka magsisimula.',
+      'Sa phone: buksan ang <b>Phone version</b> at ang <b>Spec Cards</b>. Para mag-fill in ng Workbook at Case Log, gamitin ang <b>Adobe Acrobat Reader</b> (libre), o i-print.',
+      'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>. Nandoon ang print version ng spec cards, short bond copies, Resume template at Career Scripts.',
+      OPEN_TIP, 'Para sa personal na gamit lamang; naka-pangalan sa inyo ang kit.'],
+  },
   flagship: {
     name: SYS,
-    files: { ...flagFiles, ...menuFiles },
+    files: { ...flagFiles, ...menuFiles, ...diagFiles },
     groups: [...FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
       { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-guide', 'menu-menu', 'menu-board', 'menu-chart', 'menu-replies', 'menu-editor',
-        'menu-quote', 'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'] }],
-    tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager).',
+        'menu-quote', 'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'] },
+      { title: 'BONUS · From Zero to Diagnostic Tech (training para sa mekaniko ninyo)', keys: DIAG_KEYS }],
+    tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager). Ang <b>From Zero to Diagnostic Tech</b> ay 90-day training na puwede ninyong ibigay sa mekaniko o helper.',
       'Ang <b>Guide PDF</b> ay mababasa sa phone. Ang <b>Toolkit (.zip)</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>, tapos buksan ang Excel at forms. Tingnan muna ang mga <b>EXAMPLE</b> file.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang mga guide.'],
   },
 };
+// How a PDF from a toolkit bundle is stamped: booklets visibly (A4 footer), phone books like the Inspection Kit phone version, forms in metadata only.
+const stampFor = (kind) => (kind === 'booklet' ? 'ebook' : kind === 'phone' ? 'phone' : 'meta');
 const TYPES = { pdf: 'application/pdf', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', zip: 'application/zip' };
 
 const key = (name) => {
@@ -217,14 +244,14 @@ async function makeFile(file, p) {
     const f = b.files.find((x) => x.path === file.pick);
     if (!f) throw new Error(`"${file.pick}" is not in the ${file.flag} toolkit`);
     // same rule as inside the zip: Excel as-is, booklets get the visible stamp, forms metadata only
-    return f.kind === 'raw' ? f.data : stampPdf(f.data, f.kind === 'booklet' ? 'ebook' : 'meta', p);
+    return f.kind === 'raw' ? f.data : stampPdf(f.data, stampFor(f.kind), p);
   }
   if (file.part === 'toolkit') {
     // Booklets the buyer keeps get the visible stamp; forms for the shop's customers get metadata only; Excel/Word/text as-is.
     const b = readBundle(inflateRawSync(await flagMaster(file.flag, 'toolkit')));
     const entries = [];
     for (const f of b.files) {
-      const data = f.kind === 'raw' ? f.data : await stampPdf(f.data, f.kind === 'booklet' ? 'ebook' : 'meta', p);
+      const data = f.kind === 'raw' ? f.data : await stampPdf(f.data, stampFor(f.kind), p);
       entries.push({ name: `${b.folder}/${f.path}`, data });
     }
     return zip(entries);
