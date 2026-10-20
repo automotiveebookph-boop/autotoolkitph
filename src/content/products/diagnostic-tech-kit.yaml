@@ -12,7 +12,7 @@ category: Mechanics
 name: From Zero to Diagnostic Tech PH
 shortName: Diagnostic Tech Kit
 eyebrow: PARA SA MEKANIKO, HELPER AT GUSTONG MATUTO
-h1: Huwag manghula, mag-test. Maging diagnostic tech sa loob ng 90 araw.
+h1: Huwag manghula, mag-test. Simulan ang daan papuntang diagnostic tech.
 subhead: 'Taglish training program na gagamitin mo sa shop araw-araw: PMS na walang comeback, multimeter at voltage drop, wiring diagrams, sensors, scan tool at fuel trims, 6 practice cases, at roadmap sa TESDA NC II at trabaho sa abroad.'
 mockupLine: 10 modules · 6 practice cases · 90-day plan
 format: PDF + phone
@@ -110,6 +110,8 @@ howToOrder:
 faqs:
   - q: Wala akong alam. Para sa akin ba ito?
     a: 'Oo. Magsimula ka sa Self-Assessment: kapag 0 hanggang 2 ang tick mo, sa Module 1 ka magsisimula. Kapag may alam ka na, lalaktawan mo ang basics at diretso ka sa electrical at diagnosis.'
+  - q: Wala pa akong trabaho sa shop. Makakatulong ba ito?
+    a: 'Oo, pero totoo tayo: kailangan pa rin ng hands-on na practice sa tunay na sasakyan. Nasa kit ang mga daan papasok (helper, TESDA training na may scholarship, apprenticeship, dual training, PESO), ang puwede mong gawin habang wala ka pang shop, at kung anong posisyon ang puwede mo nang applyan pagkatapos ng bawat module.'
   - q: Kailangan ko ba ng computer?
     a: 'Hindi. May phone version ang buong kit at ang spec cards. Ang Workbook at Case Log ay fillable PDF na mabubuksan sa Adobe Acrobat Reader (libre), o i-print.'
   - q: Kailangan ko ba ng sariling scan tool o multimeter?
