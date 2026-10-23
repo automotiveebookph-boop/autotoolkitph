@@ -15,10 +15,10 @@ name: Talyer Service Menu & Price List Kit PH
 shortName: Service Menu Kit
 eyebrow: PARA SA TALYER AT AUTO SERVICE SHOPS
 h1: Service menu at presyo ng shop mo. I-print, i-post, i-send.
-subhead: 'Handa na: PMS at change oil price by engine size, kung ano ang kasama sa bawat PMS, 170 labor prices, PMS chart mula 5,000 hanggang 80,000 km, at Messenger replies. I-type ang shop name, palitan ang presyo kung gusto, at i-print. O kami na ang gagawa para sa iyo.'
+subhead: 'Handa na: PMS at change oil price by engine size, kung ano ang kasama sa bawat PMS, 170 labor prices, PMS chart mula 5,000 hanggang 80,000 km, service booklet para sa customers, at Messenger replies. I-type ang shop name, palitan ang presyo kung gusto, at i-print. O kami na ang gagawa para sa iyo.'
 mockupLine: Service menu · 170 labor prices · PMS chart
 format: PDF + Excel
-cardBlurb: Handang service menu, labor price list, PMS by mileage chart at Messenger replies. I-print, i-post, i-send.
+cardBlurb: Handang service menu, labor price list, PMS by mileage chart, service booklet at Messenger replies. I-print, i-post, i-send.
 
 price: 499
 priceLabel: 2026 Edition
@@ -50,7 +50,7 @@ modules:
     description: 170 labor prices sa 13 grupo (preno, gulong, makina, cooling, fuel, electrical, aircon, underchassis, CV joint, steering, exhaust, iba pa, quick jobs). Pareho ang singil kahit sino ang kausap ng customer
   - number: '03'
     title: PMS by Mileage chart
-    description: '5,000 hanggang 80,000 km: kasama (✓), libreng checks (FREE) at recommended (●) sa bawat PMS, gaya ng service booklet ng casa'
+    description: 'Card sa bawat PMS mula 5,000 hanggang 80,000 km: kasama, libreng checks at recommended services na may presyo. Hanapin ang mileage, basahin, tapos na'
   - number: '04'
     title: Messenger Reply Pack
     description: Handang reply sa bawat PMS mileage at 6 karaniwang tanong. Kopyahin, ilagay ang kotse at presyo, i-send. Sa phone mismo
@@ -60,6 +60,9 @@ modules:
   - number: '06'
     title: PMS Quote Calculator (Excel)
     description: 'Piliin ang kotse (187 models) at i-type ang odometer: lalabas ang presyo ng PMS, kung ano ang kasama, libreng checks, recommended services, Messenger reply at printable quote. May customer reminders at profit check'
+  - number: '07'
+    title: Service Booklet para sa customer
+    description: 'Parang service booklet ng casa: record ng bawat PMS 5K–80K na may tatak ng shop mo. Ibigay sa customer para sa inyo bumalik. A5 o short bond, print-ready'
   - number: BONUS
     title: PMS Checklist + Health Check Report
     description: Fillable forms para sa mekaniko at para sa customer (A4 at short bond)
@@ -99,11 +102,11 @@ faqs:
   - q: Kailangan ko ba ng computer?
     a: 'Hindi. Ang Service Menu, Price List at PMS chart ay fillable PDF na mabubuksan sa phone (Adobe Acrobat Reader, libre). Ang Messenger replies ay may .txt para madaling kopyahin. Ang PMS Quote Calculator ay Excel: pinakamaganda sa computer, gumagana rin sa Excel app sa phone.'
   - q: Paano gumagana ang PMS Quote Calculator?
-    a: 'Piliin ang brand at model, i-type ang odometer. Lalabas ang presyo ng PMS para sa laki ng makina at langis, kung ano ang kasama, ang libreng checks sa mileage na iyon, at ang recommended services (hindi pa kasama sa total hangga''t hindi mo pinipili). May handang Messenger reply at printable quote na pipirmahan ng customer.'
+    a: 'Piliin ang kotse sa isang listahan, i-type ang odometer (pwede sa phone, sa Quick Quote tab). Lalabas ang presyo ng PMS para sa laki ng makina at langis, kung ano ang kasama, ang libreng checks sa mileage na iyon, at ang recommended services (hindi pa kasama sa total hangga''t hindi mo pinipili). May handang Messenger reply at printable quote na pipirmahan ng customer.'
   - q: Pwede ko bang palitan ang presyo?
     a: Oo. Tap lang ang presyo sa PDF para palitan, o gamitin ang Excel para palitan ang kahit ano, pati services at schedule. May blank copy rin para isulat sa kamay.
   - q: Pwede bang kayo na ang maglagay ng shop name ko?
-    a: 'Oo, kasama na sa ₱499. Pagka-order, i-message lang ang shop name, contact (phone, address o Facebook page) at mga presyong gusto mong palitan. Ibabalik namin ang print-ready na Service Menu, Price List at PMS chart.'
+    a: 'Oo, kasama na sa ₱499. Pagka-order, i-message lang ang shop name, contact (phone, address o Facebook page) at mga presyong gusto mong palitan. Ibabalik namin ang print-ready na Service Menu, Price List, PMS chart at Service Booklet.'
   - q: Kasama ba ang piyesa sa presyo?
     a: Ang PMS at change oil packages ay kasama na ang oil at filter. Ang ilang services ay labor only (hal. spark plugs, brake pads); nakasulat ito sa service menu.
   - q: Kasama ba ito sa Talyer Starter Kit o sa System?
