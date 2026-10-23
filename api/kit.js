@@ -78,6 +78,7 @@ const MENU_KIT = 'Talyer Service Menu & Price List Kit PH';
 const menuFiles = {
   'menu-guide': { label: 'Quick Start guide (PDF)', note: 'Setup sa 15 minuto: i-type ang shop name, i-check ang presyo, i-print', filename: `${MENU_KIT} - Quick Start`, flag: 'menu', part: 'guide', stamp: 'ebook', ext: 'pdf' },
   // Single files taken from the kit bundle, for owners who only have a phone (no zip needed)
+  'menu-pricebook': { label: 'Price Book: lahat ng presyo sa isang file (A4, fillable PDF)', note: 'I-type ang presyo mo minsan sa setup page: lalabas sa Service Menu, Labor Price List at PMS by Mileage. Ang sample ay panukat lang, ikaw ang magdedesisyon', filename: `${MENU_KIT} - Price Book A4`, flag: 'menu', part: 'toolkit', pick: '0 Price Book (lahat ng presyo sa isang file)/AutoToolKitPH_Price_Book_A4.pdf', ext: 'pdf' },
   'menu-menu': { label: 'Service Menu (A4, fillable PDF)', note: 'PMS at change oil by engine size, kung ano ang kasama, 24 services. I-type ang shop name, i-print, i-post', filename: `${MENU_KIT} - Service Menu A4`, flag: 'menu', part: 'toolkit', pick: '1 Service Menu/AutoToolKitPH_Service_Menu_A4.pdf', ext: 'pdf' },
   'menu-board': { label: 'Labor Price List (A4, fillable PDF)', note: '170 labor prices sa 13 grupo. Palitan kung iba ang inyo', filename: `${MENU_KIT} - Labor Price List A4`, flag: 'menu', part: 'toolkit', pick: '2 Labor Price List/AutoToolKitPH_Labor_Price_List_A4.pdf', ext: 'pdf' },
   'menu-chart': { label: 'PMS by Mileage (A4 landscape, fillable PDF)', note: 'Card sa bawat mileage, 5,000 hanggang 80,000 km: kasama, libre, recommended at presyo', filename: `${MENU_KIT} - PMS by Mileage A4`, flag: 'menu', part: 'toolkit', pick: '3 PMS by Mileage/AutoToolKitPH_PMS_by_Mileage_A4.pdf', ext: 'pdf' },
@@ -119,10 +120,10 @@ const PRODUCTS = {
   },
   pricelist: {
     name: MENU_KIT,
-    files: { 'menu-guide': menuFiles['menu-guide'], 'menu-menu': menuFiles['menu-menu'], 'menu-board': menuFiles['menu-board'], 'menu-chart': menuFiles['menu-chart'],
+    files: { 'menu-guide': menuFiles['menu-guide'], 'menu-pricebook': menuFiles['menu-pricebook'], 'menu-menu': menuFiles['menu-menu'], 'menu-board': menuFiles['menu-board'], 'menu-chart': menuFiles['menu-chart'],
       'menu-booklet': menuFiles['menu-booklet'], 'menu-replies': menuFiles['menu-replies'], 'menu-editor': menuFiles['menu-editor'], 'menu-quote': menuFiles['menu-quote'],
       'menu-quote-example': menuFiles['menu-quote-example'], 'menu-quote-guide': menuFiles['menu-quote-guide'], 'menu-toolkit': menuFiles['menu-toolkit'] },
-    tips: ['Buksan ang PDFs sa <b>Adobe Acrobat Reader</b> (libre, sa phone o computer): i-type ang shop name sa itaas, i-check ang presyo, i-print.',
+    tips: ['Magsimula sa <b>Price Book</b>: buksan sa <b>Adobe Acrobat Reader</b> (libre, sa phone o computer), i-type ang shop name at ang presyo mo minsan sa Your Prices pages. Lalabas ito sa lahat ng pahina. Ang sample ay panukat lang: ikaw ang magdedesisyon.',
       'Gusto ninyong kami na ang gumawa? I-message lang kami ng <b>shop name, contact at presyong papalitan</b>: ibabalik namin ang print-ready na Service Menu, Price List, PMS chart at Service Booklet.',
       'Para sa <b>PMS Quote Calculator</b>: buksan muna ang <b>EXAMPLE</b> file sa computer (o Excel app sa phone). Piliin ang kotse, i-type ang odometer, at kopyahin ang Messenger reply.',
       'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>.',
@@ -146,7 +147,7 @@ const PRODUCTS = {
     name: SYS,
     files: { ...flagFiles, ...menuFiles, ...diagFiles },
     groups: [...FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
-      { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-guide', 'menu-menu', 'menu-board', 'menu-chart', 'menu-booklet', 'menu-replies', 'menu-editor',
+      { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-guide', 'menu-pricebook', 'menu-menu', 'menu-board', 'menu-chart', 'menu-booklet', 'menu-replies', 'menu-editor',
         'menu-quote', 'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'] },
       { title: 'BONUS · From Zero to Diagnostic Tech (training para sa mekaniko ninyo)', keys: DIAG_KEYS }],
     tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager). Ang <b>From Zero to Diagnostic Tech</b> ay 90-day training na puwede ninyong ibigay sa mekaniko o helper.',

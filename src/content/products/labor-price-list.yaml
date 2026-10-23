@@ -55,8 +55,8 @@ modules:
     title: Messenger Reply Pack
     description: Handang reply sa bawat PMS mileage at 6 karaniwang tanong. Kopyahin, ilagay ang kotse at presyo, i-send. Sa phone mismo
   - number: '05'
-    title: Edit sa Excel, o kami na
-    description: 'Editable Excel: i-type ang shop name minsan, palitan ang kahit anong presyo, i-print. Ayaw mag-edit? I-message lang kami ng shop name at contact: ibabalik namin print-ready'
+    title: 'Iyong presyo, isang beses lang i-type'
+    description: 'Price Book: i-type ang presyo mo minsan, lalabas sa Service Menu, Price List at PMS chart. Ang sample ay panukat lang, ikaw ang magdedesisyon. May editable Excel din. Ayaw mag-edit? I-message lang kami: ibabalik namin print-ready'
   - number: '06'
     title: PMS Quote Calculator (Excel)
     description: 'Piliin ang kotse (187 models) at i-type ang odometer: lalabas ang presyo ng PMS, kung ano ang kasama, libreng checks, recommended services, Messenger reply at printable quote. May customer reminders at profit check'
@@ -104,7 +104,7 @@ faqs:
   - q: Paano gumagana ang PMS Quote Calculator?
     a: 'Piliin ang kotse sa isang listahan, i-type ang odometer (pwede sa phone, sa Quick Quote tab). Lalabas ang presyo ng PMS para sa laki ng makina at langis, kung ano ang kasama, ang libreng checks sa mileage na iyon, at ang recommended services (hindi pa kasama sa total hangga''t hindi mo pinipili). May handang Messenger reply at printable quote na pipirmahan ng customer.'
   - q: Pwede ko bang palitan ang presyo?
-    a: Oo. Tap lang ang presyo sa PDF para palitan, o gamitin ang Excel para palitan ang kahit ano, pati services at schedule. May blank copy rin para isulat sa kamay.
+    a: 'Oo, at dapat: ikaw ang magdedesisyon ng presyo mo. Ang laman na presyo ay galing sa isang 6-bay shop, panukat lang. Sa Price Book, i-type ang presyo mo minsan at lalabas ito sa lahat ng pahina. Gamitin ang Excel para palitan pati services at schedule. Burahin ang presyo kung gusto mong isulat sa kamay.'
   - q: Pwede bang kayo na ang maglagay ng shop name ko?
     a: 'Oo, kasama na sa ₱499. Pagka-order, i-message lang ang shop name, contact (phone, address o Facebook page) at mga presyong gusto mong palitan. Ibabalik namin ang print-ready na Service Menu, Price List, PMS chart at Service Booklet.'
   - q: Kasama ba ang piyesa sa presyo?
