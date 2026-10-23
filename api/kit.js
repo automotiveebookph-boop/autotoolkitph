@@ -79,7 +79,9 @@ const menuFiles = {
   'menu-guide': { label: 'Quick Start guide (PDF)', note: 'Setup sa 15 minuto: i-type ang shop name, i-check ang presyo, i-print', filename: `${MENU_KIT} - Quick Start`, flag: 'menu', part: 'guide', stamp: 'ebook', ext: 'pdf' },
   // Single files taken from the kit bundle, for owners who only have a phone (no zip needed)
   'menu-pricebook': { label: 'Price Book: lahat ng presyo sa isang file (A4, fillable PDF)', note: 'I-type ang presyo mo minsan sa setup page: lalabas sa Service Menu, Labor Price List at PMS by Mileage. Ang sample ay panukat lang, ikaw ang magdedesisyon', filename: `${MENU_KIT} - Price Book A4`, flag: 'menu', part: 'toolkit', pick: '1 Price Book (lahat ng presyo sa isang file)/AutoToolKitPH_Price_Book_A4.pdf', ext: 'pdf' },
+  'menu-pricebook-letter': { label: 'Price Book (short bond / Letter, fillable PDF)', note: 'Parehong Price Book, sukat sa short bond', filename: `${MENU_KIT} - Price Book Letter`, flag: 'menu', part: 'toolkit', pick: '1 Price Book (lahat ng presyo sa isang file)/AutoToolKitPH_Price_Book_Letter.pdf', ext: 'pdf' },
   'menu-replies': { label: 'Messenger Reply Pack (phone PDF)', note: 'Handang reply sa bawat PMS mileage: kopyahin, ilagay ang kotse at presyo, i-send', filename: `${MENU_KIT} - Messenger Reply Pack`, flag: 'menu', part: 'toolkit', pick: '2 Messenger Reply Pack/Messenger_Reply_Pack.pdf', ext: 'pdf' },
+  'menu-replies-txt': { label: 'Messenger Reply Pack (.txt, para kopyahin sa phone)', note: 'Lahat ng reply sa isang text file: i-type ang presyo mo minsan sa bawat ₱____, tapos kopyahin at i-send', filename: `${MENU_KIT} - Messenger Reply Pack`, flag: 'menu', part: 'toolkit', pick: '2 Messenger Reply Pack/Messenger_Reply_Pack.txt', ext: 'txt' },
   'menu-booklet': { label: 'Service Booklet para sa customer (A5, fillable PDF)', note: 'Parang casa service booklet: record ng bawat PMS 5K–80K. I-type ang shop name sa cover; nasa .zip ang print-ready na booklet (A4 at short bond)', filename: `${MENU_KIT} - Service Booklet A5`, flag: 'menu', part: 'toolkit', pick: '3 Service Booklet (para sa customer)/AutoToolKitPH_Service_Booklet_A5.pdf', ext: 'pdf' },
   'menu-editor': { label: 'Advanced: Edit Your Service Menu (Excel)', note: 'Para palitan ang services, text at PMS schedule. Presyo lang? Mas madali ang Price Book', filename: `${MENU_KIT} - Edit Your Service Menu`, flag: 'menu', part: 'toolkit', pick: '5 Advanced - Edit services and schedule (Excel)/AutoToolKitPH_Edit_Your_Service_Menu.xlsx', ext: 'xlsx' },
   'menu-quote': { label: 'PMS Quote Calculator (Excel)', note: 'Piliin ang kotse, i-type ang odometer: presyo ng PMS, kasama, libreng checks, recommended, Messenger reply at printable quote', filename: `${MENU_KIT} - PMS Quote Calculator`, flag: 'menu', part: 'toolkit', pick: '4 PMS Quote Calculator (Excel)/AutoToolKitPH_Talyer_Labor_Price_List.xlsx', ext: 'xlsx' },
@@ -117,8 +119,8 @@ const PRODUCTS = {
   },
   pricelist: {
     name: MENU_KIT,
-    files: { 'menu-guide': menuFiles['menu-guide'], 'menu-pricebook': menuFiles['menu-pricebook'],
-      'menu-booklet': menuFiles['menu-booklet'], 'menu-replies': menuFiles['menu-replies'], 'menu-editor': menuFiles['menu-editor'], 'menu-quote': menuFiles['menu-quote'],
+    files: { 'menu-guide': menuFiles['menu-guide'], 'menu-pricebook': menuFiles['menu-pricebook'], 'menu-pricebook-letter': menuFiles['menu-pricebook-letter'],
+      'menu-booklet': menuFiles['menu-booklet'], 'menu-replies': menuFiles['menu-replies'], 'menu-replies-txt': menuFiles['menu-replies-txt'], 'menu-editor': menuFiles['menu-editor'], 'menu-quote': menuFiles['menu-quote'],
       'menu-quote-example': menuFiles['menu-quote-example'], 'menu-quote-guide': menuFiles['menu-quote-guide'], 'menu-toolkit': menuFiles['menu-toolkit'] },
     tips: ['Magsimula sa <b>Price Book</b>: buksan sa <b>Adobe Acrobat Reader</b> (libre, sa phone o computer), i-type ang shop name at ang presyo mo minsan sa Your Prices pages. Lalabas ito sa lahat ng pahina. Ang sample ay panukat lang: ikaw ang magdedesisyon.',
       'Gusto ninyong kami na ang gumawa? I-message lang kami ng <b>shop name, contact at presyong papalitan</b>: ibabalik namin ang print-ready na Service Menu, Price List, PMS chart at Service Booklet.',
@@ -144,7 +146,7 @@ const PRODUCTS = {
     name: SYS,
     files: { ...flagFiles, ...menuFiles, ...diagFiles },
     groups: [...FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
-      { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-guide', 'menu-pricebook', 'menu-booklet', 'menu-replies', 'menu-editor',
+      { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-guide', 'menu-pricebook', 'menu-pricebook-letter', 'menu-booklet', 'menu-replies', 'menu-replies-txt', 'menu-editor',
         'menu-quote', 'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'] },
       { title: 'BONUS · From Zero to Diagnostic Tech (training para sa mekaniko ninyo)', keys: DIAG_KEYS }],
     tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager). Ang <b>From Zero to Diagnostic Tech</b> ay 90-day training na puwede ninyong ibigay sa mekaniko o helper.',
@@ -154,7 +156,7 @@ const PRODUCTS = {
 };
 // How a PDF from a toolkit bundle is stamped: booklets visibly (A4 footer), phone books like the Inspection Kit phone version, forms in metadata only.
 const stampFor = (kind) => (kind === 'booklet' ? 'ebook' : kind === 'phone' ? 'phone' : 'meta');
-const TYPES = { pdf: 'application/pdf', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', zip: 'application/zip' };
+const TYPES = { pdf: 'application/pdf', xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', zip: 'application/zip', txt: 'text/plain; charset=utf-8' };
 
 const key = (name) => {
   const k = Buffer.from(process.env[name] || '', 'base64');
