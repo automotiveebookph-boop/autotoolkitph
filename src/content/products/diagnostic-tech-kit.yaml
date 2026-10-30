@@ -1,8 +1,9 @@
-# From Zero to Diagnostic Tech PH — ₱299 launch (regular ₱399). Taglish 90-day training kit for mechanics and helpers.
+# From Zero to Diagnostic Tech PH — ₱499 with the Service Menu & Price List Kit included (since 2026-10-30; was ₱299 alone).
+# Taglish 90-day training kit for mechanics and helpers; the Service Menu Kit is for their sideline, home service or own shop.
 # Also a BONUS group in the Auto Service Center System. Source: product/diagnostic-tech/ (content.md, build steps in CLAUDE.md).
 # Field reference: see _TEMPLATE.yaml in this folder.
 # Images: src/assets/products/diagnostic-tech-kit/ (from product/diagnostic-tech/make-previews.py)
-# Delivery: api/kit.js product "diagtech" (diag-guide, diag-phone, diag-cards, diag-workbook, diag-caselog, diag-toolkit); order page product "diagtech".
+# Delivery: api/kit.js product "diagtech" (diag-* files + the Service Menu Kit's menu-* files, two groups); order page product "diagtech".
 
 slug: diagnostic-tech-kit
 status: active
@@ -13,15 +14,14 @@ name: From Zero to Diagnostic Tech PH
 shortName: Diagnostic Tech Kit
 eyebrow: PARA SA MEKANIKO, HELPER AT GUSTONG MATUTO
 h1: Huwag manghula, mag-test. Simulan ang daan papuntang diagnostic tech.
-subhead: 'Taglish training program na gagamitin mo sa shop araw-araw: PMS na walang comeback, multimeter at voltage drop, wiring diagrams, sensors, scan tool at fuel trims, 6 practice cases, at roadmap sa TESDA NC II at trabaho sa abroad.'
-mockupLine: 10 modules · 6 practice cases · 90-day plan
-format: PDF + phone
-cardBlurb: 90-day Taglish training para sa mekaniko at helper. Electrical, sensors, scan tool, practice cases, TESDA at abroad roadmap.
+subhead: 'Taglish training program na gagamitin mo sa shop araw-araw: PMS na walang comeback, multimeter at voltage drop, wiring diagrams, sensors, scan tool at fuel trims, 6 practice cases, at roadmap sa TESDA NC II at trabaho sa abroad. Kasama ang Service Menu Kit: service menu at 170 labor prices para sa sideline, home service o sariling shop.'
+mockupLine: 10 modules · 6 practice cases · + Service Menu Kit
+format: PDF + Excel
+cardBlurb: 90-day Taglish training para sa mekaniko at helper, kasama ang Service Menu Kit para sa sideline o sariling shop.
 
-price: 299
-regularPrice: 399
-priceLabel: Launch price
-valueLine: 'Mas mura kaysa isang maling battery o sensor na pinalitan nang walang test. Kasama ang phone version, spec cards, workbook, case log at resume template.'
+price: 499
+priceLabel: Kasama ang Service Menu Kit
+valueLine: 'Matuto at kumita sa isang bayad: ang buong training (may phone version, spec cards, workbook, case log at resume template) at ang Service Menu Kit, na ₱499 kapag binili nang hiwalay.'
 
 trust:
   heading: Ano ang makukuha mo
@@ -29,6 +29,7 @@ trust:
     - Self-assessment para malaman kung saang module ka magsisimula
     - Drill at quiz sa bawat module, may answer key
     - Phone version para mabasa kahit nasa ilalim ng sasakyan
+    - 'Kasama: Service Menu Kit para presyuhan nang tama ang trabaho mo'
 
 problem:
   heading: '"Palitan na lang natin." Ilang beses mo na itong narinig?'
@@ -71,6 +72,9 @@ modules:
   - number: '10'
     title: The Trusted Tech
     description: Tapat na rekomendasyon, paano ipaliwanag ang repair sa customer, at work ethic
+  - number: KASAMA
+    title: Service Menu & Price List Kit
+    description: 'Price Book (service menu, 170 labor prices, PMS cards 5K–80K), Service Booklet para sa customer, Messenger replies at PMS Quote Calculator. Para sa sideline, home service o sariling shop: pangalan mo, presyo mo'
   - number: BONUS
     title: Diagnostic Tech Toolkit
     description: 'Phone version, 8 quick-reference spec cards (phone + print), Drill & Quiz Workbook na may Final Assessment sign-off, Case Log, Resume template (Word) at Career Scripts'
@@ -86,7 +90,7 @@ previews:
   - image: preview-4.jpg
     label: Voltage drop test
   - image: preview-5.jpg
-    label: Drill & Quiz Workbook
+    label: 'Kasama: Service Menu na may pangalan mo'
   - image: preview-6.jpg
     label: Roadmap papunta sa abroad
 
@@ -95,6 +99,7 @@ audience:
   - Helper at bagong mekaniko na gustong umangat
   - Mekanikong magaling sa PMS pero takot sa electrical at scan tool
   - Naghahanda para sa TESDA NC II o trabaho sa abroad
+  - Mekanikong may sideline o home service, o magbubukas ng sariling shop
   - 'Shop owner: ibigay sa mekaniko mo bilang training program'
 
 creatorNoteHeading: Sino ang gumawa nito?
@@ -120,8 +125,10 @@ faqs:
     a: 'Hindi. Hindi kami TESDA at hindi ito TESDA course. Pero nasa Module 9 ang mga hakbang para kumuha ng NC II assessment, at ang drills ay magandang practice bago ang assessment.'
   - q: Nag-aalok ba kayo ng trabaho sa abroad?
     a: 'Hindi. Hindi kami recruitment agency. Ang Module 9 ay nagtuturo kung paano i-check kung lisensyado sa DMW ang agency at paano iwasan ang illegal recruiter.'
+  - q: Bakit kasama ang Service Menu Kit?
+    a: 'Para kumita ka sa natutunan mo. Sa sideline, home service o sariling shop, may handa kang service menu, 170 labor prices at PMS price list na may pangalan mo, para tama at pare-pareho ang singil mo. Ang Service Menu Kit lang ay ₱499 kapag binili nang hiwalay.'
   - q: Kasama ba ito sa Auto Service Center System?
-    a: Oo. Bonus ito sa System, para may training program ang mga mekaniko ng shop mo.
+    a: Oo. Pareho silang kasama sa System, para may training program ang mga mekaniko ng shop mo.
   - q: Paano ko makukuha?
     a: Pagka-verify ng bayad, ise-send namin ang download link dito sa Messenger.
 
@@ -132,6 +139,6 @@ disclaimer: For training only. Specifications are typical values; always follow 
 
 seo:
   title: From Zero to Diagnostic Tech PH — Taglish Training para sa Mekaniko
-  description: '90-day Taglish training para sa mekaniko at helper: multimeter, voltage drop, wiring diagrams, sensors, scan tool, fuel trims, 6 practice cases, TESDA NC II at abroad roadmap. May phone version. ₱299.'
+  description: '90-day Taglish training para sa mekaniko at helper: multimeter, voltage drop, wiring diagrams, sensors, scan tool, fuel trims, 6 practice cases, TESDA NC II at abroad roadmap, kasama ang Service Menu Kit. May phone version. ₱499.'
 
 addOns: []
