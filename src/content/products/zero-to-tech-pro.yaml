@@ -1,11 +1,11 @@
-# From Zero to Tech PRO PH — ₱799 (built 2026-10-30, status hidden until the user says go).
+# From Zero to Tech PRO PH — ₱799 (ACTIVE since 2026-10-30).
 # Everything in From Zero to Diagnostic Tech + the Service Menu Kit, plus the Pro Pack (Modules 11-12, Diagram Sheets, Quote Practice, Sideline Starter).
 # Source: product/zero-to-tech-pro/ (PLAN.md, modules, diagrams, quote-practice, sideline, package). Previews: product/zero-to-tech-pro/make-previews.py
 # Delivery: api/kit.js product "ztpro" + api/_kit-flagship-pro.js; order page product "ztpro".
 # Field reference: see _TEMPLATE.yaml in this folder.
 
 slug: zero-to-tech-pro
-status: hidden
+status: active
 sortOrder: 3.6
 category: Mechanics
 
