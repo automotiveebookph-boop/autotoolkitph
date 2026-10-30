@@ -51,6 +51,7 @@ const FLAG_PARTS = {
   media: () => import('./_kit-flagship-media.js'),
   menu: () => import('./_kit-flagship-menu.js'),
   diag: () => import('./_kit-flagship-diag.js'),
+  pro: () => import('./_kit-flagship-pro.js'),
 };
 const SYS = 'Auto Service Center System PH';
 const FLAGSHIP = [
@@ -103,6 +104,22 @@ const diagFiles = {
 };
 const DIAG_KEYS = Object.keys(diagFiles);
 
+/* From Zero to Tech PRO PH (product "ztpro", ₱799): everything in From Zero to Diagnostic Tech and the Service Menu Kit, plus the Pro Pack */
+const PRO = 'From Zero to Tech PRO PH';
+const proFiles = {
+  'pro-guide': { label: 'Modules 11 at 12: Diesel Common-Rail at Aircon (PDF)', note: 'Karugtong ng 10 modules: diesel at aircon, may quiz, answer key at Price Book quote', filename: `${PRO} - Modules 11-12 Diesel and Aircon`, flag: 'pro', part: 'guide', stamp: 'ebook', ext: 'pdf' },
+  'pro-diagrams': { label: 'Diagram Sheets (PDF)', note: '8 sheet na may drawing: relay, voltage drop, 3-wire sensor, fuel trims, charging, 7-step process, diesel, aircon', filename: `${PRO} - Diagram Sheets`, flag: 'pro', part: 'toolkit', pick: 'Zero-to-Tech-PRO-Diagram-Sheets.pdf', ext: 'pdf' },
+  'pro-quote': { label: 'Quote Practice Workbook (PDF)', note: '20 reklamo ng customer: i-diagnose at i-quote gamit ang Price Book, may answer key', filename: `${PRO} - Quote Practice Workbook`, flag: 'pro', part: 'toolkit', pick: 'Zero-to-Tech-PRO-Quote-Practice-Workbook.pdf', ext: 'pdf' },
+  'pro-sideline': { label: 'Dalhin sa Boss at Sideline Starter (PDF)', note: 'One-page pitch sa boss, home-service quote card, unang customer, 10 Messenger replies', filename: `${PRO} - Dalhin sa Boss at Sideline Starter`, flag: 'pro', part: 'toolkit', pick: 'Zero-to-Tech-PRO-Dalhin-sa-Boss-and-Sideline-Starter.pdf', ext: 'pdf' },
+  'pro-replies-txt': { label: '10 Messenger Replies (.txt, para kopyahin sa phone)', note: 'Palitan ang [mga bracket], kopyahin at i-send', filename: `${PRO} - Messenger Replies`, flag: 'pro', part: 'toolkit', pick: 'Messenger_Replies_Sideline.txt', ext: 'txt' },
+  'pro-toolkit': { label: 'Pro Pack complete (.zip)', note: 'Diagram Sheets, Quote Practice Workbook, Sideline Starter at Messenger Replies', filename: `${PRO} - Pro Pack`, flag: 'pro', part: 'toolkit', ext: 'zip' },
+};
+const PRO_KEYS = Object.keys(proFiles);
+// The ₱499 Service Menu Kit's buttons; the same kit is included in From Zero to Diagnostic Tech (since 2026-10-30) and in the System.
+const MENU_KIT_KEYS = ['menu-guide', 'menu-pricebook', 'menu-pricebook-letter', 'menu-booklet', 'menu-replies', 'menu-replies-txt', 'menu-editor', 'menu-quote',
+  'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'];
+const pick = (src, keys) => Object.fromEntries(keys.map((k) => [k, src[k]]));
+
 const PRODUCTS = {
   inspection: {
     name: '2nd Hand Car Inspection Kit PH',
@@ -119,9 +136,7 @@ const PRODUCTS = {
   },
   pricelist: {
     name: MENU_KIT,
-    files: { 'menu-guide': menuFiles['menu-guide'], 'menu-pricebook': menuFiles['menu-pricebook'], 'menu-pricebook-letter': menuFiles['menu-pricebook-letter'],
-      'menu-booklet': menuFiles['menu-booklet'], 'menu-replies': menuFiles['menu-replies'], 'menu-replies-txt': menuFiles['menu-replies-txt'], 'menu-editor': menuFiles['menu-editor'], 'menu-quote': menuFiles['menu-quote'],
-      'menu-quote-example': menuFiles['menu-quote-example'], 'menu-quote-guide': menuFiles['menu-quote-guide'], 'menu-toolkit': menuFiles['menu-toolkit'] },
+    files: pick(menuFiles, MENU_KIT_KEYS),
     tips: ['Magsimula sa <b>Price Book</b>: buksan sa <b>Adobe Acrobat Reader</b> (libre, sa phone o computer), i-type ang shop name at ang presyo mo minsan sa Your Prices pages. Lalabas ito sa lahat ng pahina. Ang sample ay panukat lang: ikaw ang magdedesisyon.',
       'Gusto ninyong kami na ang gumawa? I-message lang kami ng <b>shop name, contact at presyong papalitan</b>: ibabalik namin ang print-ready na Service Menu, Price List, PMS chart at Service Booklet.',
       'Para sa <b>PMS Quote Calculator</b>: buksan muna ang <b>EXAMPLE</b> file sa computer (o Excel app sa phone). Piliin ang kotse, i-type ang odometer, at kopyahin ang Messenger reply.',
@@ -136,20 +151,37 @@ const PRODUCTS = {
   },
   diagtech: {
     name: DIAG,
-    files: diagFiles,
+    files: { ...diagFiles, ...pick(menuFiles, MENU_KIT_KEYS) },
+    groups: [{ title: 'From Zero to Diagnostic Tech', keys: DIAG_KEYS },
+      { title: 'Kasama: Service Menu & Price List Kit (para sa sideline o sariling shop)', keys: MENU_KIT_KEYS }],
     tips: ['Magsimula sa <b>Start here</b> at sa Self-Assessment: malalaman mo kung saang module ka magsisimula.',
+      'Para sa <b>Service Menu Kit</b>: buksan ang <b>Price Book</b> sa Adobe Acrobat Reader, i-type ang pangalan mo (o ng shop) at ang presyo mo minsan. Gamitin sa sideline, home service o sariling shop.',
       'Sa phone: buksan ang <b>Phone version</b> at ang <b>Spec Cards</b>. Para mag-fill in ng Workbook at Case Log, gamitin ang <b>Adobe Acrobat Reader</b> (libre), o i-print.',
       'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>. Nandoon ang print version ng spec cards, short bond copies, Resume template at Career Scripts.',
       OPEN_TIP, 'Para sa personal na gamit lamang; naka-pangalan sa inyo ang kit.'],
   },
+  ztpro: {
+    name: PRO,
+    files: { ...diagFiles, ...pick(menuFiles, MENU_KIT_KEYS), ...proFiles },
+    groups: [{ title: 'PRO: Dagdag na Pro Pack', keys: PRO_KEYS },
+      { title: 'From Zero to Diagnostic Tech (10 modules)', keys: DIAG_KEYS },
+      { title: 'Service Menu & Price List Kit (Price Book at quote)', keys: MENU_KIT_KEYS }],
+    tips: ['Magsimula sa <b>From Zero to Diagnostic Tech</b> kung baguhan ka; kung may alam ka na, dumiretso sa <b>Modules 11 at 12</b> (diesel at aircon) at sa <b>Diagram Sheets</b>.',
+      'Gawin ang <b>Quote Practice Workbook</b> gamit ang Price Book ng Service Menu Kit: i-type ang sarili mong presyo sa Price Book, tapos sagutan ang 20 kaso.',
+      'Gusto ninyong dalhin sa boss o magsimula ng sideline? Buksan ang <b>Dalhin sa Boss at Sideline Starter</b> at kopyahin ang 10 Messenger replies.',
+      'Sa phone: buksan ang <b>Phone version</b> at ang <b>Spec Cards</b>. Para mag-fill in ng Workbook, Case Log at Price Book, gamitin ang <b>Adobe Acrobat Reader</b> (libre), o i-print.',
+      'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>.',
+      OPEN_TIP, 'Para sa personal na gamit lamang; naka-pangalan sa inyo ang kit.'],
+  },
   flagship: {
     name: SYS,
-    files: { ...flagFiles, ...menuFiles, ...diagFiles },
+    files: { ...flagFiles, ...menuFiles, ...diagFiles, ...proFiles },
     groups: [...FLAGSHIP.map((g) => ({ title: `${g.n} · ${g.title}`, keys: [`${g.id}-guide`, `${g.id}-toolkit`] })),
       { title: 'BONUS · Service Menu & Price List Kit', keys: ['menu-guide', 'menu-pricebook', 'menu-pricebook-letter', 'menu-booklet', 'menu-replies', 'menu-replies-txt', 'menu-editor',
         'menu-quote', 'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'] },
-      { title: 'BONUS · From Zero to Diagnostic Tech (training para sa mekaniko ninyo)', keys: DIAG_KEYS }],
-    tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager). Ang <b>From Zero to Diagnostic Tech</b> ay 90-day training na puwede ninyong ibigay sa mekaniko o helper.',
+      { title: 'BONUS · From Zero to Diagnostic Tech (training para sa mekaniko ninyo)', keys: DIAG_KEYS },
+      { title: 'BONUS · Zero to Tech PRO Pack (diesel, aircon, diagrams, quote practice, sideline)', keys: PRO_KEYS }],
+    tips: ['Magsimula sa <b>Guide 1</b>, tapos sundan ang guide ng bawat role. Pwede ninyong ibigay ang guide sa tao ninyo (SA, mekaniko, manager). Ang <b>From Zero to Diagnostic Tech</b> ay 90-day training na puwede ninyong ibigay sa mekaniko o helper, at ang <b>Zero to Tech PRO Pack</b> ay dagdag na diesel, aircon, diagram sheets at quote practice para sa kanila.',
       'Ang <b>Guide PDF</b> ay mababasa sa phone. Ang <b>Toolkit (.zip)</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>, tapos buksan ang Excel at forms. Tingnan muna ang mga <b>EXAMPLE</b> file.',
       OPEN_TIP, 'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang mga guide.'],
   },
