@@ -14,14 +14,14 @@ name: From Zero to Diagnostic Tech PH
 shortName: Diagnostic Tech Kit
 eyebrow: PARA SA MEKANIKO, HELPER AT GUSTONG MATUTO
 h1: Huwag manghula, mag-test. Simulan ang daan papuntang diagnostic tech.
-subhead: 'Taglish training program na gagamitin mo sa shop araw-araw: PMS na walang comeback, multimeter at voltage drop, wiring diagrams, sensors, scan tool at fuel trims, 6 practice cases, at roadmap sa TESDA NC II at sa ligtas na pag-apply sa abroad. Kasama ang Service Menu Kit: service menu at 170 labor prices para sa sideline, home service o sariling shop.'
-mockupLine: 10 modules · 6 practice cases · + Service Menu Kit
+subhead: 'Taglish training program na gagamitin mo sa shop araw-araw: PMS na walang comeback, multimeter at voltage drop, wiring diagrams, sensors, scan tool at fuel trims, diesel at aircon, 6 practice cases at roadmap sa TESDA NC II. Kasama ang 8 diagram sheets, 20 quote practice at ang Service Menu Kit (170 labor prices) para sa sideline, home service o sariling shop.'
+mockupLine: 12 modules · 8 diagrams · 20 quote cases · + Service Menu Kit
 format: PDF + Excel
-cardBlurb: 90-day Taglish training para sa mekaniko at helper, kasama ang Service Menu Kit para sa sideline o sariling shop.
+cardBlurb: '90-day Taglish training para sa mekaniko at helper: 12 modules, diagram sheets, quote practice at Service Menu Kit.'
 
 price: 499
 priceLabel: Kasama ang Service Menu Kit
-valueLine: 'Matuto at kumita sa isang bayad: ang buong training (may phone version, spec cards, workbook, case log at resume template) at ang Service Menu Kit, na ₱499 kapag binili nang hiwalay.'
+valueLine: 'Matuto at kumita sa isang bayad: 12 modules (kasama ang diesel at aircon), phone version, spec cards, workbook, case log, 8 diagram sheets, 20 quote practice at ang Service Menu Kit, na ₱499 kapag binili nang hiwalay.'
 
 trust:
   heading: Ano ang makukuha mo
@@ -30,6 +30,7 @@ trust:
     - Drill at quiz sa bawat module, may answer key
     - Phone version para mabasa kahit nasa ilalim ng sasakyan
     - 'Kasama: Service Menu Kit para presyuhan nang tama ang trabaho mo'
+    - '8 diagram sheets at 20 quote practice na kaso, kasama ang Diesel at Aircon modules'
 
 problem:
   heading: '"Palitan na lang natin." Ilang beses mo na itong narinig?'
@@ -40,7 +41,7 @@ problem:
     - Hindi alam kung paano basahin ang live data at fuel trims
     - Walang malinaw na daan papunta sa NC II at sa mas magandang posisyon
 
-modulesHeading: 10 modules. Mula basics hanggang diagnosis.
+modulesHeading: 12 modules. Mula basics hanggang diesel at aircon.
 modules:
   - number: '01'
     title: Foundations
@@ -72,6 +73,18 @@ modules:
   - number: '10'
     title: The Trusted Tech
     description: Tapat na rekomendasyon, paano ipaliwanag ang repair sa customer, at work ethic
+  - number: '11-12'
+    title: Diesel Common-Rail at Aircon
+    description: Paano gumagana, safety, unang test, pagbasa ng rail pressure o gauges, at kailan mag-refer. May quiz, answer key at Price Book quote
+  - number: DAGDAG
+    title: 8 Diagram Sheets
+    description: Relay, voltage drop, 3-wire sensor, fuel trims, charging, 7-step process, diesel at aircon cycle. Para sa phone o print
+  - number: DAGDAG
+    title: Quote Practice Workbook
+    description: 20 reklamo ng customer. I-diagnose, i-quote gamit ang Price Book, tapos i-check sa answer key
+  - number: DAGDAG
+    title: Dalhin sa Boss at Sideline Starter
+    description: One-page pitch sa boss, home-service quote card, unang customer at 10 Messenger replies
   - number: KASAMA
     title: Service Menu & Price List Kit
     description: 'Price Book (service menu, 170 labor prices, PMS cards 5K–80K), Service Booklet para sa customer, Messenger replies at PMS Quote Calculator. Para sa sideline, home service o sariling shop: pangalan mo, presyo mo'
@@ -87,12 +100,12 @@ previews:
     label: Phone version
   - image: preview-3.jpg
     label: Quick-reference spec cards
-  - image: preview-4.jpg
-    label: Voltage drop test
+  - image: preview-7.jpg
+    label: 'Diagram Sheet: ang aircon cycle'
+  - image: preview-8.jpg
+    label: 'Quote Practice: 20 kaso'
   - image: preview-5.jpg
     label: 'Kasama: Service Menu na may pangalan mo'
-  - image: preview-6.jpg
-    label: Roadmap papunta sa abroad
 
 audienceHeading: Para kanino ito?
 audience:
@@ -100,6 +113,7 @@ audience:
   - Mekanikong magaling sa PMS pero takot sa electrical at scan tool
   - Naghahanda para sa TESDA NC II o trabaho sa abroad
   - Mekanikong may sideline o home service, o magbubukas ng sariling shop
+  - Tech na gustong matutong mag-quote at humawak ng diesel at aircon
   - 'Shop owner: ibigay sa mekaniko mo bilang training program'
 
 creatorNoteHeading: Sino ang gumawa nito?
@@ -125,6 +139,8 @@ faqs:
     a: 'Hindi. Hindi kami TESDA at hindi ito TESDA course. Pero nasa Module 9 ang mga hakbang para kumuha ng NC II assessment, at ang drills ay magandang practice bago ang assessment.'
   - q: Nag-aalok ba kayo ng trabaho sa abroad?
     a: 'Hindi. Hindi kami recruitment agency. Ang Module 9 ay nagtuturo kung paano i-check kung lisensyado sa DMW ang agency at paano iwasan ang illegal recruiter.'
+  - q: Kasama ba ang Diesel at Aircon, diagram sheets at quote practice?
+    a: 'Oo, kasama na sa ₱499: Modules 11 at 12 (Diesel Common-Rail at Aircon), 8 diagram sheets, 20 quote practice na kaso at ang Dalhin sa Boss at Sideline Starter. Basics ng diagnosis ang diesel at aircon; hindi nito pinapalitan ang training at service manual, lalo na sa high-pressure fuel at refrigerant.'
   - q: Bakit kasama ang Service Menu Kit?
     a: 'Para kumita ka sa natutunan mo. Sa sideline, home service o sariling shop, may handa kang service menu, 170 labor prices at PMS price list na may pangalan mo, para tama at pare-pareho ang singil mo. Ang Service Menu Kit lang ay ₱499 kapag binili nang hiwalay.'
   - q: Kasama ba ito sa Auto Service Center System?
@@ -139,6 +155,6 @@ disclaimer: For training only. Specifications are typical values; always follow 
 
 seo:
   title: From Zero to Diagnostic Tech PH — Taglish Training para sa Mekaniko
-  description: '90-day Taglish training para sa mekaniko at helper: multimeter, voltage drop, wiring diagrams, sensors, scan tool, fuel trims, 6 practice cases, TESDA NC II at abroad roadmap, kasama ang Service Menu Kit. May phone version. ₱499.'
+  description: '90-day Taglish training para sa mekaniko at helper: 12 modules (kasama ang diesel at aircon), 8 diagram sheets, 20 quote practice, scan tool, fuel trims, 6 practice cases, TESDA NC II roadmap at Service Menu Kit. May phone version. ₱499.'
 
 addOns: []
