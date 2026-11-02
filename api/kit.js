@@ -53,6 +53,7 @@ const FLAG_PARTS = {
   diag: () => import('./_kit-flagship-diag.js'),
   pro: () => import('./_kit-flagship-pro.js'),
   sample: () => import('./_kit-flagship-sample.js'),
+  biz: () => import('./_kit-flagship-biz.js'),
 };
 const SYS = 'Auto Service Center System PH';
 const FLAGSHIP = [
@@ -125,6 +126,17 @@ const sampleFiles = {
 };
 const SAMPLE_TIPS = [OPEN_TIP, 'Para sa personal na gamit lamang; naka-pangalan sa inyo ang sample.',
   'Gusto ang buong Zero to Tech (12 modules, phone version, 8 diagram sheets, 20 quote practice cases at Service Menu Kit)? <b>₱499</b> lang: i-message ang <b>ORDER</b>.'];
+/* Free Talyer/System lead magnets (products "sampletalyer" and "sampleshop", ₱0 like the Zero to Tech samples) */
+const BIZ = 'AutoToolKitPH Libreng Pack';
+const bizFiles = {
+  'biz-talyer': { label: 'Libreng Talyer Starter Pack (PDF, 9 pahina)', note: 'Modelo ng talyer, puhunan worksheet, Day 1 tools, Permit Checklist 2026, labor rate worksheet, unang 30 araw', filename: `${BIZ} - Talyer Starter Pack`, flag: 'biz', part: 'guide', stamp: 'ebook', ext: 'pdf' },
+  'biz-shop': { label: 'Libreng Shop Upgrade Pack (PDF, 8 pahina)', note: 'Shop Check 10 tanong, Coverage Check, 5 Messenger scripts, 15 labor prices', filename: `${BIZ} - Shop Upgrade Pack`, flag: 'biz', part: 'toolkit', pick: 'AutoToolKitPH-Libreng-Shop-Upgrade-Pack.pdf', ext: 'pdf' },
+  'biz-jo': { label: 'Job Order Form (A4, fillable PDF)', note: 'Reklamo, trabaho, presyo at pirma ng customer bago magsimula', filename: `${BIZ} - Job Order Form A4`, flag: 'biz', part: 'toolkit', pick: 'AutoToolKitPH_Job_Order_Form_A4.pdf', ext: 'pdf' },
+  'biz-check': { label: 'Vehicle Health Check Report (A4, fillable PDF)', note: 'Ilaw, likido, preno at gulong: green / yellow / red, may estimate', filename: `${BIZ} - Vehicle Health Check Report A4`, flag: 'biz', part: 'toolkit', pick: 'AutoToolKitPH_Vehicle_Health_Check_Report_A4.pdf', ext: 'pdf' },
+  'biz-stickers': { label: 'Next-Service Stickers + Labor Warranty Cards (A4, fillable PDF)', note: '12 stickers at 10 cards: i-type ang shop name minsan, i-print', filename: `${BIZ} - Stickers and Warranty Cards A4`, flag: 'biz', part: 'toolkit', pick: 'AutoToolKitPH_Next_Service_Stickers_and_Warranty_Cards_A4.pdf', ext: 'pdf' },
+};
+const BIZ_TIPS = ['Para mag-fill in ng forms, buksan sa <b>Adobe Acrobat Reader</b> (libre, sa phone o computer), o i-print nang marami.', OPEN_TIP,
+  'Para sa sariling gamit at negosyo ninyo lamang; naka-pangalan sa inyo ang pack.'];
 // The ₱499 Service Menu Kit's buttons; the same kit is included in From Zero to Diagnostic Tech (since 2026-10-30) and in the System.
 const MENU_KIT_KEYS = ['menu-guide', 'menu-pricebook', 'menu-pricebook-letter', 'menu-booklet', 'menu-replies', 'menu-replies-txt', 'menu-editor', 'menu-quote',
   'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'];
@@ -181,6 +193,20 @@ const PRODUCTS = {
     name: `${SAMPLE} (may Quote Practice)`,
     files: { 'sample-full': sampleFiles['sample-full'] },
     tips: ['Subukan muna ang <b>Quote Practice</b> (pahina 4) bago tingnan ang sagot sa pahina 5.', ...SAMPLE_TIPS],
+    sample: true,
+  },
+  sampletalyer: {
+    name: `${BIZ}: Talyer Starter Pack`,
+    files: pick(bizFiles, ['biz-talyer', 'biz-jo', 'biz-check']),
+    tips: ['Simulan sa <b>Hakbang 1</b>, tapos punan ang puhunan worksheet (pahina 3) at labor rate worksheet (pahina 7).', ...BIZ_TIPS,
+      'Gusto ang buong <b>Talyer Starter Kit PH</b> (25-page guide, Excel toolkit na 9 tabs, PMS Quote &amp; Price System)? <b>₱999</b>: i-message ang <b>ORDER</b>.'],
+    sample: true,
+  },
+  sampleshop: {
+    name: `${BIZ}: Shop Upgrade Pack`,
+    files: pick(bizFiles, ['biz-shop', 'biz-jo', 'biz-check', 'biz-stickers']),
+    tips: ['Simulan sa <b>Shop Check</b> (pahina 2): 3 minuto lang, at malalaman mo kung ano ang aayusin muna.', ...BIZ_TIPS,
+      'Gusto ang buong <b>Auto Service Center System PH</b> (8 guides, 36 tools, kasama ang Talyer Starter Kit)? <b>₱2,499</b>: i-message ang <b>SYSTEM</b>.'],
     sample: true,
   },
   flagship: {
