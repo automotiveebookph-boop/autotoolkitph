@@ -52,6 +52,7 @@ const FLAG_PARTS = {
   menu: () => import('./_kit-flagship-menu.js'),
   diag: () => import('./_kit-flagship-diag.js'),
   pro: () => import('./_kit-flagship-pro.js'),
+  sample: () => import('./_kit-flagship-sample.js'),
 };
 const SYS = 'Auto Service Center System PH';
 const FLAGSHIP = [
@@ -115,6 +116,15 @@ const proFiles = {
   'pro-toolkit': { label: 'Dagdag: Diesel, Aircon, Diagrams at Quote Practice (.zip)', note: 'Diagram Sheets, Quote Practice Workbook, Sideline Starter at Messenger Replies', filename: `${PRO} - Extras Pack`, flag: 'pro', part: 'toolkit', ext: 'zip' },
 };
 const PRO_KEYS = Object.keys(proFiles);
+
+/* Free Zero to Tech samples (products "samplebeg" and "samplefull", made on the order page at ₱0 like a sale: personal stamped link, 30 days) */
+const SAMPLE = 'Zero to Tech - Libreng Sample';
+const sampleFiles = {
+  'sample-beg': { label: 'Libreng Sample para sa Baguhan (PDF, 6 pahina)', note: 'Self-Assessment, Ano ang PMS?, ang Relay at 14 na salitang maririnig mo sa shop', filename: `${SAMPLE} - Baguhan`, flag: 'sample', part: 'guide', stamp: 'ebook', ext: 'pdf' },
+  'sample-full': { label: 'Libreng Sample Pack (PDF, 7 pahina)', note: 'Self-Assessment, ang Relay, Quote Practice na may sagot at Labor Price List', filename: `${SAMPLE} - Pack`, flag: 'sample', part: 'toolkit', pick: 'Zero-to-Tech-Libreng-Sample-Pack.pdf', ext: 'pdf' },
+};
+const SAMPLE_TIPS = [OPEN_TIP, 'Para sa personal na gamit lamang; naka-pangalan sa inyo ang sample.',
+  'Gusto ang buong Zero to Tech (12 modules, phone version, 8 diagram sheets, 20 quote practice cases at Service Menu Kit)? <b>₱499</b> lang: i-message ang <b>ORDER</b>.'];
 // The ₱499 Service Menu Kit's buttons; the same kit is included in From Zero to Diagnostic Tech (since 2026-10-30) and in the System.
 const MENU_KIT_KEYS = ['menu-guide', 'menu-pricebook', 'menu-pricebook-letter', 'menu-booklet', 'menu-replies', 'menu-replies-txt', 'menu-editor', 'menu-quote',
   'menu-quote-example', 'menu-quote-guide', 'menu-toolkit'];
@@ -160,6 +170,18 @@ const PRODUCTS = {
       'Sa phone: buksan ang <b>Phone version</b> at ang <b>Spec Cards</b>. Para mag-fill in ng Workbook at Case Log, gamitin ang <b>Adobe Acrobat Reader</b> (libre), o i-print.',
       'Ang <b>.zip</b> ay para sa computer: i-download, i-right-click at piliin ang <b>Extract All</b>. Nandoon ang print version ng spec cards, short bond copies, Resume template at Career Scripts.',
       OPEN_TIP, 'Para sa personal na gamit lamang; naka-pangalan sa inyo ang kit.'],
+  },
+  samplebeg: {
+    name: `${SAMPLE} (para sa Baguhan)`,
+    files: { 'sample-beg': sampleFiles['sample-beg'] },
+    tips: ['Simulan sa <b>Self-Assessment</b> (pahina 2), tapos basahin ang <b>Ano ang PMS?</b>', ...SAMPLE_TIPS],
+    sample: true,
+  },
+  samplefull: {
+    name: `${SAMPLE} (may Quote Practice)`,
+    files: { 'sample-full': sampleFiles['sample-full'] },
+    tips: ['Subukan muna ang <b>Quote Practice</b> (pahina 4) bago tingnan ang sagot sa pahina 5.', ...SAMPLE_TIPS],
+    sample: true,
   },
   flagship: {
     name: SYS,
@@ -360,7 +382,7 @@ ${list}
   <p><b>Paano magsimula</b></p>
   <ul>${prod.tips.map((x) => `<li>${x}</li>`).join('')}</ul>
 </section>
-${p.k !== 'inspection' && regOn() ? `<section class="card tint">
+${p.k !== 'inspection' && !PRODUCTS[p.k].sample && regOn() ? `<section class="card tint">
   <p><b>I-register ang kopya ninyo (libre)</b></p>
   <p class="muted">Para makatanggap ng libreng update (2027 edition) at invite sa app version para sa talyer na ginagawa namin.</p>
   <a class="btn alt" href="/kit/${t}/register">I-register ang kopya<small>1 minuto lang · optional</small></a>
@@ -500,7 +522,7 @@ export default async function handler(req, res) {
     return res.send(problemPage('Expired na ang link', `Valid lang ang link hanggang ${esc(fmtDate(p.x))}. I-message lang po kami at bibigyan namin kayo ng bagong link.`));
   }
 
-  if (f === 'register' && p.k !== 'inspection' && regOn()) {
+  if (f === 'register' && p.k !== 'inspection' && !PRODUCTS[p.k].sample && regOn()) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     if (req.method !== 'POST') return res.status(200).send(registerPage(t, p));
     const { v, error } = readRegistration(req.body);
